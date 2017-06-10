@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import Gaine from '../components/Gaine'
 export default class extends Component {
+  componentWillMount () {
+  }
   render () {
     return (
       <div className="home">

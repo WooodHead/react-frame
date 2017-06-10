@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^2.10.4",
+    "babel-polyfill": "^6.23.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
@@ -30,10 +31,15 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.28.0",
+    "optimize-css-assets-webpack-plugin": "^2.0.0",
+    "ora": "^1.2.0",
     "rimraf": "^2.6.1",
+    "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0"

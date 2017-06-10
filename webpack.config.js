@@ -1,8 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
-var fs = require('fs');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html模板插入代码。
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 优化css
 var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
@@ -11,7 +11,7 @@ var plugins = [
     template: './src/index.html',
     // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
     inject: 'true',
-    filename: path.resolve(__dirname, "dist/index.html"),
+    filename: path.resolve(__dirname, 'dist/index.html'),
     // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
     // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
     minify: {
@@ -46,15 +46,19 @@ var plugins = [
     name: 'manifest',
     chunks: ['vendor']
   }),
-  new ExtractTextPlugin('[name].[contenthash].css')
+  new ExtractTextPlugin({
+    filename: isPro ? 'css/[name].[contenthash].css' : '[name].[contenthash].css',
+    //disable: false,
+    allChunks: true
+  })
 ];
 if (env === 'production') {
   plugins = Array.prototype.concat.call(plugins, [
-    // new OptimizeCSSPlugin({
-    //   cssProcessorOptions: {
-    //     safe: true
-    //   }
-    // }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorOptions: {
+        safe: true
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -66,71 +70,81 @@ if (env === 'production') {
     new webpack.NoEmitOnErrorsPlugin()
   ])
 }
-console.log(plugins)
 module.exports = {
   entry: {
     // venders: ['react', 'react-dom', 'react-router'],
     app: [
+      'babel-polyfill',
       './src/app'
     ]
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: isPro ? '[name].[chunkhash].js' : '[name].[hash].js'
-    // publicPath: '/dist'
+    filename: isPro ? 'js/[name].[hash].js' : '[name].[hash].js',
+    publicPath: isPro ? '/' : ''
   },
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
-				include: path.resolve(__dirname, "src"),
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
-        use: "eslint-loader",
+        use: 'eslint-loader',
       },
       {
         test: /\.js$/,
         use: 'babel-loader',
-				include: path.resolve(__dirname, "src"),
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/
       },
-			{
-				test: /\.css$/,
-				// include: path.resolve(__dirname, "src"),
-				use: ExtractTextPlugin.extract({
-					use: ['css-loader']
-				})
-			},
-			{
-				test: /\.styl$/,
-				include: path.resolve(__dirname, "src"),
-				use: ExtractTextPlugin.extract({
-					use: ['css-loader','stylus-loader']
-				})
-			}
+      {
+        test: /\.css$/,
+        // include: path.resolve(__dirname, 'src'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader']
+        })
+      },
+      {
+        test: /\.styl$/,
+        include: path.resolve(__dirname, 'src'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'stylus-loader']
+        })
+      },
+      {
+        test: /\.(png|jpe?g|git|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: '[name].[hash:7].[ext]'
+        }
+      }
     ]
   },
   plugins: plugins,
   devServer: {
-		contentBase: "dist",
-		//热替换的区别就在于，当前端代码变动时，无需刷新整个页面，只把变化的部分替换掉。
-		//自动刷新整个页面刷新
-		inline: true,
-		//stats(string or object) errors-only|minimal|none|normal|verbose(输出所有)
-		stats:{
-			//context: "./src/",
-			//assets: true,
-			colors: true,
-			errors: true
-		},
-		// 启用gzip压缩一切服务:
-		// compress: true,
-		// host: "0.0.0.0",
-    // host: "192.168.10.75",
-    // port: "3001"
-	},
-	resolve: {
-		extensions: ['.js', '.styl']
-	},
-	devtool: !isPro ? 'eval-source-map' : ''
+    contentBase: 'dist',
+    // 热替换的区别就在于，当前端代码变动时，无需刷新整个页面，只把变化的部分替换掉。
+    // 自动刷新整个页面刷新
+    inline: true,
+    // stats(string or object) errors-only|minimal|none|normal|verbose(输出所有)
+    stats:{
+      // context: './src/',
+      // assets: true,
+      colors: true,
+      errors: true
+    },
+    // 启用gzip压缩一切服务:
+    // compress: true,
+    // host: '0.0.0.0',
+    // host: '192.168.10.75',
+    // port: '3001'
+  },
+  resolve: {
+    extensions: ['.js', '.styl']
+  },
+  devtool: !isPro ? 'eval-source-map' : ''
 }
