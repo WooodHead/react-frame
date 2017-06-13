@@ -10,10 +10,8 @@
       jumpToOnLineAirlinese () {
         wlb.ready({
           app: function (mixins) {
-            alert(JSON.stringify(mixins))
-            mixins.jumpToOnLineAirlines(function () {
-              alert('jumpToOnLineAirlines callback')
-            })
+            // alert(JSON.stringify(mixins))
+            mixins.jumpToOnLineAirlines()
           }
         })
       }

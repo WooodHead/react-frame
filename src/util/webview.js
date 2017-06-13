@@ -209,8 +209,8 @@ const wlb = (function () {
     },
     /* 跳到在线客服 */
     jumpToOnLineAirlines: function (callback) {
-      alert('jumpToOnLineAirlines before')
-      this.bridge.callHandle('jumpToOnLineAirlines', function (response) {
+      // alert('jumpToOnLineAirlines before')
+      this.bridge.callHandler('jumpToOnLineAirlines', function (response) {
         callback && callback(response)
       })
     }
