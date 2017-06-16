@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Spin } from 'antd'
 class App extends Component {
   componentWillMount () {
@@ -15,7 +16,7 @@ class App extends Component {
     )
   }
 }
-export default connect((state) => {
+export default withRouter(connect((state) => {
   console.log(state)
   const {
     loading,
@@ -26,4 +27,4 @@ export default connect((state) => {
     loading,
     list
   }
-})(App)
+})(App))

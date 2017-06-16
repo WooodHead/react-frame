@@ -7,17 +7,22 @@ export const topic = handleActions({
       loading: true
     })
   },
-  'fetch topic list failure': (state, payload) => {
-    console.log(payload, 'reducer')
-    return state
+  'fetch topic list failure': (state, { payload }) => {
+    console.log(payload)
+    return {
+      ...state,
+      ...payload
+    }
   },
   'fetch topic list success': (state, { payload }) => {
-    return Object.assign({}, state, {
-      list: payload,
+    return {
+      ...state,
+      ...payload,
       loading: false
-    })
+    }
   }
 }, {
   list: [],
+  total: 0,
   loading: false
 })
