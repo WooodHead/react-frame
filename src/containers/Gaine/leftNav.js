@@ -1,38 +1,68 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
+import { leftNavOptions } from 'consts'
 const { SubMenu } = Menu
 const { Sider } = Layout
-export default class extends Component {
+
+class LeftNav extends Component {
+  constructor () {
+    super()
+    // 菜单配置
+    this.config = leftNavOptions
+    this.handleDefaultNavCheckedOption = this.handleDefaultNavCheckedOption.bind(this)
+    this.state = {
+      defaultSelectedKeys: [],
+      defaultOpenKeys: []
+    }
+  }
+  componentWillMount () {
+    this.handleDefaultNavCheckedOption()
+  }
+  // 处理默认导航选中配置
+  handleDefaultNavCheckedOption () {
+    const { pathname } = this.props.location
+    this.config.map((item) => {
+      item.children.map((item2, index2) => {
+        if (item2.path === pathname) {
+          this.setState({
+            defaultSelectedKeys: [item.key + '_' + index2],
+            defaultOpenKeys: [item.key]
+          })
+        }
+      })
+    })
+  }
   render () {
     return (
       <Sider>
         <Menu
         mode="inline"
-        defaultSelectedKeys={['5']}
-        defaultOpenKeys={['sub2']}
+        defaultSelectedKeys={this.state.defaultSelectedKeys}
+        defaultOpenKeys={this.state.defaultOpenKeys}
         style={{ height: '100%' }}
         >
-          <SubMenu key="sub1" title={<span><Icon type="user" />redux-demo</span>}>
-            <Menu.Item key="1"><Link to="/redux/demo1">demo1</Link></Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" title={<span><Icon type="laptop" />递归</span>}>
-            <Menu.Item key="5"><Link to="/recursion/demo1">demo1</Link></Menu.Item>
-            <Menu.Item key="6">option6</Menu.Item>
-            <Menu.Item key="7">option7</Menu.Item>
-            <Menu.Item key="8">option8</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
-            <Menu.Item key="9">option9</Menu.Item>
-            <Menu.Item key="10">option10</Menu.Item>
-            <Menu.Item key="11">option11</Menu.Item>
-            <Menu.Item key="12">option12</Menu.Item>
-          </SubMenu>
+          {
+            this.config.map(function (item, index) {
+              return (
+                <SubMenu key={item.key} title={<span><Icon type={item.type} />{item.name}</span>}>
+                  {
+                    item.children.map(function (item2, index2) {
+                      return (
+                        <Menu.Item key={item.key + '_' + index2}><Link to={item2.path}>{item2.name}</Link></Menu.Item>
+                      )
+                    })
+                  }
+                </SubMenu>
+              )
+            })
+          }
         </Menu>
       </Sider>
     )
   }
 }
+export default withRouter(LeftNav)
 /*
 defaultSelectedKeys={['5']}  选中的二级菜单
 defaultOpenKeys={['sub2']} 选中的一级菜单

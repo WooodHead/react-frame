@@ -9,10 +9,8 @@ export default class extends Component {
     }
   }
   componentWillMount () {
-    console.log('component will mount')
   }
   componentDidMount () {
-    console.log('component did mount')
   }
   increase () {
     const count = this.state.count + 1

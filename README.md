@@ -31,3 +31,4 @@ npm run build <br />
 * antdesign参考网址[https://ant.design/index-cn](https://ant.design/index-cn)
 * redux中文文档[http://www.redux.org.cn/](http://www.redux.org.cn/)
 * react-router参考网址[https://reacttraining.com/react-router/web/guides/quick-start](https://reacttraining.com/react-router/web/guides/quick-start)
+* redux-actions[https://github.com/acdlite/redux-actions](https://github.com/acdlite/redux-actions)

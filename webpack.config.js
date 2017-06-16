@@ -7,6 +7,11 @@ var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
 var plugins = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: `"${env}"`
+    }
+  }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
     // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
@@ -144,7 +149,16 @@ module.exports = {
     // port: '3001'
   },
   resolve: {
-    extensions: ['.js', '.styl']
+    extensions: ['.js', '.styl'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+      consts: path.resolve(__dirname, 'src/consts'),
+      containers: path.resolve(__dirname, 'src/containers'),
+      imgs: path.resolve(__dirname, 'src/imgs'),
+      pages: path.resolve(__dirname, 'src/pages'),
+      stylus: path.resolve(__dirname, 'src/stylus'),
+      '@': path.join(__dirname, 'src/')
+    }
   },
   devtool: !isPro ? 'eval-source-map' : ''
 }
