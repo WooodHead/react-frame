@@ -41,18 +41,17 @@ var plugins = [
           /\.js$/.test(module.resource) &&
           module.resource.indexOf(
             path.join(__dirname, 'node_modules')
-          ) === 0
+          ) !== -1
         )
     }
   }),
   // To extract the webpack bootstrap logic into a separate file
-  // 其他打入清单
+  // 其他打入清单 比如webpack runtime代码
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    chunks: ['vendor']
+    name: 'manifest'
   }),
   new ExtractTextPlugin({
-    filename: isPro ? 'css/[name].[contenthash].css' : '[name].[contenthash].css',
+    filename: isPro ? 'css/[name].[contenthash].css' : '[name].css',
     //disable: false,
     allChunks: true
   })
@@ -78,14 +77,12 @@ if (env === 'production') {
 module.exports = {
   entry: {
     // venders: ['react', 'react-dom', 'react-router'],
-    app: [
-      'babel-polyfill',
-      './src/app'
-    ]
+    main: ['babel-polyfill', './src/app']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: isPro ? 'js/[name].[hash].js' : '[name].[hash].js',
+    filename: isPro ? 'js/[name].[chunkhash].js' : '[name].js',
+    chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[id].js',
     publicPath: isPro ? '/' : ''
   },
   module: {

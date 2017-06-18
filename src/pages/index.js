@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-export default class extends Component {
+import { withRouter } from 'react-router-dom'
+class Index extends Component {
   componentWillMount () {
   }
   render () {
@@ -10,3 +11,4 @@ export default class extends Component {
     )
   }
 }
+export default withRouter(Index)

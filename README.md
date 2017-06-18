@@ -9,7 +9,7 @@ npm install
 npm start
 
 # 打包部署
-npm run build <br />
+npm run build || node build/build.js --env production <br />
 打包之后会再当目录生成一个dist文件夹  index.html就是入口文件
 
 # src项目结构描述
@@ -32,3 +32,4 @@ npm run build <br />
 * redux中文文档[http://www.redux.org.cn/](http://www.redux.org.cn/)
 * react-router参考网址[https://reacttraining.com/react-router/web/guides/quick-start](https://reacttraining.com/react-router/web/guides/quick-start)
 * redux-actions[https://github.com/acdlite/redux-actions](https://github.com/acdlite/redux-actions)
+* webpack中文文档地址[https://doc.webpack-china.org](https://doc.webpack-china.org/)

@@ -7,8 +7,6 @@ import { Table, Icon, Pagination } from 'antd'
 class Demo2 extends Component {
   constructor () {
     super()
-    console.log(this.props, 'props')
-    // const { total } = this.props
     this.onChange = this.onChange.bind(this)
     this.columns = [{
       title: 'id',
@@ -33,14 +31,13 @@ class Demo2 extends Component {
     }
   }
   componentWillMount () {
-    this.props.dispatch(fetchTopicList({name: 2}))
+    this.props.dispatch(fetchTopicList({}))
   }
   onChange (pageNumber) {
     this.props.dispatch(fetchTopicList({pageNumber}))
   }
   render () {
     const {list, total} = this.props
-    console.log(list)
     this.pagination.total = total
     return (
       <div>

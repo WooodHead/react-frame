@@ -2,7 +2,6 @@ import { createAction } from 'redux-actions'
 import http, { getTopicList } from '@/util/api'
 export const fetchTopicList = (payload) => (dispatch) => {
   dispatch(createAction('fetch topic list request')({loading: false}))
-  console.log(payload, 'fetchTopicList')
   getTopicList([{'id': 2, 'page': payload.pageNumber}]).then(res => {
     if (res.result) {
       const { list, total } = res.result.data

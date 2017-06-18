@@ -8,11 +8,10 @@ import {
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '@/stores'
-
+import Bundle from '@/components/common/Bundle'
 import App from '@/containers/app'
-//
-import Index from '../pages/index'
 
+// import Index from '@/pages/index'
 // common gaine
 import Gaine from '../containers/Gaine'
 
@@ -24,6 +23,8 @@ import RecursionDemo from '../pages/recursion/demo1'
 
 import ObserverDemo from '../pages/observer/demo1'
 import NoMatch from '../pages/404'
+
+import Index from '../pages/index'
 
 const router = () => (
   <Provider store={store}>

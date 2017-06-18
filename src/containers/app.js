@@ -6,9 +6,7 @@ class App extends Component {
   componentWillMount () {
   }
   render () {
-    console.log(this.props, 'props')
     const { loading } = this.props
-    console.log(this.loading)
     return (
       <div className="app">
         <Spin spinning={loading} delay={0} >{this.props.children}</Spin>
@@ -17,7 +15,6 @@ class App extends Component {
   }
 }
 export default withRouter(connect((state) => {
-  console.log(state)
   const {
     loading,
     list
