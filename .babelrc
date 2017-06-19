@@ -8,13 +8,13 @@
     ],
     "stage-0",
     "react"],
-	"plugins": [
-		["import", {
-			"libraryName": "antd",
-			"style": "css"
-		}],
+  "plugins": [
+    ["import", {
+      "libraryName": "antd",
+      "style": "css"
+    }],
     "syntax-async-functions",
     "syntax-dynamic-import",
     "transform-runtime"
-	]
+  ]
 }
