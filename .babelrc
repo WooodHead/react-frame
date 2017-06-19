@@ -13,7 +13,6 @@
       "libraryName": "antd",
       "style": "css"
     }],
-    "syntax-async-functions",
     "syntax-dynamic-import",
     "transform-runtime"
   ]
