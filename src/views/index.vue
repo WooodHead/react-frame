@@ -24,7 +24,7 @@
     </div>
   </scroll-wrapper>
   <public-comment-icon></public-comment-icon>
-  <online-airlines></online-airlines>
+  <!-- <online-airlines></online-airlines> -->
 </div>
 </template>
 <script>

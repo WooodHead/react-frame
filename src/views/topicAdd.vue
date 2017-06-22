@@ -68,8 +68,9 @@
           // this.content = ''
           if (res.data.result && res.data.result.code === 0) {
             // this.$rulemodal.show({ title: '系统提示', content: '帖子发布成功，已提交后台审核', style: 'text-align: center' })
+            console.log(res.data.result)
             Toast({
-              message: '帖子发布成功，已提交后台审核',
+              message: res.data.result.message,
               duration: 1500
             })
             setTimeout(() => {
