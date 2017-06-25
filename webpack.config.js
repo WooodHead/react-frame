@@ -81,8 +81,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: isPro ? 'js/[name].[chunkhash].js' : '[name].js',
-    chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[id].js',
+    filename: isPro ? 'js/[name].[chunkhash].js' : '[name].[hash:8].bundle.js',
+    chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[name]-[id].[chunkhash:8].bundle.js',
     publicPath: isPro ? '/' : ''
   },
   module: {
@@ -96,9 +96,18 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [
+          'babel-loader'
+        ]
+      },
+      {
+        test: /\.(tsx|ts)$/,
+        use: [
+          'bundle-loader?lazy',
+          'ts-loader',
+        ],
       },
       {
         test: /\.css$/,
@@ -146,7 +155,7 @@ module.exports = {
     // port: '3001'
   },
   resolve: {
-    extensions: ['.js', '.styl'],
+    extensions: ['.js', '.ts', '.tsx', '.styl'],
     alias: {
       components: path.resolve(__dirname, 'src/components'),
       consts: path.resolve(__dirname, 'src/consts'),

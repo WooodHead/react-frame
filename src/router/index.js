@@ -6,17 +6,14 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom'
+import 'es6-promise/dist/es6-promise'
 import { Provider } from 'react-redux'
 import store from '@/stores'
 import Bundle from '@/components/common/Bundle'
 import App from '@/containers/app'
 
-// import Index from '@/pages/index'
-// common gaine
 import Gaine from '../containers/Gaine'
 
-// redux demo1
-import ReduxDemo from '../pages/redux/demo'
 import ReduxDemo2 from 'pages/redux/demo2'
 
 import RecursionDemo from '../pages/recursion/demo1'
@@ -24,7 +21,20 @@ import RecursionDemo from '../pages/recursion/demo1'
 import ObserverDemo from '../pages/observer/demo1'
 import NoMatch from '../pages/404'
 
-import Index from '../pages/index'
+import loadReduxDemo from 'bundle-loader?lazy&name=[name]!@/pages/redux/demo'
+import loadIndex from 'bundle-loader?lazy&name=app-[name]!@/pages/index'
+
+const ReduxDemo = (props) => (
+  <Bundle load={loadReduxDemo}>
+    {(ReduxDemo) => <ReduxDemo {...props}/>}
+  </Bundle>
+)
+
+const Index = (props) => (
+  <Bundle load={loadIndex}>
+    {(Index) => <Index {...props}/>}
+  </Bundle>
+)
 
 const router = () => (
   <Provider store={store}>

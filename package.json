@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'development'",
-    "build": "webpack --progress --colors --env 'production'"
+    "build": "webpack --progress --colors --env 'production'",
+    "build-node": "node build/build.js --env 'production'",
+    "test": "http-server ./dist -p 8080"
   },
   "keywords": [
     "react"
@@ -13,10 +15,13 @@
   "author": "fangbao",
   "license": "ISC",
   "dependencies": {
+    "@types/react": "^15.0.31",
+    "@types/react-dom": "^15.5.1",
     "antd": "^2.10.4",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
     "bundle-loader": "^0.5.5",
+    "es6-promise": "^4.1.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
@@ -54,6 +59,8 @@
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "ts-loader": "^2.2.0",
+    "typescript": "^2.3.4",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",

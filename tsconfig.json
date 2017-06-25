@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "reactNamespace": "React",
+    "allowJs": true,
+    "jsx": "react",
+    "noImplicitAny": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "compileOnSave": true
+}
