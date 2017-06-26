@@ -36,6 +36,8 @@ const PersonTopics = resolve => require(['../views/personTopics'], resolve)
 // const PersonTask = resolve => require(['../views/personTask'], resolve)
 const Activities = resolve => require(['../views/activityList'], resolve)
 const ActivityDetail = resolve => require(['../views/activityDetail'], resolve)
+const TestList = resolve => require(['../views/testList'], resolve)
+const TestFormUpload = resolve => require(['../views/test/formUpload'], resolve)
 
 Vue.use(VueRouter) // 安装路由
 
@@ -88,6 +90,8 @@ const routerConfig = {
     // 紧急bug去掉我的任务
     // {path: '/person/task', name: 'personTask', component: PersonTask, beforeEnter: requireAuth},
     {path: '/person/infoedit', name: 'personInfoEdit', component: PersonInfoEdit, beforeEnter: requireAuth},
+    {path: '/testlist', name: 'testList', component: TestList},
+    {path: '/test/formupload', name: 'testFormUpload', component: TestFormUpload},
     {path: '*', redirect: { name: 'index' }}
   ]
 }

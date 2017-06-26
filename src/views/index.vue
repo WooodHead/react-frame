@@ -25,6 +25,7 @@
   </scroll-wrapper>
   <public-comment-icon></public-comment-icon>
   <!-- <online-airlines></online-airlines> -->
+  <router-link :to="{name: 'testList'}" class="test" tag="div"><span>测试</span></router-link>
 </div>
 </template>
 <script>
@@ -130,4 +131,12 @@ export default {
       color: #999999
       letter-spacing: 0.51px
       line-height: .33rem
+  .test
+    position: absolute
+    top: 1.3rem
+    right: 1rem
+    z-index: 999
+    span
+      font-size: .2rem
+      color: #10A6E2
 </style>
