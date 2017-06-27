@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'development'",
-    "build": "webpack --progress --colors --env 'production'",
-    "build-node": "node build/build.js --env 'production'",
+    "build": "rimraf dist &&webpack --progress --colors --watch --env 'production'",
     "test": "http-server ./dist -p 8081"
   },
   "keywords": [
@@ -15,9 +14,7 @@
   "author": "fangbao",
   "license": "ISC",
   "dependencies": {
-    "@types/react": "^15.0.31",
-    "@types/react-dom": "^15.5.1",
-    "antd": "^2.10.4",
+    "antd-mobile": "^1.4.0",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
     "bundle-loader": "^0.5.5",
@@ -29,7 +26,6 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-actions": "^2.0.3",
-    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
@@ -59,8 +55,7 @@
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "ts-loader": "^2.2.0",
-    "typescript": "^2.3.4",
+    "svg-sprite-loader": "^0.3.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",

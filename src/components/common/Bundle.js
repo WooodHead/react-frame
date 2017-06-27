@@ -18,12 +18,10 @@ class Bundle extends Component {
   }
 
   load (props) {
-    console.log(props.load, 'props')
     this.setState({
       mod: null
     })
     props.load((mod) => {
-      console.log(mod, 'mod')
       this.setState({
         // handle both es imports and cjs
         mod: mod.default ? mod.default : mod
@@ -32,7 +30,6 @@ class Bundle extends Component {
   }
 
   render () {
-    console.log(this.state.mod, 'mod')
     return this.state.mod ? this.props.children(this.state.mod) : null
   }
 }

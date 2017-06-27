@@ -2,11 +2,23 @@
 <html lang=en>
 <head>
   <meta charset=UTF-8>
-  <meta name=viewport content="width=device-width,initial-scale=1">
+  <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
   <meta http-equiv=X-UA-Compatible content="ie=edge">
   <title>Document</title>
-<link href=/css/main.1a6b183fdf8e02baf8caccbcf6642c2f.css rel=stylesheet></head>
+  <script>
+  !function(e){function t(a){if(i[a])return i[a].exports;var n=i[a]={exports:{},id:a,loaded:!1};return e[a].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var i={};return t.m=e,t.c=i,t.p="",t(0)}([function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i=window;t["default"]=i.flex=function(e,t){var a=e||100,n=t||1,r=i.document,o=navigator.userAgent,d=o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),l=o.match(/U3\/((\d+|\.){5,})/i),c=l&&parseInt(l[1].split(".").join(""),10)>=80,p=navigator.appVersion.match(/(iphone|ipad|ipod)/gi),s=i.devicePixelRatio||1;p||d&&d[1]>534||c||(s=1);var u=1/s,m=r.querySelector('meta[name="viewport"]');m||(m=r.createElement("meta"),m.setAttribute("name","viewport"),r.head.appendChild(m)),m.setAttribute("content","width=device-width,user-scalable=no,initial-scale="+u+",maximum-scale="+u+",minimum-scale="+u),r.documentElement.style.fontSize=a/2*s*n+"px"},e.exports=t["default"]}]);
+  flex(100, 1);
+  </script>
+<link href=/css/main.5528f7f928d5968bd1d4baef5f3d5836.css rel=stylesheet></head>
 <body>
   <div id=root></div>
-<script type=text/javascript src=/js/manifest.355f62b553e4f97e0219.js></script><script type=text/javascript src=/js/vendor.2f3f2cef2e76c8857cd2.js></script><script type=text/javascript src=/js/main.854b8fd4d3d98cff1158.js></script></body>
+  <script type=text/javascript src=https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js></script>
+  <script type=text/javascript>
+    if ('addEventListener' in document) {
+    	document.addEventListener('DOMContentLoaded', function() {
+    		FastClick.attach(document.body);
+    	}, false);
+    }
+  </script>
+<script type=text/javascript src=/js/manifest.a2f858668793e4c1af3e.js></script><script type=text/javascript src=/js/vendor.fdb629e9a6223aded80c.js></script><script type=text/javascript src=/js/main.cb7a12e37293e1f103ff.js></script></body>
 </html>

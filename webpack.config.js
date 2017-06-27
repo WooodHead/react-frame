@@ -6,6 +6,11 @@ var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 
 var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
+
+const svgDirs = [
+  require.resolve('antd-mobile').replace(/warn\.js$/, '')
+];
+
 var plugins = [
   new webpack.DefinePlugin({
     'process.env': {
@@ -103,13 +108,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.(tsx|ts)$/,
-        use: [
-          'bundle-loader?lazy',
-          'ts-loader',
-        ],
-      },
-      {
         test: /\.css$/,
         // include: path.resolve(__dirname, 'src'),
         use: ExtractTextPlugin.extract({
@@ -126,13 +124,18 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|jpe?g|git|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|git)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
           name: '[name].[hash:7].[ext]'
         }
-      }
+      },
+      {
+        test: /\.(svg)$/i,
+        loader: 'svg-sprite-loader',
+        include: svgDirs  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
+      },
     ]
   },
   plugins: plugins,
@@ -155,7 +158,8 @@ module.exports = {
     // port: '3001'
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.styl'],
+    modules: ['node_modules', path.resolve(__dirname, 'src')],
+    extensions: ['.web.js', '.js', '.json', '.styl'],
     alias: {
       components: path.resolve(__dirname, 'src/components'),
       consts: path.resolve(__dirname, 'src/consts'),
