@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 
-export const topic = handleActions({
-  'fetch topic list request': (state, payload) => {
+export default handleActions({
+  'fetch topic list request': (state) => {
     return {
       ...state,
       loading: true

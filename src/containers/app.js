@@ -16,12 +16,10 @@ class App extends Component {
 }
 export default withRouter(connect((state) => {
   const {
-    loading,
-    list
-  } = state.topic
+    loading
+  } = state.common
 
   return {
-    loading,
-    list
+    loading
   }
 })(App))
