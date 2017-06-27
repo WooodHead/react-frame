@@ -27,7 +27,7 @@ class Index extends Component {
       this.setState({
         loading: false
       })
-      this.Toast.success('提交成功！', 2)
+      this.Toast.success('提交成功！!', 2)
     }, 1000)
   }
   render () {
