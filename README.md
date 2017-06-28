@@ -25,12 +25,12 @@ npm run build || node build/build.js --env production <br />
 * index.html 入口html页面
 
 # 其他
-* react中文官网[http://www.react-cn.com/](http://www.react-cn.com/)
-* 使用antd为了减少项目大小，使用[babel-plugin-import](https://www.npmjs.com/package/babel-plugin-import)
-* stylus参考网址[http://stylus-lang.com/](http://stylus-lang.com/)
-* antdesign参考网址[https://ant.design/index-cn](https://ant.design/index-cn)
-* redux中文文档[http://www.redux.org.cn/](http://www.redux.org.cn/)
-* react-router参考网址[https://reacttraining.com/react-router/web/guides/quick-start](https://reacttraining.com/react-router/web/guides/quick-start)
-* redux-actions[https://github.com/acdlite/redux-actions](https://github.com/acdlite/redux-actions)
-* webpack中文文档地址[https://doc.webpack-china.org](https://doc.webpack-china.org/)
-* ant design mobile[https://mobile.ant.design/index-cn](https://mobile.ant.design/index-cn)
+* react中文官网 [http://www.react-cn.com/](http://www.react-cn.com/)
+* 使用antd为了减少项目大小，使用 babel-plugin-import [babel-plugin-import](https://www.npmjs.com/package/babel-plugin-import)
+* stylus参考网址 [http://stylus-lang.com/](http://stylus-lang.com/)
+* antdesign参考网址 [https://ant.design/index-cn](https://ant.design/index-cn)
+* redux中文文档 [http://www.redux.org.cn/](http://www.redux.org.cn/)
+* react-router参考网址 [https://reacttraining.com/react-router/web/guides/quick-start](https://reacttraining.com/react-router/web/guides/quick-start)
+* redux-actions [https://github.com/acdlite/redux-actions](https://github.com/acdlite/redux-actions)
+* webpack中文文档地址 [https://doc.webpack-china.org](https://doc.webpack-china.org/)
+* ant design mobile [https://mobile.ant.design/index-cn](https://mobile.ant.design/index-cn)

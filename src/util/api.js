@@ -2,6 +2,18 @@ import axios from 'axios'
 var isPro = process.env.NODE_ENV === 'production'
 var isCrossDomain = window.location.hostname.indexOf('wanglibao.com') === -1
 
+var Location = window.location
+var host, api
+
+host = 'https://php1.wanglibao.com'
+if (Location.hostname.indexOf('wanglibao.com') > -1) {
+  host = 'https://' + Location.host
+}
+
+export const currentHost = host
+export const apiList = host + '/yunying/rpc'
+export const apiAccount = host + '/passport/service.php?c=account'
+
 function http () {
   if (arguments[0] instanceof Array) {
     var resultArr = []
@@ -33,9 +45,17 @@ function fetchData (params) {
 }
 export const getTopicList = (params) => {
   return http({
-    url: 'https://www.wanglibao.com/yunying/rpc',
+    url: apiList,
     method: 'getBbsThreadList',
     params: params
+  }).then(res => res.data)
+}
+export const topicAddRequest = (params) => {
+  console.log(params)
+  return http({
+    url: apiList,
+    method: 'BbsPublishThread',
+    params: [params]
   }).then(res => res.data)
 }
 export default http

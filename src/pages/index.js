@@ -19,16 +19,35 @@ class Index extends Component {
   handleSubmit () {
     this.props.form.validateFields((error, value) => {
       console.log(error, value)
-    })
-    this.setState({
-      loading: true
-    })
-    setTimeout(() => {
       this.setState({
-        loading: false
+        loading: true
       })
-      this.Toast.success('提交成功！!', 2)
-    }, 1000)
+      if (error == null) {
+        this.$api.topicAddRequest({
+          type_id: 3,
+          title: value.title,
+          content: value.content
+        }).then(res => {
+          this.setState({
+            loading: false
+          })
+          if (res.result) {
+            this.Toast.info(res.result.message)
+          } else {
+            this.Toast.info(res.error.message)
+          }
+        })
+      }
+    })
+    // this.setState({
+    //   loading: true
+    // })
+    // setTimeout(() => {
+    //   this.setState({
+    //     loading: false
+    //   })
+    //   this.Toast.success('提交成功！!', 2)
+    // }, 1000)
   }
   render () {
     const { getFieldProps } = this.props.form
@@ -39,19 +58,17 @@ class Index extends Component {
         <List renderHeader={() => 'Format'}>
           <InputItem
               {...getFieldProps('money', {
-                initialValue: '222',
+                initialValue: '网利宝',
                 rules: [{required: true}]
               })}
-              placeholder="money keyboard"
+              placeholder="请输入标题"
               clear
-              error={true}
-              type="money"
+              type="title"
               maxLength={10}
               locale={{ confirmLabel: '计算' }}
             />
           <TextareaItem
-              title="标题"
-              placeholder="auto focus in Alipay client"
+              placeholder="请输入内容"
               data-seed="logId"
               autoFocus
               autoHeight={false}
@@ -59,7 +76,7 @@ class Index extends Component {
               clear
               count={100}
               {...getFieldProps('content', {
-                initialValue: '222'
+                initialValue: ''
               })}
             />
         </List>
