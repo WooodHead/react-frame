@@ -109,10 +109,9 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        // include: path.resolve(__dirname, 'src'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader']
+          use: ['css-loader', 'postcss-loader']
         })
       },
       {
@@ -120,7 +119,23 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'stylus-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[local]-[hash:base64:5]',
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              }
+            },
+            'stylus-loader'
+          ]
         })
       },
       {

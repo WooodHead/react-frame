@@ -31,6 +31,8 @@ npm run build || node build/build.js --env production <br />
 * antdesign参考网址 [https://ant.design/index-cn](https://ant.design/index-cn)
 * redux中文文档 [http://www.redux.org.cn/](http://www.redux.org.cn/)
 * react-router参考网址 [https://reacttraining.com/react-router/web/guides/quick-start](https://reacttraining.com/react-router/web/guides/quick-start)
+* react-router v4中文地址 [https://reacttraining.cn](https://reacttraining.cn)
 * redux-actions [https://github.com/acdlite/redux-actions](https://github.com/acdlite/redux-actions)
 * webpack中文文档地址 [https://doc.webpack-china.org](https://doc.webpack-china.org/)
 * ant design mobile [https://mobile.ant.design/index-cn](https://mobile.ant.design/index-cn)
+* [antd mobile 0.8 以上版本「高清」方案设置](https://github.com/ant-design/ant-design-mobile/wiki/antd-mobile-0.8-%E4%BB%A5%E4%B8%8A%E7%89%88%E6%9C%AC%E3%80%8C%E9%AB%98%E6%B8%85%E3%80%8D%E6%96%B9%E6%A1%88%E8%AE%BE%E7%BD%AE)
