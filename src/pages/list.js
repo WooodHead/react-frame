@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { WhiteSpace, WingBlank, ListView } from 'antd-mobile'
 
+import { connect } from 'react-redux'
+
 import style from '@/stylus/list'
+import Loading from '@/components/loading/TopicLoadMore'
+import { fetchTopicList } from '@/actions/topic'
 
 function MyBody (props) {
   return (
@@ -12,97 +16,38 @@ function MyBody (props) {
     </div>
   )
 }
-const data = [
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    title: 'Meet hotel',
-    des: '不是所有的兼职汪都需要风吹日晒'
-  },
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-    title: 'McDonald\'s invites you',
-    des: '不是所有的兼职汪都需要风吹日晒'
-  },
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-    title: 'Eat the week',
-    des: '不是所有的兼职汪都需要风吹日晒'
-  }
-]
-let index = data.length - 1
-
-const NUM_SECTIONS = 5
-const NUM_ROWS_PER_SECTION = 5
-let pageIndex = 0
 
 class List extends Component {
   constructor () {
     super()
-    const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID]
-    const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID]
+    const getRowData = (dataBlob, rowID) => dataBlob[rowID]
 
-    const dataSource = new ListView.DataSource({
+    this.dataSource = new ListView.DataSource({
       getRowData,
-      getSectionHeaderData: getSectionData,
-      rowHasChanged: (row1, row2) => row1 !== row2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2
+      rowHasChanged: (row1, row2) => row1 !== row2
     })
-    this.dataBlob = {}
-    this.sectionIDs = []
-    this.rowIDs = []
-    this.genData = (pIndex = 0) => {
-      for (let i = 0; i < NUM_SECTIONS; i++) {
-        const ii = (pIndex * NUM_SECTIONS) + i
-        const sectionName = `Section ${ii}`
-        this.sectionIDs.push(sectionName)
-        this.dataBlob[sectionName] = sectionName
-        this.rowIDs[ii] = []
 
-        for (let jj = 0; jj < NUM_ROWS_PER_SECTION; jj++) {
-          const rowName = `S${ii}, R${jj}`
-          this.rowIDs[ii].push(rowName)
-          this.dataBlob[rowName] = rowName
-        }
-      }
-      // new object ref
-      this.sectionIDs = [].concat(this.sectionIDs)
-      this.rowIDs = [].concat(this.rowIDs)
+    this.genData = (pIndex = 1) => {
+      this.props.fetchTopicList({pageNumber: pIndex})
     }
 
-    this.state = {
-      dataSource: dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
-      isLoading: true
-    }
     this.onEndReached = this.onEndReached.bind(this)
   }
+  componentWillMount () {
+    this.genData()
+  }
   componentDidMount () {
-    // you can scroll to the specified position
-    // setTimeout(() => this.refs.lv.refs.listview.scrollTo(0, 120), 800); // also work
-    // setTimeout(() => this.refs.lv.scrollTo(0, 120), 800); // recommend usage
-
-    // simulate initial Ajax
-    setTimeout(() => {
-      this.genData()
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
-        isLoading: false
-      })
-    }, 600)
   }
   onEndReached (event) {
     // load new data
     // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading && !this.state.hasMore) {
+    if (this.props.isLoading && !this.props.hasMore) {
       return
     }
     console.log('reach end', event)
     this.setState({ isLoading: true })
     setTimeout(() => {
-      this.genData(++pageIndex)
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(this.dataBlob, this.sectionIDs, this.rowIDs),
-        isLoading: false
-      })
+      this.genData()
     }, 1000)
   }
 
@@ -118,36 +63,36 @@ class List extends Component {
       />
     )
     const row = (rowData, sectionID, rowID) => {
-      if (index < 0) {
-        index = data.length - 1
-      }
-      const obj = data[index--]
-      return (
-        <div key={rowID} className={style.row}>
-          <div className={style['row-title']}>{obj.title}</div>
-          <div style={{ display: 'flex', padding: '0.3rem 0' }}>
-            <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src={obj.img} alt="icon" />
-            <div className={style['row-text']}>
-              <div style={{ marginBottom: '0.16rem', fontWeight: 'bold' }}>{obj.des}</div>
-              <div><span style={{ fontSize: '0.6rem', color: '#FF6E27' }}>35</span>¥</div>
-            </div>
-          </div>
-        </div>
-      )
+
+      // return (
+      //   <div key={rowID} className={style.row}>
+      //     <div className={style['row-title']}>{obj.title}</div>
+      //     <div style={{ display: 'flex', padding: '0.3rem 0' }}>
+      //       <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src={obj.img} alt="icon" />
+      //       <div className={style['row-text']}>
+      //         <div style={{ marginBottom: '0.16rem', fontWeight: 'bold' }}>{obj.des}</div>
+      //         <div><span style={{ fontSize: '0.6rem', color: '#FF6E27' }}>35</span>¥</div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // )
     }
+    console.log(this.props.list, 'list')
+    const dataSource = this.dataSource.cloneWithRows(this.props.list)
+    console.log(dataSource, 'list')
 
     return (
       <div>
         <WhiteSpace />
         <WingBlank>
           <ListView ref="lv"
-            dataSource={this.state.dataSource}
+            dataSource={dataSource}
             renderHeader={() => <span>header</span>}
             renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-              {this.state.isLoading ? 'Loading...' : 'Loaded'}
+              <Loading />
             </div>)}
             renderSectionHeader={sectionData => (
-              <div>{`Task ${sectionData.split(' ')[1]}`}</div>
+              <div></div>
             )}
             renderBodyComponent={() => <MyBody />}
             renderRow={row}
@@ -171,4 +116,19 @@ class List extends Component {
     )
   }
 }
-export default withRouter(List)
+function mapStateToProps ({ topic }) {
+  console.log(topic.list)
+  return {
+    list: topic.list
+  }
+}
+function mapDispatchToProps (dispatch) {
+  return {
+    dispatch: dispatch,
+    fetchTopicList: (payload) => {
+      dispatch(fetchTopicList(payload))
+    }
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List))
