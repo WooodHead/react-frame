@@ -26,7 +26,7 @@ export default handleActions({
   }
 }, {
   list: [],
-  isLoading: true,
+  isLoading: false,
   hasMore: true,
   rowIds: [],
   total: 0,

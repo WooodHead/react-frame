@@ -4,8 +4,6 @@ import { withRouter } from 'react-router-dom'
 import { List, InputItem, TextareaItem, Button, WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
-import Stick from '@/containers/Stick'
-
 class Index extends Component {
   constructor () {
     super()
@@ -56,7 +54,6 @@ class Index extends Component {
     // console.log(this.props)
     return (
       <div className="home">
-        <Stick />
         <ActivityIndicator toast text="正在加载" animating={this.state.loading}/>
         <List renderHeader={() => 'Format'}>
           <InputItem

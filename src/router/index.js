@@ -10,7 +10,7 @@ import {
 import { Provider } from 'react-redux'
 import store from '@/stores'
 import Bundle from '@/components/common/Bundle'
-import App from '@/containers/app'
+import App from '@/containers/App'
 
 import loadIndex from 'bundle-loader?lazy&name=app-[name]!@/pages/index'
 import loadList from 'bundle-loader?lazy&name=app-[name]!@/pages/list'
