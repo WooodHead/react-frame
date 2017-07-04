@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import StickItem from '@/components/StickItem'
+import styles from '@/stylus/stick'
 
 const data = [
   {
@@ -22,11 +23,12 @@ const data = [
 class Stick extends Component {
   render () {
     return (
-      <div>
+      <div className={styles['stick-container']}>
         {
           data.map(function (item, index) {
+            console.log(Number(index) === data.length - 1)
             return (
-              <StickItem key={index} item={item} />
+              <StickItem className={Number(index) === data.length - 1 ? styles['no-border'] : ''} key={index} item={item} />
             )
           })
         }

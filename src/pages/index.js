@@ -4,7 +4,11 @@ import { withRouter } from 'react-router-dom'
 import { List, InputItem, TextareaItem, Button, WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
+import Navbar from '@/components/common/Navbar'
+import NavbarMessage from '@/components/common/icons/NavbarMessage'
+import NavbarPerson from '@/components/common/icons/NavbarPerson'
 import Stick from '@/containers/Stick'
+import Topic from '@/containers/Topic'
 
 class Index extends Component {
   constructor () {
@@ -14,79 +18,24 @@ class Index extends Component {
       content: '',
       loading: false
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentWillMount () {
   }
-  handleSubmit () {
-    this.props.form.validateFields((error, value) => {
-      console.log(error, value)
-      this.setState({
-        loading: true
-      })
-      if (error == null) {
-        this.$api.topicAddRequest({
-          type_id: 3,
-          title: value.title,
-          content: value.content
-        }).then(res => {
-          this.setState({
-            loading: false
-          })
-          if (res.result) {
-            this.Toast.info(res.result.message)
-          } else {
-            this.Toast.info(res.error.message)
-          }
-        })
-      }
-    })
-    // this.setState({
-    //   loading: true
-    // })
-    // setTimeout(() => {
-    //   this.setState({
-    //     loading: false
-    //   })
-    //   this.Toast.success('提交成功！!', 2)
-    // }, 1000)
-  }
   render () {
-    const { getFieldProps } = this.props.form
-    // console.log(this.props)
     return (
-      <div className="home">
-        <Stick />
-        <ActivityIndicator toast text="正在加载" animating={this.state.loading}/>
-        <List renderHeader={() => 'Format'}>
-          <InputItem
-              {...getFieldProps('money', {
-                initialValue: '网利宝',
-                rules: [{required: true}]
-              })}
-              placeholder="请输入标题"
-              clear
-              type="title"
-              maxLength={10}
-              locale={{ confirmLabel: '计算' }}
-            />
-          <TextareaItem
-              placeholder="请输入内容"
-              data-seed="logId"
-              autoFocus
-              autoHeight={false}
-              rows={5}
-              clear
-              count={100}
-              {...getFieldProps('content', {
-                initialValue: ''
-              })}
-            />
-        </List>
-        <WhiteSpace size="lg" />
-        <WingBlank size="md"><Button className="btn" type="primary" onClick={this.handleSubmit}>提交</Button></WingBlank>
+      <div className="layout">
+        <Navbar
+          titleContent={<span ref="title">网利社区</span>}
+          rightContent={[<NavbarMessage style={{marginRight: '40px'}} key="r1" />, <NavbarPerson key="r2" />]}
+          >
+        </Navbar>
+        <div className="scroll-wrap">
+          <Stick />
+          <Topic />
+          <ActivityIndicator toast text="正在加载" animating={this.state.loading}/>
+        </div>
       </div>
     )
   }
 }
-export default withRouter(createForm()(Index))
+export default withRouter(Index)

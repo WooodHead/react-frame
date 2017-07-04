@@ -1,33 +1,40 @@
-.stick-item
-  padding: 0 20px
-  overflow: hidden
-  display: flex
-  justify-content: center
-  align-items: center
-  .stick-icon
-    background: url('@/imgs/ic_sq_top@2x.png') 0 0/ 60px 28px
-    width: 60px
-    height: 28px
-    float: left
+.stick-container
+  background: #FFFFFF
+  .stick-item
+    height: 100px
+    margin: 0 20px
+    overflow: hidden
     display: flex
     justify-content: center
     align-items: center
-    margin-right: 20px
-    span
+    border-bottom: 2px solid rgba(0, 0, 0, .1)
+    .stick-icon
+      background: url('@/imgs/ic_sq_top@2x.png') 0 0/ 60px 28px
+      width: 60px
+      height: 28px
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-right: 20px
+      span
+        font-family: PingFangSC-Regular
+        font-size: 20px
+        color: #FFFFFF
+        letter-spacing: 0
+        line-height: 24px
+    p
+      display: -webkit-box
       font-family: PingFangSC-Regular
-      font-size: 20px
-      color: #FFFFFF
-      letter-spacing: 0
-      line-height: 24px
-  p
-    display: -webkit-box
-    font-family: PingFangSC-Regular
-    font-size: 24px
-    color: #666666
-    letter-spacing: 0.1px
-    line-height: 36px
-    -webkit-line-clamp: 1
-    word-break: break-word
-    text-overflow: ellipsis
-    -webkit-box-orient: vertical
-    overflow: hidden
+      font-size: 24px
+      color: #666666
+      letter-spacing: 0.1px
+      line-height: 36px
+      -webkit-line-clamp: 1
+      word-break: break-word
+      text-overflow: ellipsis
+      -webkit-box-orient: vertical
+      overflow: hidden
+      margin: 0
+      padding: 0
+  .no-border
+    border: none
