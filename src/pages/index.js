@@ -51,7 +51,11 @@ class Index extends Component {
   render () {
     return (
       <div className="layout">
-        <Tabs className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={5} onTabClick={handleTabClick}>
+        <div className={styles['goback']}></div>
+        <div className={styles['navbar-right']}>
+          <NavbarPerson />
+        </div>
+        <Tabs className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={4} onTabClick={handleTabClick}>
           {makeMultiTabPane(11)}
         </Tabs>
       </div>
