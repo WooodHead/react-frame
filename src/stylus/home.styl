@@ -1,5 +1,5 @@
 .goback
-  width: 78px
+  width: 108px
   height: 90px
   position: absolute
   top: 0
@@ -10,19 +10,23 @@
   background-position: 30px center , center
 .navbar-right
   background:  -webkit-linear-gradient(top, #005ccc, #0083ff)
-  width: 78px
+  width: 108px
   height: 90px
   position: absolute
   top: 0
   right: 0
   display: flex
   align-items: center
+  justify-content: flex-end
 .home-tabs
   background: transparent
+  height: 100%
+  display: flex
+  flex-direction: column
   &:global > .am-tabs-bar
-    height: 90px
+    height: 90px !important
     overflow: hidden
-    margin: 0 78px !important
+    margin: 0 108px !important
     background: -webkit-linear-gradient(top, #005ccc, #0083ff) !important
     .am-tabs-prevpage,.am-tabs-nextpage
       &:before
@@ -38,11 +42,16 @@
       font-size: 28px;
       color: #FFFFFF;
       letter-spacing: 0.12px;
-      background: transparent;
+      background: transparent !important;
       border: none
+      line-height: 90px
+      height: 90px
     .am-tabs-tab-active
       opacity: 1;
       font-family: PingFangSC-Medium;
       font-size: 32px;
       color: #FFFFFF;
       letter-spacing: 0.13px;
+  :global
+    .am-tabs-content
+      flex: 1    

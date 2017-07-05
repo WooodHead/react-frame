@@ -13,31 +13,25 @@ function handleTabClick (key) {
 }
 class Topic extends Component {
   componentDidMount () {
-    console.log(this)
   }
   render () {
     return (
-      <div className={styles['topic-container'] + ' mt32'}>
+      <div className={styles['topic-container'] + ' mt-32'}>
         <Tabs className="topic-container-tabs-bar" defaultActiveKey="1" onChange={callback} swipeable={false} animated={false} onTabClick={handleTabClick}>
           <TabPane tab="全部" key="1" >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <TopicItem />
-            </div>
+            <TopicItem className="mb-18"/>
+            <TopicItem className="mb-18"/>
+            <TopicItem className="mb-18"/>
+            <TopicItem className="mb-18"/>
           </TabPane>
           <TabPane tab="精华" key="2">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '5rem', backgroundColor: '#fff' }}>
-              选项卡二内容
-            </div>
+            <TopicItem className="mb-18"/>
           </TabPane>
           <TabPane tab="最热" key="3">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '5rem', backgroundColor: '#fff' }}>
-              选项卡三内容
-            </div>
+            <TopicItem className="mb-18"/>
           </TabPane>
           <TabPane tab="最新" key="4">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '5rem', backgroundColor: '#fff' }}>
-              选项卡四内容
-            </div>
+            <TopicItem className="mb-18"/>
           </TabPane>
         </Tabs>
       </div>

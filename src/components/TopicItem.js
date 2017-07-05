@@ -4,8 +4,9 @@ import styles from '@/stylus/topic-item'
 import TopicTag from '@/components/common/TopicTag'
 class TopicItem extends Component {
   render () {
+    const { className } = this.props
     return (
-      <div className={styles['topic-item']}>
+      <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
           <img src='https://www.wanglibao.com/images/bbs/avatar1.png' className={styles['avatar']} />
           <div className={styles['header-right']}>

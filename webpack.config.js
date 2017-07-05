@@ -35,6 +35,11 @@ var plugins = [
     // chunksSortMode: 'dependency'
     // hash:true
   }),
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    "window.jQuery": 'jquery'
+  }),
   // 将node_modules打入vendor
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',

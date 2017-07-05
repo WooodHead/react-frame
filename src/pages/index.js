@@ -15,11 +15,9 @@ import styles from '@/stylus/home'
 const TabPane = Tabs.TabPane
 const makeTabPane = key => (
   <TabPane tab={`选项${key}`} key={key}>
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div className="scroll-wrap">
-        <Stick />
-        <Topic />
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <Stick />
+      <Topic />
     </div>
   </TabPane>
 )
@@ -46,16 +44,28 @@ class Index extends Component {
       loading: false
     }
   }
-  componentWillMount () {
+  componentDidMount () {
+    $('.' + styles['home-tabs'] + ' .am-tabs-tabpane').map(function (index, el) {
+      $(el).scroll(function (e) {
+        console.log($(el).scrollTop(), $(el).find('.am-tabs-content')[0].offsetTop)
+        if ($(el).scrollTop() > $(el).find('.am-tabs-bar')[0].offsetTop) {
+          $(el).find('.am-tabs-bar').css({'position': 'absolute', 'top': '80px', 'z-index': '999'})
+        }
+        if ($(el).scrollTop() <= $(el).find('.am-tabs-content')[0].offsetTop) {
+          console.log('remove')
+          $(el).find('.am-tabs-bar').css({'position': 'relative', 'top': '0px'})
+        }
+      })
+    })
   }
   render () {
     return (
       <div className="layout">
         <div className={styles['goback']}></div>
         <div className={styles['navbar-right']}>
-          <NavbarPerson />
+          <NavbarPerson style={{marginRight: '32px'}}/>
         </div>
-        <Tabs className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={4} onTabClick={handleTabClick}>
+        <Tabs className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={3} onTabClick={handleTabClick}>
           {makeMultiTabPane(11)}
         </Tabs>
       </div>
