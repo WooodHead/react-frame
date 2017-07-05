@@ -49,11 +49,11 @@ class Index extends Component {
       $(el).scroll(function (e) {
         console.log($(el).scrollTop(), $(el).find('.am-tabs-content')[0].offsetTop)
         if ($(el).scrollTop() > $(el).find('.am-tabs-bar')[0].offsetTop) {
-          $(el).find('.am-tabs-bar').css({'position': 'absolute', 'top': '80px', 'z-index': '999'})
+          // $(el).find('.am-tabs-bar').css({'position': 'fixed', top: '200px', 'z-index': '999'})
         }
         if ($(el).scrollTop() <= $(el).find('.am-tabs-content')[0].offsetTop) {
           console.log('remove')
-          $(el).find('.am-tabs-bar').css({'position': 'relative', 'top': '0px'})
+          // $(el).find('.am-tabs-bar').css({'position': 'relative', 'top': '0px'})
         }
       })
     })
@@ -65,7 +65,7 @@ class Index extends Component {
         <div className={styles['navbar-right']}>
           <NavbarPerson style={{marginRight: '32px'}}/>
         </div>
-        <Tabs className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={3} onTabClick={handleTabClick}>
+        <Tabs swipeable={true} speed={1} destroyInactiveTabPane={false} hammerOptions={[{event: 'pan', threshold: 200}]} className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={3} onTabClick={handleTabClick}>
           {makeMultiTabPane(11)}
         </Tabs>
       </div>
