@@ -20,7 +20,7 @@ class Topic extends Component {
       <div className={styles['topic-container'] + ' mt32'}>
         <Tabs className="topic-container-tabs-bar" defaultActiveKey="1" onChange={callback} swipeable={false} animated={false} onTabClick={handleTabClick}>
           <TabPane tab="全部" key="1" >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '5rem', backgroundColor: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <TopicItem />
             </div>
           </TabPane>

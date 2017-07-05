@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import { List, InputItem, TextareaItem, Button, WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
+import { ActivityIndicator, Tabs } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
 import Navbar from '@/components/common/Navbar'
@@ -10,6 +10,33 @@ import NavbarPerson from '@/components/common/icons/NavbarPerson'
 import Stick from '@/containers/Stick'
 import Topic from '@/containers/Topic'
 
+import styles from '@/stylus/home'
+
+const TabPane = Tabs.TabPane
+const makeTabPane = key => (
+  <TabPane tab={`选项${key}`} key={key}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="scroll-wrap">
+        <Stick />
+        <Topic />
+      </div>
+    </div>
+  </TabPane>
+)
+
+const makeMultiTabPane = (count) => {
+  const result = []
+  for (let i = 0; i <= count; i++) {
+    result.push(makeTabPane(i))
+  }
+  return result
+}
+function callback (key) {
+  console.log('onChange', key)
+}
+function handleTabClick (key) {
+  console.log('onTabClick', key)
+}
 class Index extends Component {
   constructor () {
     super()
@@ -24,16 +51,9 @@ class Index extends Component {
   render () {
     return (
       <div className="layout">
-        <Navbar
-          titleContent={<span ref="title">网利社区</span>}
-          rightContent={[<NavbarMessage style={{marginRight: '40px'}} key="r1" />, <NavbarPerson key="r2" />]}
-          >
-        </Navbar>
-        <div className="scroll-wrap">
-          <Stick />
-          <Topic />
-          <ActivityIndicator toast text="正在加载" animating={this.state.loading}/>
-        </div>
+        <Tabs className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={5} onTabClick={handleTabClick}>
+          {makeMultiTabPane(11)}
+        </Tabs>
       </div>
     )
   }
