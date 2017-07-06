@@ -12,7 +12,9 @@ import Topic from '@/containers/Topic'
 
 import styles from '@/stylus/home'
 
+const Hammer = require('lib/hammer.min')
 const TabPane = Tabs.TabPane
+
 const makeTabPane = key => (
   <TabPane tab={`选项${key}`} key={key}>
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -35,37 +37,38 @@ function callback (key) {
 function handleTabClick (key) {
   console.log('onTabClick', key)
 }
+function handlePan () {
+  console.log('pan')
+}
 class Index extends Component {
   constructor () {
     super()
     this.state = {
       title: '',
       content: '',
-      loading: false
+      loading: false,
+      swipeable: true
     }
   }
   componentDidMount () {
-    $('.' + styles['home-tabs'] + ' .am-tabs-tabpane').map(function (index, el) {
-      $(el).scroll(function (e) {
-        console.log($(el).scrollTop(), $(el).find('.am-tabs-content')[0].offsetTop)
-        if ($(el).scrollTop() > $(el).find('.am-tabs-bar')[0].offsetTop) {
-          // $(el).find('.am-tabs-bar').css({'position': 'fixed', top: '200px', 'z-index': '999'})
-        }
-        if ($(el).scrollTop() <= $(el).find('.am-tabs-content')[0].offsetTop) {
-          console.log('remove')
-          // $(el).find('.am-tabs-bar').css({'position': 'relative', 'top': '0px'})
-        }
-      })
-    })
   }
   render () {
+    const hammerOptions = {
+      recognizers: {
+        pan: {
+          pointers: 1,
+          threshold: 10,
+          velocity: 0.3
+        }
+      }
+    }
     return (
       <div className="layout">
         <div className={styles['goback']}></div>
         <div className={styles['navbar-right']}>
           <NavbarPerson style={{marginRight: '32px'}}/>
         </div>
-        <Tabs swipeable={true} speed={1} destroyInactiveTabPane={false} hammerOptions={[{event: 'pan', threshold: 200}]} className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={3} onTabClick={handleTabClick}>
+        <Tabs swipeable={this.state.swipeable} hammerOptions={hammerOptions} animated={true} speed={1} destroyInactiveTabPane={false} className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={3} onTabClick={handleTabClick}>
           {makeMultiTabPane(11)}
         </Tabs>
       </div>

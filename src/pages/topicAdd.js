@@ -52,6 +52,8 @@ class TopicAdd extends Component {
       })
     }, 0)
   }
+  componentDidMount () {
+  }
   render () {
     const { getFieldProps } = this.props.form
     console.log(getFieldProps('title'))

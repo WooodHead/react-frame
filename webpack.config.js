@@ -101,7 +101,7 @@ module.exports = {
         enforce: 'pre',
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname, 'lib')],
         use: 'eslint-loader',
       },
       {
@@ -179,14 +179,9 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules', path.resolve(__dirname, 'src')],
-    extensions: ['.web.js', '.js', '.json', '.styl'],
+    extensions: ['.web.js', '.js', '.min.js', '.json', '.styl'],
     alias: {
-      components: path.resolve(__dirname, 'src/components'),
-      consts: path.resolve(__dirname, 'src/consts'),
-      containers: path.resolve(__dirname, 'src/containers'),
-      imgs: path.resolve(__dirname, 'src/imgs'),
-      pages: path.resolve(__dirname, 'src/pages'),
-      stylus: path.resolve(__dirname, 'src/stylus'),
+      'lib': path.join(__dirname, 'lib'),
       '@': path.join(__dirname, 'src/')
     }
   },
