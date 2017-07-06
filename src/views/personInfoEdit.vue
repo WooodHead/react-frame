@@ -15,6 +15,34 @@
             <span class="name-title fl">昵称</span>
             <input class="name-right fr" v-model="userInfo.nickname">
           </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
+          <div class="item">
+            <span class="name-title fl">昵称</span>
+            <input class="name-right fr" v-model="userInfo.nickname">
+          </div>
         </div>
         <div class="edit-btn">
           <button :class="['btn', {changed}]" @click="save">保存</button>
