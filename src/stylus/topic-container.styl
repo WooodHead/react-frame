@@ -2,7 +2,7 @@
   margin: 0 20px
   :global
     .am-tabs
-      overflow: scroll
+      overflow-y: auto
     .topic-container-tabs-bar
       .am-tabs-bar
         box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.03)
@@ -29,10 +29,4 @@
           color: #222222;
           letter-spacing: -0.16px
 .list-view
-  :global
-    // .am-list-view-scrollview
-    //   flex: initial !important
-    //   .am-list-view-scrollview-content
-    //     overflow: scroll !important
-    //     position: relative !important
-    //     flex: initial !important
+  min-height: 999px

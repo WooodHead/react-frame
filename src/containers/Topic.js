@@ -16,6 +16,15 @@ function callback (key) {
 function handleTabClick (key) {
   console.log('onTabClick', key)
 }
+
+function MyBody (props) {
+  return (
+    <div className="am-list-body my-body">
+      <span style={{ display: 'none' }}>you can custom body wrap element</span>
+      {props.children}
+    </div>
+  )
+}
 class Topic extends Component {
   constructor () {
     super()
@@ -35,7 +44,9 @@ class Topic extends Component {
   }
   render () {
     const { topicList } = this.props
+
     const ds = this.dataSource.cloneWithRows(topicList)
+
     return (
       <div className={styles['topic-container'] + ' home-topic-container mt-32'}>
         <Tabs className="topic-container-tabs-bar" defaultActiveKey="1" onChange={callback} swipeable={false} animated={false} onTabClick={handleTabClick}>

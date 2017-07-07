@@ -10,11 +10,11 @@ class TopicItem extends Component {
     return (
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
-          <img src={user['head_img']} className={styles['avatar']} />
+          <img src={user ? user['head_img'] : ''} className={styles['avatar']} />
           <Link to={'/topic/id/' + this.props.id}>
             <div className={styles['header-right']}>
               <div className={styles['header-right-first-fl']}>
-                <span className={styles['nickname']} style={{marginRight: '18px'}}>{user.nickname}</span>
+                <span className={styles['nickname']} style={{marginRight: '18px'}}>{user ? user.nickname : ''}</span>
                 { this.props['isofficial'] === 1 && <TopicTag type="official" style={{marginRight: '18px'}}/> }
                 { this.props['ishot'] === 1 && <TopicTag type="hot" style={{marginRight: '18px'}}/> }
                 { this.props['isgreat'] === 1 && <TopicTag type="essence" /> }
