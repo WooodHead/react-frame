@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+
 import styles from '@/stylus/navbar'
-export default class extends Component {
+
+class Navbar extends Component {
+  constructor () {
+    super()
+    this.goBack = this.goBack.bind(this)
+  }
+  goBack () {
+    this.props.history.goBack()
+  }
   render () {
     const { titleContent, rightContent } = this.props
     return (
       <div className={styles['navbar']}>
         <div className={styles['navbar-left']}>
-          <div className={styles['icon-go-back']}></div>
+          <div onClick={this.goBack} className={styles['icon-go-back']}></div>
         </div>
         <span className={styles['navbar-title']}>{titleContent}</span>
         <div className={styles['navbar-right']}>
@@ -16,3 +26,4 @@ export default class extends Component {
     )
   }
 }
+export default withRouter(Navbar)

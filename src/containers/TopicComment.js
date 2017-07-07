@@ -1,3 +1,6 @@
+/**
+ * 帖子详情评论区域
+ */
 import React, { Component } from 'react'
 
 import styles from '@/stylus/topic-comment'

@@ -1,35 +1,41 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+
 import styles from '@/stylus/topic-item'
 
 import TopicTag from '@/components/common/TopicTag'
 class TopicItem extends Component {
   render () {
-    const { className } = this.props
+    const { className, title, user } = this.props
     return (
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
-          <img src='https://www.wanglibao.com/images/bbs/avatar1.png' className={styles['avatar']} />
-          <div className={styles['header-right']}>
-            <div className={styles['header-right-first-fl']}>
-              <span className={styles['nickname']} style={{marginRight: '18px'}}>网利宝君</span>
-              <TopicTag type="official" style={{marginRight: '18px'}}/>
-              <TopicTag type="hot" style={{marginRight: '18px'}}/>
-              <TopicTag type="essence" />
+          <img src={user['head_img']} className={styles['avatar']} />
+          <Link to={'/topic/id/' + this.props.id}>
+            <div className={styles['header-right']}>
+              <div className={styles['header-right-first-fl']}>
+                <span className={styles['nickname']} style={{marginRight: '18px'}}>{user.nickname}</span>
+                { this.props['isofficial'] === 1 && <TopicTag type="official" style={{marginRight: '18px'}}/> }
+                { this.props['ishot'] === 1 && <TopicTag type="hot" style={{marginRight: '18px'}}/> }
+                { this.props['isgreat'] === 1 && <TopicTag type="essence" /> }
+              </div>
+              <div className={styles['header-right-second-fl']}>
+                <span>{this.props['created_at']}</span>
+                <span className={styles['separated']}>·</span>
+                <span>{this.props['views']}人阅读</span>
+              </div>
             </div>
-            <div className={styles['header-right-second-fl']}>
-              <span>刚刚</span>
-              <span className={styles['separated']}>·</span>
-              <span>1222人阅读</span>
-            </div>
+          </Link>
+        </div>
+        <Link to={'/topic/id/' + this.props.id}>
+          <div className={styles['content']}>
+            <p>{title}</p>
           </div>
-        </div>
-        <div className={styles['content']}>
-          <p>网利社区全新升级了！网利社区全新升级了！网利社区全新升级了！</p>
-        </div>
+        </Link>
         <div className={styles['footer']}>
-          <div className={styles['start']}><span>666</span></div>
-          <div className={styles['comment']}><span>0</span></div>
-          <div className={styles['love']}><span>666</span></div>
+          <div className={styles['start']}><span>{this.props['collection_num']}</span></div>
+          <div className={styles['comment']}><span>{this.props['comment_num']}</span></div>
+          <div className={styles['love']}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>
     )

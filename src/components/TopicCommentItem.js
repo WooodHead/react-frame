@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import styles from '@/stylus/topic-comment'
 
 import CommentLike from '@/components/CommentLike'
+import CommentDel from '@/components/common/icons/CommentDel'
 
 class TopicCommentItem extends Component {
   render () {
@@ -23,6 +24,7 @@ class TopicCommentItem extends Component {
             </div>
             <div className={styles['first-fl-right']}>
               <CommentLike />
+              <CommentDel className="ml-24 mt-2"/>
             </div>
           </div>
           <div className={styles['topic-comment-item-content']}>

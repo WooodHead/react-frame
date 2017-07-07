@@ -43,11 +43,20 @@ function fetchData (params) {
     withCredentials: isCrossDomain || !isPro
   })
 }
+
+// 获取帖子板块
+export const getTopicAllType = () => {
+  return http({
+    url: apiList,
+    method: 'getBbsThreadSectionList',
+    params: [{}]
+  }).then(res => res.data)
+}
 export const getTopicList = (params) => {
   return http({
     url: apiList,
-    method: 'getBbsThreadList',
-    params: params
+    method: params.method,
+    params: params.params
   }).then(res => res.data)
 }
 export const topicAddRequest = (params) => {

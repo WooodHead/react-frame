@@ -1,6 +1,16 @@
+/**
+ * topic reducer
+ */
 import { handleActions } from 'redux-actions'
 
 export default handleActions({
+  'fetch topic all type': (state, { payload }) => {
+    const { topicTypes } = payload
+    return {
+      ...state,
+      topicTypes
+    }
+  },
   'fetch topic list request': (state) => {
     return {
       ...state,
@@ -14,19 +24,17 @@ export default handleActions({
     }
   },
   'fetch topic list success': (state, { payload }) => {
-    var dataBlob = {}
-    const { list, total } = payload
-    dataBlob = state.list.concat(list)
-    console.log(dataBlob, 'dataBlob')
+    const { data, total } = payload
     return {
       ...state,
-      list: dataBlob,
+      topicList: data,
       loading: false
     }
   }
 }, {
-  list: [],
+  topicList: [],
   isLoading: false,
+  topicTypes: [],
   hasMore: true,
   rowIds: [],
   total: 0,
