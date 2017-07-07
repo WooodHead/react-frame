@@ -5,10 +5,22 @@ import { handleActions } from 'redux-actions'
 
 export default handleActions({
   'fetch topic all type': (state, { payload }) => {
-    const { topicTypes } = payload
+    const { topicTypes, page, total } = payload
+    var topicList = {}
+    if (state.topicList.length === 0) {
+      for (let i in topicTypes) {
+        topicList[topicTypes[i].id] = []
+      }
+    } else {
+      topicList = state.topicList
+    }
+    console.log(topicList, 'types')
     return {
       ...state,
-      topicTypes
+      topicTypes,
+      topicList,
+      page,
+      total
     }
   },
   'fetch topic list request': (state) => {
@@ -24,10 +36,14 @@ export default handleActions({
     }
   },
   'fetch topic list success': (state, { payload }) => {
-    const { data, total } = payload
+    const { data, total, page, lastPage, typeid } = payload
+    var topicList = state.topicList
+    topicList[typeid] = state.topicList[typeid].concat(data)
     return {
       ...state,
-      topicList: data,
+      total,
+      page,
+      lastPage,
       loading: false
     }
   }
@@ -36,7 +52,8 @@ export default handleActions({
   isLoading: false,
   topicTypes: [],
   hasMore: true,
-  rowIds: [],
-  total: 0,
+  total: 1,
+  page: 1,
+  lastPage: 1,
   loading: false
 })

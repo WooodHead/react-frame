@@ -35,17 +35,22 @@ class Topic extends Component {
   }
   componentWillMount () {
     const { typeid, dispatch } = this.props
-    dispatch(actions.fetchTopicList({method: 'getBbsThreadAllList', id: typeid}))
+    dispatch(actions.fetchTopicList({method: 'getBbsThreadAllList', id: typeid, page: 1}))
   }
   componentDidMount () {
   }
   onEndReached () {
     console.log('end')
+    const { typeid, dispatch, page, total, lastPage } = this.props
+    console.log(this.props)
+    if (page < lastPage) {
+      dispatch(actions.fetchTopicList({method: 'getBbsThreadAllList', id: typeid, page: page + 1}))
+    }
   }
   render () {
-    const { topicList } = this.props
+    const { topicList, typeid } = this.props
 
-    const ds = this.dataSource.cloneWithRows(topicList)
+    const ds = this.dataSource.cloneWithRows(topicList[typeid])
 
     return (
       <div className={styles['topic-container'] + ' home-topic-container mt-32'}>
