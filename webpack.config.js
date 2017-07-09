@@ -68,11 +68,11 @@ var plugins = [
 ];
 if (env === 'production') {
   plugins = Array.prototype.concat.call(plugins, [
-    new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: {
-        safe: true
-      }
-    }),
+    // new OptimizeCssAssetsPlugin({
+    //   cssProcessorOptions: {
+    //     safe: true
+    //   }
+    // }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -152,6 +152,14 @@ module.exports = {
         }
       },
       {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: isPro ? 'fonts/[name].[hash:7].[ext]' : '[name].[hash:7].[ext]'
+        }
+      },
+      {
         test: /\.(svg)$/i,
         loader: 'svg-sprite-loader',
         include: svgDirs  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
@@ -171,6 +179,14 @@ module.exports = {
       colors: true,
       errors: true
     },
+    proxy: {
+      '/': {
+        target: 'http://192.168.10.183:8082/',
+        changeOrigin: true,
+        pathRewrite: {
+        }
+      }
+    }
     // 启用gzip压缩一切服务:
     // compress: true,
     // host: '0.0.0.0',
@@ -178,7 +194,7 @@ module.exports = {
     // port: '3001'
   },
   resolve: {
-    modules: ['node_modules', path.resolve(__dirname, 'src')],
+    modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
     extensions: ['.web.js', '.js', '.min.js', '.json', '.styl'],
     alias: {
       'lib': path.join(__dirname, 'lib'),
@@ -186,4 +202,5 @@ module.exports = {
     }
   },
   devtool: !isPro ? 'eval-source-map' : ''
+  // devtool: ''
 }

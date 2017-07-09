@@ -33,6 +33,7 @@ class TopicDetail extends Component {
               <p>大家期待已久的投资人见面会即将在明天拉开帷幕。此次因为场地及时间限制，我们仅邀请了50位用户到场，不过没有到场的用户也不用灰心哟，你们可以：在6月10日下午2点大家期待已久的投资人见面会即将在明天拉开帷幕。，我们仅邀在6月10日下午2点。
               </p>
               {/* <div dangerouslySetInnerHTML={createMarkup()}></div> */}
+              <img src="https://image.wanglibao.com/yunying/201707071340461979.png" />
             </div>
             <div className={styles['love-area']}>
               <TopicLove />

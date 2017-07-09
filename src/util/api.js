@@ -4,6 +4,7 @@ var isCrossDomain = window.location.hostname.indexOf('wanglibao.com') === -1
 
 var Location = window.location
 var host, api
+var simulate = true
 
 host = 'https://php1.wanglibao.com'
 if (Location.hostname.indexOf('wanglibao.com') > -1) {
@@ -27,6 +28,7 @@ function http () {
   }
 }
 function fetchData (params) {
+  params.type = params.type ? params.type : 'post'
   params['params'] = params['params'] ? params['params'] : []
   let jsonObj = {
     jsonrpc: '2.0',
@@ -37,7 +39,7 @@ function fetchData (params) {
   let json = JSON.stringify(jsonObj)
   return axios({
     url: params.url,
-    method: 'post',
+    method: params.type,
     data: json,
     timeout: 10000,
     withCredentials: isCrossDomain || !isPro
@@ -46,14 +48,24 @@ function fetchData (params) {
 
 // 获取帖子板块
 export const getTopicAllType = () => {
-  return http({
+  return simulate ? http({
+    type: 'get',
+    url: '/types.json',
+    method: 'getBbsThreadSectionList',
+    params: [{}]
+  }).then(res => res.data) : http({
     url: apiList,
     method: 'getBbsThreadSectionList',
     params: [{}]
   }).then(res => res.data)
 }
 export const getTopicList = (params) => {
-  return http({
+  return simulate ? http({
+    type: 'get',
+    url: '/topic-list.json',
+    method: params.method,
+    params: params.params
+  }).then(res => res.data) : http({
     url: apiList,
     method: params.method,
     params: params.params

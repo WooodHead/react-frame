@@ -6,8 +6,10 @@
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'development'",
     "build": "rimraf dist &&webpack --progress --colors --env production",
+    "clear": "rimraf dist",
     "watch": "webpack --progress --colors --watch --env production",
-    "test": "http-server ./dist -p 8081"
+    "test": "http-server ./dist -p 8081 -P http://192.168.10.183:8082",
+    "api": "http-server ./api -p 8082"
   },
   "keywords": [
     "react"
@@ -55,6 +57,7 @@
     "html-webpack-plugin": "^2.28.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.2.0",
+    "postcss-csso": "^2.0.0",
     "postcss-loader": "^2.0.6",
     "postcss-pxtorem": "^4.0.1",
     "rimraf": "^2.6.1",
