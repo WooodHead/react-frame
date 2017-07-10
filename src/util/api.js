@@ -4,6 +4,8 @@ var isCrossDomain = window.location.hostname.indexOf('wanglibao.com') === -1
 
 var Location = window.location
 var host, api
+
+// 是否本地模拟接口数据
 var simulate = true
 
 host = 'https://php1.wanglibao.com'
@@ -47,7 +49,8 @@ function fetchData (params) {
 }
 
 // 获取帖子板块
-export const getTopicAllType = () => {
+export const getTopicAllType = (cb) => {
+  simulate = false
   return simulate ? http({
     type: 'get',
     url: '/types.json',
@@ -57,7 +60,13 @@ export const getTopicAllType = () => {
     url: apiList,
     method: 'getBbsThreadSectionList',
     params: [{}]
-  }).then(res => res.data)
+  }).then(res => {
+    setTimeout(() => {
+      console.log(cb)
+      cb && cb()
+    }, 0)
+    return res.data
+  })
 }
 export const getTopicList = (params) => {
   return simulate ? http({

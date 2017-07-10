@@ -6,7 +6,7 @@ import { getTopicAllType, getTopicList } from '@/util/api'
 
 // 获取帖子所有板块
 export const fetchTopicAllType = (payload) => (dispatch) => {
-  getTopicAllType().then(res => {
+  getTopicAllType(payload.cb).then(res => {
     let topicTypes = res.result.data
     dispatch(createAction('fetch topic all type')({topicTypes}))
   })

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+
 class Bundle extends Component {
   constructor () {
     super(...arguments)

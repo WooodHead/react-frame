@@ -8,7 +8,7 @@
     "build": "rimraf dist &&webpack --progress --colors --env production",
     "clear": "rimraf dist",
     "watch": "webpack --progress --colors --watch --env production",
-    "test": "http-server ./dist -p 8081 -P http://192.168.10.183:8082",
+    "test": "http-server ./dist -p 8081",
     "api": "http-server ./api -p 8082"
   },
   "keywords": [

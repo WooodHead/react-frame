@@ -87,13 +87,14 @@ if (env === 'production') {
 module.exports = {
   entry: {
     // venders: ['react', 'react-dom', 'react-router'],
+    // mui: './lib/mui/js/mui',
     main: ['babel-polyfill', './src/app']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isPro ? 'js/[name].[chunkhash].js' : '[name].[hash:8].bundle.js',
     chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[name]-[id].[chunkhash:8].bundle.js',
-    publicPath: isPro ? '/' : ''
+    publicPath: isPro ? '/bbs' : ''
   },
   module: {
     rules: [
@@ -181,7 +182,7 @@ module.exports = {
     },
     proxy: {
       '/': {
-        target: 'http://192.168.10.183:8082/',
+        target: 'http://192.168.11.161:8082/',
         changeOrigin: true,
         pathRewrite: {
         }

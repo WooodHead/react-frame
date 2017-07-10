@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -12,11 +13,10 @@ import NavbarPerson from '@/components/common/icons/NavbarPerson'
 import Stick from '@/containers/Stick'
 import Topic from '@/containers/Topic'
 import HomeCommentEnter from '@/components/HomeCommentEnter'
-
 import styles from '@/stylus/home'
 
-const Hammer = require('lib/hammer.min')
 const TabPane = Tabs.TabPane
+var load = require('bundle-loader?lazy!lib/mui/js/mui')
 
 function callback (key) {
   console.log('onChange', key)
@@ -49,6 +49,7 @@ function handleTabClick (key) {
 function handlePan () {
   console.log('pan')
 }
+
 class Index extends Component {
   constructor () {
     super()
@@ -59,37 +60,72 @@ class Index extends Component {
     }
   }
   componentWillMount () {
+    console.log('will mount')
     const {dispatch} = this.props
-    dispatch(actions.fetchTopicAllType())
+    dispatch(actions.fetchTopicAllType({cb: function () {
+      console.log('data responed')
+      load(function (mui) {
+        mui.init()
+        mui('#navbar-scroll').scroll()
+        mui('.home-slider').slider()
+        mui('.m-s-w-2').scroll({
+          indicators: false,
+          deceleration: 0.0005,
+          bounce: true
+        })
+      })
+    }}))
   }
   componentDidMount () {
     $('.' + styles['home-tabs'] + ' > .am-tabs-content').scroll(function (e) {
-      resetTabsBarPosition()
+      // resetTabsBarPosition()
     })
   }
-  render () {
+  rennderTitleContent () {
     const { topicTypes } = this.props
-    console.log(topicTypes)
     return (
-      <div className="layout">
-        <div className={styles['goback']}></div>
-        <div className={styles['navbar-right']}>
-          <NavbarPerson style={{marginRight: '32px'}}/>
-        </div>
-        <Tabs swipeable={false} animated={false} speed={1} destroyInactiveTabPane={true} className={styles['home-tabs']} defaultActiveKey="1" onChange={callback} pageSize={3} onTabClick={handleTabClick}>
+      <div id="navbar-scroll" className="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div className="mui-scroll">
           {
             topicTypes.map((item, index) => {
               return (
-                <TabPane tab={`${item.name}`} key={index}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <Stick />
-                    <Topic typeid={item.id}/>
-                  </div>
-                </TabPane>
+                <a key={index} href={'#scrollWrapItem' + index} className={'mui-control-item ' + (index === 0 ? 'mui-active' : '')}>
+                  {item.name}
+                </a>
               )
             })
           }
-        </Tabs>
+        </div>
+      </div>
+    )
+  }
+  render () {
+    const { topicTypes } = this.props
+    return (
+      <div className="layout">
+        <div className="home-slider mui-slider mui-fullscreen">
+          <Navbar
+            titleContent={this.rennderTitleContent.bind(this)()}
+            rightContent={<NavbarPerson />}
+            titleClass="flex-2"
+          />
+          <div className="m-s-w-1 mui-slider-group">
+            {
+              topicTypes.map((item, index) => {
+                return (
+                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (index === 0 ? 'mui-active' : '')} key={index}>
+                    <div className="mui-scroll-wrapper m-s-w-2">
+                      <div className="mui-scroll">
+                        <Stick />
+                        <Topic typeid={item.id}/>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
         {/* <HomeCommentEnter /> */}
       </div>
     )

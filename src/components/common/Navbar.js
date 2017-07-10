@@ -12,13 +12,13 @@ class Navbar extends Component {
     this.props.history.goBack()
   }
   render () {
-    const { titleContent, rightContent } = this.props
+    const { titleContent, rightContent, titleClass } = this.props
     return (
       <div className={styles['navbar']}>
         <div className={styles['navbar-left']}>
           <div onClick={this.goBack} className={styles['icon-go-back']}></div>
         </div>
-        <span className={styles['navbar-title']}>{titleContent}</span>
+        <span className={styles['navbar-title'] + ' ' + titleClass}>{titleContent}</span>
         <div className={styles['navbar-right']}>
           {rightContent}
         </div>
