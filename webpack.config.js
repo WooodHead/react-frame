@@ -94,7 +94,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: isPro ? 'js/[name].[chunkhash].js' : '[name].[hash:8].bundle.js',
     chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[name]-[id].[chunkhash:8].bundle.js',
-    publicPath: isPro ? '/bbs' : ''
+    publicPath: isPro ? '/bbs/' : ''
   },
   module: {
     rules: [

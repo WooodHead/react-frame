@@ -6,7 +6,7 @@ var Location = window.location
 var host, api
 
 // 是否本地模拟接口数据
-var simulate = true
+var simulate = false
 
 host = 'https://php1.wanglibao.com'
 if (Location.hostname.indexOf('wanglibao.com') > -1) {
@@ -62,7 +62,6 @@ export const getTopicAllType = (cb) => {
     params: [{}]
   }).then(res => {
     setTimeout(() => {
-      console.log(cb)
       cb && cb()
     }, 0)
     return res.data

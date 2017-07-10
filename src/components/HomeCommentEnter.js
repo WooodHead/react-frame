@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import styles from '@/stylus/home-commententer'
-console.log(styles)
 
 class HomeCommentEnter extends Component {
   render () {

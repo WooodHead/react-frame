@@ -46,8 +46,6 @@ const Test = (props) => (
   </Bundle>
 )
 
-console.log(process.env.NODE_ENV)
-
 const isPro = process.env.NODE_ENV === 'production'
 
 const Router = isPro ? BrowserRouter : HashRouter

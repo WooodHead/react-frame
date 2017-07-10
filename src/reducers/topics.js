@@ -14,7 +14,6 @@ export default handleActions({
     } else {
       topicList = state.topicList
     }
-    console.log(topicList, 'types')
     return {
       ...state,
       topicTypes,

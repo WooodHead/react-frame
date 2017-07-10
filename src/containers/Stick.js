@@ -26,7 +26,6 @@ class Stick extends Component {
       <div className={styles['stick-container']}>
         {
           data.map(function (item, index) {
-            console.log(Number(index) === data.length - 1)
             return (
               <StickItem className={Number(index) === data.length - 1 ? styles['no-border'] : ''} key={index} item={item} />
             )
