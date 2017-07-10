@@ -1,5 +1,5 @@
 # 简介
-一个react+redux+stylus+webpack+antd的框架demo
+一个react+redux+stylus+webpack+antd+mui的框架
 
 # 安装
 npm install
