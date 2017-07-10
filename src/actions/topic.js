@@ -22,6 +22,9 @@ export const fetchTopicList = (payload) => (dispatch) => {
       const lastPage = res.result.data['last_page']
       dispatch(createAction('fetch topic list success')({data, total, page, lastPage, typeid}))
       dispatch(createAction('loading hidden')())
+      setTimeout(() => {
+        payload.cb && payload.cb()
+      }, 0)
     } else {
       dispatch(createAction('loading hidden')())
     }
