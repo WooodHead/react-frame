@@ -1,0 +1,93 @@
+@import './antd'
+html, body
+  height: 100%
+body
+  overflow: scroll!important
+  -webkit-overflow-scrolling: touch
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background-color: #f5f5f5
+  overflow: hidden
+:global
+  #root
+    width: 100%
+    height: 100%
+    overflow: hidden
+    .app
+      width: 100%
+      height: 100%
+      .layout
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: column
+      .scroll-wrap
+        flex: 1
+        overflow: scroll
+      .home-slider
+        display: flex;
+        flex-direction: column;
+        .m-s-w-1
+          flex: 1
+          position: absolute;
+          top: 0px;
+          bottom: 0;
+          width: 100%;
+        .m-s-w-2
+          top: 90px;
+      .mui-fullscreen
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      #navbar-scroll
+        line-height: 90px
+        height: 90px
+        .mui-active
+          opacity: 1;
+          font-family: PingFangSC-Medium;
+          font-size: 32px;
+          color: #FFFFFF;
+          letter-spacing: 0.13px;
+          line-height: 84px;
+          height: 90px
+          display: inline-block;
+          border-bottom: 6px solid #FFFFFF;
+        a
+          opacity: 0.7;
+          font-family: PingFangSC-Regular;
+          font-size: 28px;
+          color: #FFFFFF;
+          letter-spacing: 0.12px;
+          line-height: 84px;
+          height: 90px
+          display: inline-block;
+          margin: 0 20px;
+          padding: 0;
+          border-bottom: 6px solid transparent;
+  p,h1,h2,h3,h4,h5,h6
+    margin: 0
+    padding: 0
+  .mt-2
+    margin-top: 2px
+  .mt-32
+    margin-top: 32px
+  .mb-18
+    margin-bottom: 18px
+  .ml-24
+    margin-left: 24px
+  .bg-white
+    background: #FFFFFF
+  .fixed
+    position: fixed
+    z-index: 999
+    top: 0
+    .abs
+      position: absolute
+      top: 80px
+  .flex-2
+    flex: 2 !important
