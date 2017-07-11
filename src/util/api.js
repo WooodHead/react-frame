@@ -93,15 +93,12 @@ export const topicAddRequest = (params) => {
 // 图片上传接口
 export const imgUploadRequest = (params) => {
   let param = new FormData() // 创建form对象
-  param.append('img', params.file, params.file.name) // 通过append向form对象添加数据
-  param.append('chunk', '0') // 添加form表单中其他数据
-  console.log(param.get('img'), param.get('chunk'))
+  param.append('img', params.file) // 通过append向form对象添加数据
   return axios({
-    url: 'http://api-omg.wanglibao.com/yunying/upload/img',
+    url: imgUpload,
+    data: param,
     method: 'post',
-    headers: {'Content-Type': 'multipart/form-data'},
-    // responseType: 'stream',
-    params: param
+    headers: {'Content-Type': 'multipart/form-data'}
   }).then(res => res.data)
 }
 export default http

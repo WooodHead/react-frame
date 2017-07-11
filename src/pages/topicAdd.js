@@ -53,8 +53,11 @@ class TopicAdd extends Component {
     this.setState({
       files: files
     })
+    if (type === 'remove') {
+      return
+    }
     imgUploadRequest({
-      file: files[0].file
+      file: files[files.length - 1].file
     }).then((res) => {
       console.log(res)
     })
