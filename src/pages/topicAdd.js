@@ -3,16 +3,11 @@ import { withRouter } from 'react-router-dom'
 import { createForm } from 'rc-form'
 import { Button, ImagePicker } from 'antd-mobile'
 
+import { topicAddRequest, imgUploadRequest } from '@/util/api'
 import Navbar from '@/components/common/Navbar'
 import styles from '@/stylus/topic-add'
 
-const data = [{
-  url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-  id: '2121'
-}, {
-  url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-  id: '2122'
-}]
+const data = []
 
 class TopicAdd extends Component {
   constructor () {
@@ -26,14 +21,42 @@ class TopicAdd extends Component {
     this.wordChange = this.wordChange.bind(this)
   }
   handleSubmit () {
+    console.log(this)
     this.props.form.validateFields((error, value) => {
-      console.log(error, value)
+      console.log(error, 'error')
+      const { title, content } = value
+      if (title === '' && content === '') {
+        return
+      }
+      if (title.length < 4 || title.length > 23) {
+        this.Toast.info('标题为4-23个字')
+        return
+      }
+      if (content.length < 15 || content.length > 500) {
+        this.Toast.info('内容为15-500字')
+        return
+      }
+      topicAddRequest({
+        type_id: 7,
+        title: value.title,
+        content: value.content
+      }).then((res) => {
+        console.log(res)
+        if (res.error) {
+          this.Toast.info(res.error.message)
+        }
+      })
     })
   }
   onChange (files, type, index) {
-    console.log(files, type, index)
+    console.log(files, type, index, 'onChange')
     this.setState({
       files: files
+    })
+    imgUploadRequest({
+      file: files[0].file
+    }).then((res) => {
+      console.log(res)
     })
   }
   wordChange () {
@@ -52,6 +75,9 @@ class TopicAdd extends Component {
       })
     }, 0)
   }
+  componentWillMount () {
+    console.log(this)
+  }
   componentDidMount () {
   }
   render () {
@@ -69,7 +95,7 @@ class TopicAdd extends Component {
         <div className="scroll-wrap bg-white">
           <div className={styles.title}>
             <span>标题：</span>
-            <input type="text" name="title" value="" {...getFieldProps('title', {
+            <input {...getFieldProps('title', {
               onChange: this.wordChange,
               initialValue: ''
             })}
@@ -77,6 +103,7 @@ class TopicAdd extends Component {
           </div>
           <div className={styles.content}>
             <textarea
+              id={styles['text-area']}
               {...getFieldProps('content', {
                 onChange: this.wordChange,
                 initialValue: ''

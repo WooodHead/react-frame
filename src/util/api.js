@@ -15,6 +15,7 @@ if (Location.hostname.indexOf('wanglibao.com') > -1) {
 
 export const currentHost = host
 export const apiList = host + '/yunying/rpc'
+export const imgUpload = host + '/yunying/upload/img'
 export const apiAccount = host + '/passport/service.php?c=account'
 
 function http () {
@@ -67,6 +68,7 @@ export const getTopicAllType = (cb) => {
     return res.data
   })
 }
+// 获取帖子列表
 export const getTopicList = (params) => {
   return simulate ? http({
     type: 'get',
@@ -79,12 +81,27 @@ export const getTopicList = (params) => {
     params: params.params
   }).then(res => res.data)
 }
+// 帖子发布接口
 export const topicAddRequest = (params) => {
   console.log(params)
   return http({
     url: apiList,
     method: 'BbsPublishThread',
     params: [params]
+  }).then(res => res.data)
+}
+// 图片上传接口
+export const imgUploadRequest = (params) => {
+  let param = new FormData() // 创建form对象
+  param.append('img', params.file, params.file.name) // 通过append向form对象添加数据
+  param.append('chunk', '0') // 添加form表单中其他数据
+  console.log(param.get('img'), param.get('chunk'))
+  return axios({
+    url: 'http://api-omg.wanglibao.com/yunying/upload/img',
+    method: 'post',
+    headers: {'Content-Type': 'multipart/form-data'},
+    // responseType: 'stream',
+    params: param
   }).then(res => res.data)
 }
 export default http

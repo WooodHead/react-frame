@@ -1,14 +1,36 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Popup } from 'antd-mobile'
 
 import styles from '@/stylus/home-commententer'
 
+import TopicPublicSelect from '@/components/TopicPublicSelect'
+
 class HomeCommentEnter extends Component {
+  constructor () {
+    super()
+    this.popUp = this.popUp.bind(this)
+  }
+  popUp () {
+    const { history } = this.props
+    Popup.show(
+      <TopicPublicSelect history={history} />,
+      {
+        animationType: 'slide-up'
+      }
+    )
+  }
+  componentDidMount () {
+    console.log(this)
+    // this.popUp()
+  }
   render () {
+    const { className } = this.props
     return (
-      <div className={styles['comment']}>
+      <div onClick={this.popUp} className={className + ' ' + styles['comment']}>
         <span>说点什么吧~</span>
       </div>
     )
   }
 }
-export default HomeCommentEnter
+export default withRouter(HomeCommentEnter)

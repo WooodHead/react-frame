@@ -13,18 +13,20 @@
     display: flex
     align-items: center
   input
-    flex: 1
-    display: flex
+    height: 98px !important
+    flex: 1 !important
+    display: flex !important
     align-items: center
-    border: none
+    border: none !important
+    font-size: 32px !important
     &::-webkit-input-placeholder
-      flex: 1
-      display: flex
+      flex: 1 !important
+      display: flex !important
       align-items: center
       color: #999999
 .content
   margin: 0 32px
-  textarea
+  #text-area
     margin: 32px 0 20px
     width: 100%
     min-height: 300px
@@ -32,8 +34,18 @@
     overflow-y: scroll
     border: none
     resize: none
+    font-family: PingFangSC-Regular;
+    font-size: 32px;
+    color: #666666;
+    letter-spacing: -0.2px;
+    line-height: 48px;
     &::-webkit-input-placeholder
       color: #999999
+      font-family: PingFangSC-Regular;
+      font-size: 28px;
+      color: #666666;
+      letter-spacing: -0.17px;
+      line-height: 36px;
 .image-picker
   background: #FFFFFF
   overflow: hidden
