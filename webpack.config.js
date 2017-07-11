@@ -38,7 +38,8 @@ var plugins = [
   new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',
-    "window.jQuery": 'jquery'
+    "window.jQuery": 'jquery',
+    mui: 'lib/mui/js/mui'
   }),
   // 将node_modules打入vendor
   new webpack.optimize.CommonsChunkPlugin({

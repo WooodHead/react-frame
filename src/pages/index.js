@@ -16,7 +16,6 @@ import HomeCommentEnter from '@/components/HomeCommentEnter'
 import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
-var load = require('bundle-loader?lazy!lib/mui/js/mui')
 
 function callback (key) {
   console.log('onChange', key)
@@ -60,35 +59,46 @@ class Index extends Component {
     }
   }
   componentWillMount () {
-    console.log('will mount')
-    var that = this
     const {dispatch} = this.props
-    dispatch(actions.fetchTopicAllType({cb: () => {
-      console.log('data responed')
-      load(function (mui) {
-        mui('#navbar-scroll').scroll()
-        mui('.home-slider').slider()
-        mui('.m-s-w-2').scroll({
-          indicators: false,
-          deceleration: 0.0005,
-          bounce: true
-        })
-        const { topicTypes } = that.props
-        topicTypes.map((item, index) => {
-          that.initPullRefresh(item.id, mui)
-        })
-      })
-    }}))
+    dispatch(actions.fetchTopicAllType())
   }
   componentDidMount () {
     $('.' + styles['home-tabs'] + ' > .am-tabs-content').scroll(function (e) {
-      // resetTabsBarPosition()
+      resetTabsBarPosition()
+    })
+    var that = this
+    // 监听导航点击，左右滑动事件进行导航选中位置重置
+    mui('#navbar-scroll').on('tap', '.mui-control-item', function () {
+      var el = this
+      that.resetNavScrollPosition(el)
+    })
+    document.querySelector('.home-slider').addEventListener('slide', function (event) {
+      var num = event.detail.slideNumber
+      var el = $('#navbar-scroll').find('.mui-control-item').eq(num)[0]
+      that.resetNavScrollPosition(el)
     })
   }
-
-  initPullRefresh (id, mui) {
+  // 航选中位置重置
+  resetNavScrollPosition (el) {
+    var lastEl = $(el).parent().children('.mui-control-item:last-child')
+    var totalW = lastEl[0].offsetLeft + lastEl[0].clientWidth
+    var offsetLeft = $(el)[0].offsetLeft
+    var half = $('#navbar-scroll').width() / 2 // 导航的一半宽
+    var x = 0
+    var nextW = $(el)[0].nextSibling ? $(el)[0].nextSibling : 0
+    if ($(el)[0].offsetLeft + $(el)[0].clientWidth < half) {
+      // offset + clientWidth 达不到 当前容器一半 不做任何处理
+    } else if (totalW - offsetLeft < half) {
+      // 当前元素到最后元素的宽不足容器一半 不做任何处理
+    } else {
+      x = $(el)[0].offsetLeft - half + $(el)[0].clientWidth / 2
+      setTimeout(() => {
+        mui('#navbar-scroll').scroll().scrollTo(-x, 0, 0)
+      }, 0)
+    }
+  }
+  initPullRefresh (id) {
     var that = this
-    console.log(mui('#refreshContainer_' + id))
     mui('#refreshContainer_' + id).pullRefresh({
       down: {
         indicators: false,
@@ -120,7 +130,21 @@ class Index extends Component {
   }
 
   componentDidUpdate () {
-    console.log('componentDidUpdate')
+    var that = this
+    mui('#navbar-scroll').scroll({
+      startX: 50,
+      snapX: 0.5
+    })
+    mui('.home-slider').slider()
+    mui('.m-s-w-2').scroll({
+      indicators: false,
+      deceleration: 0.0005,
+      bounce: true
+    })
+    const { topicTypes } = that.props
+    topicTypes.map((item, index) => {
+      that.initPullRefresh(item.id)
+    })
   }
 
   rennderTitleContent () {
