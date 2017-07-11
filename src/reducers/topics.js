@@ -4,6 +4,7 @@
 import { handleActions } from 'redux-actions'
 
 export default handleActions({
+  // 获取帖子所有的类型
   'fetch topic all type': (state, { payload }) => {
     const { topicTypes, page, total } = payload
     var topicList = {}
@@ -16,6 +17,7 @@ export default handleActions({
     }
     return {
       ...state,
+      selectedTypeId: topicTypes[0].id,
       topicTypes,
       topicList,
       page,
@@ -48,6 +50,7 @@ export default handleActions({
   }
 }, {
   topicList: [],
+  selectedTypeId: 0, // 当前选中的帖子类型id
   isLoading: false,
   topicTypes: [],
   hasMore: true,

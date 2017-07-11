@@ -87,17 +87,14 @@ class Index extends Component {
   }
 
   initPullRefresh (id, mui) {
-    // mui('#refreshContainer_' + id).scroll({
-    //   indicators: false,
-    //   deceleration: 0.0005
-    // })
+    var that = this
     console.log(mui('#refreshContainer_' + id))
     mui('#refreshContainer_' + id).pullRefresh({
       down: {
         indicators: false,
         style: 'circle', // 必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
         color: '#2BD009', // 可选，默认“#2BD009” 下拉刷新控件颜色
-        height: 50, // 可选,默认50.触发下拉刷新拖动距离,
+        height: 100, // 可选,默认50.触发下拉刷新拖动距离,
         auto: false, // 可选,默认false.首次加载自动上拉刷新一次
         callback: function () {
           setTimeout(() => {
@@ -108,18 +105,22 @@ class Index extends Component {
       up: {
         indicators: false,
         style: 'circle',
-        height: 0, // 可选.默认50.触发上拉加载拖动距离
+        height: 50, // 可选.默认50.触发上拉加载拖动距离
         auto: false, // 可选,默认false.自动上拉加载一次
         contentrefresh: '正在加载...', // 可选，正在加载状态时，上拉加载控件上显示的标题内容
         contentnomore: '没有更多数据了', // 可选，请求完毕若没有更多数据时显示的提醒内容；
         callback: function () {
-          console.log('up', mui('.' + styles['list-view']).pullRefresh())
+          console.log(that.props)
           setTimeout(() => {
             this.endPullupToRefresh(false)
           }, 1000)
         } // 必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
       }
     })
+  }
+
+  componentDidUpdate () {
+    console.log('componentDidUpdate')
   }
 
   rennderTitleContent () {
@@ -141,7 +142,7 @@ class Index extends Component {
     )
   }
   render () {
-    const { topicTypes } = this.props
+    const { topicTypes, selectedTypeId } = this.props
     return (
       <div className="layout">
         <div className="home-slider mui-slider mui-fullscreen">
@@ -154,7 +155,7 @@ class Index extends Component {
             {
               topicTypes.map((item, index) => {
                 return (
-                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (index === 0 ? 'mui-active' : '')} key={index}>
+                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedTypeId === item.id ? 'mui-active' : '')} key={index}>
                     <div id={'refreshContainer_' + item.id} className="mui-content mui-scroll-wrapper layout-conent">
                       <div className="mui-scroll">
                         <Stick />
@@ -174,9 +175,10 @@ class Index extends Component {
 }
 
 function mapStateToProps ({topic}) {
-  const { topicTypes } = topic
+  const { topicTypes, selectedTypeId } = topic
   return {
-    topicTypes
+    topicTypes,
+    selectedTypeId
   }
 }
 
