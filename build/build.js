@@ -8,7 +8,7 @@ rm('dist/*', function(){
   var compiler = webpack(webpackConfig,(err, stats) => {
     spinner.stop();
     console.log(stats.toString({
-      chunks: true,  // Makes the build much quieter
+      // chunks: true,  // Makes the build much quieter
       colors: true    // Shows colors in the console
     }));
   })

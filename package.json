@@ -7,7 +7,7 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'development'",
     "build": "rimraf dist &&webpack --progress --colors --env production",
     "clear": "rimraf dist",
-    "watch": "webpack --progress --colors --watch --env production",
+    "watch": "webpack --progress --colors --watch --env development",
     "test": "http-server ./dist -p 8081",
     "api": "http-server ./api -p 8082"
   },
@@ -68,7 +68,8 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-hot-middleware": "^2.18.0",
+    "yargs": "^8.0.2"
   },
   "browserslist": [
     "> 1%",

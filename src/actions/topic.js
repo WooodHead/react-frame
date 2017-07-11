@@ -14,8 +14,7 @@ export const fetchTopicAllType = (payload) => (dispatch) => {
 
 export const fetchTopicList = (payload) => (dispatch) => {
   dispatch(createAction('loading show')())
-  getTopicList({'method': payload.method, params: [{'id': payload.id, 'page': payload.page, 'pageNum': 2}]}).then(res => {
-    console.log(res)
+  getTopicList({'method': payload.method, params: [{'id': payload.id, 'page': payload.page, 'pageNum': 3}]}).then(res => {
     if (res.result) {
       const { data, total } = res.result.data
       const page = payload.page
@@ -23,6 +22,9 @@ export const fetchTopicList = (payload) => (dispatch) => {
       const lastPage = res.result.data['last_page']
       dispatch(createAction('fetch topic list success')({data, total, page, lastPage, typeid}))
       dispatch(createAction('loading hidden')())
+      setTimeout(() => {
+        payload.cb && payload.cb()
+      }, 0)
     } else {
       dispatch(createAction('loading hidden')())
     }
