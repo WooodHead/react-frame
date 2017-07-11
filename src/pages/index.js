@@ -168,7 +168,7 @@ class Index extends Component {
             }
           </div>
         </div>
-        {/* <HomeCommentEnter /> */}
+        <HomeCommentEnter className={styles['comment-enter']} />
       </div>
     )
   }

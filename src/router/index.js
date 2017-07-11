@@ -58,7 +58,7 @@ const router = () => (
         <Switch>
           <Route path="/" exact={true} component={Index}/>
           <Route path="/list" component={List}/>
-          <Route path="/topic/add" component={TopicAdd}/>
+          <Route path="/topic/add/:id" component={TopicAdd}/>
           <Route path="/topic/:id" component={TopicDetail}/>
           <Route path ="/test" component={Test}/>
         </Switch>
