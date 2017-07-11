@@ -1,42 +1,78 @@
-<!DOCTYPE html>
-<html lang=en>
-<head>
-  <meta charset=UTF-8>
-  <meta name=apple-mobile-web-app-capable content=yes>
-  <meta name=apple-mobile-web-app-status-bar-style content=black>
-  <meta http-equiv=X-UA-Compatible content="ie=edge">
-  <meta http-equiv=cache-control content=no-cache>
-  <meta http-equiv=expires content=0>
-  <meta name=apple-mobile-web-app-title content=react>
-  <meta content="telephone=no" name=format-detection>
-  <meta content="email=no" name=format-detection>
-  
-  <meta name=screen-orientation content=portrait>
+Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Module build failed: Error: ENOENT: no such file or directory, open '/Users/gaoyanru/Documents/demo/react-frame/node_modules/lodash/lodash  .js'
   
   
+  - Error: ENOENT: no such file or directory, open '/Users/gaoyanru/Documents/demo/react-frame/node_modules/lodash/lodash.js'
   
+  - compiler.js:76 
+    [react-frame]/[html-webpack-plugin]/lib/compiler.js:76:16
   
+  - Compiler.js:296 Compiler.<anonymous>
+    [react-frame]/[webpack]/lib/Compiler.js:296:10
   
+  - Compiler.js:499 
+    [react-frame]/[webpack]/lib/Compiler.js:499:13
   
+  - Tapable.js:138 next
+    [react-frame]/[tapable]/lib/Tapable.js:138:11
   
-  <meta name=x5-fullscreen content=true>
+  - CachePlugin.js:62 Compiler.<anonymous>
+    [react-frame]/[webpack]/lib/CachePlugin.js:62:5
   
-  <meta name=x5-page-mode content=app>
-  <title>网利社区</title>
-  <script>
-  !function(e){function t(a){if(i[a])return i[a].exports;var n=i[a]={exports:{},id:a,loaded:!1};return e[a].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var i={};return t.m=e,t.c=i,t.p="",t(0)}([function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i=window;t["default"]=i.flex=function(e,t){var a=e||100,n=t||1,r=i.document,o=navigator.userAgent,d=o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),l=o.match(/U3\/((\d+|\.){5,})/i),c=l&&parseInt(l[1].split(".").join(""),10)>=80,p=navigator.appVersion.match(/(iphone|ipad|ipod)/gi),s=i.devicePixelRatio||1;p||d&&d[1]>534||c||(s=1);var u=1/s,m=r.querySelector('meta[name="viewport"]');m||(m=r.createElement("meta"),m.setAttribute("name","viewport"),r.head.appendChild(m)),m.setAttribute("content","width=device-width,user-scalable=no,initial-scale="+u+",maximum-scale="+u+",minimum-scale="+u),r.documentElement.style.fontSize=a/2*s*n+"px"},e.exports=t["default"]}]);
-  flex(100, 1);
-  </script>
-<link href=/bbs/css/main.6e7e511502868a274d44fac0a9478857.css rel=stylesheet></head>
-<body>
-  <div id=root></div>
-  <script type=text/javascript src=https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js></script>
-  <script type=text/javascript>
-    if ('addEventListener' in document) {
-    	document.addEventListener('DOMContentLoaded', function() {
-    		FastClick.attach(document.body);
-    	}, false);
-    }
-  </script>
-<script type=text/javascript src=/bbs/js/manifest.199ca131f8c541356d17.js></script><script type=text/javascript src=/bbs/js/vendor.0195d9dead24ed17caf0.js></script><script type=text/javascript src=/bbs/js/main.9bab68b0ed22f2a33bc0.js></script></body>
-</html>
+  - Tapable.js:142 Compiler.applyPluginsAsyncSeries
+    [react-frame]/[tapable]/lib/Tapable.js:142:13
+  
+  - Compiler.js:496 
+    [react-frame]/[webpack]/lib/Compiler.js:496:10
+  
+  - Tapable.js:131 Compilation.applyPluginsAsyncSeries
+    [react-frame]/[tapable]/lib/Tapable.js:131:46
+  
+  - Compilation.js:649 self.applyPluginsAsync.err
+    [react-frame]/[webpack]/lib/Compilation.js:649:19
+  
+  - Tapable.js:131 Compilation.applyPluginsAsyncSeries
+    [react-frame]/[tapable]/lib/Tapable.js:131:46
+  
+  - Compilation.js:640 self.applyPluginsAsync.err
+    [react-frame]/[webpack]/lib/Compilation.js:640:11
+  
+  - Tapable.js:131 Compilation.applyPluginsAsyncSeries
+    [react-frame]/[tapable]/lib/Tapable.js:131:46
+  
+  - Compilation.js:635 self.applyPluginsAsync.err
+    [react-frame]/[webpack]/lib/Compilation.js:635:10
+  
+  - Tapable.js:131 Compilation.applyPluginsAsyncSeries
+    [react-frame]/[tapable]/lib/Tapable.js:131:46
+  
+  - Compilation.js:631 sealPart2
+    [react-frame]/[webpack]/lib/Compilation.js:631:9
+  
+  - Tapable.js:131 Compilation.applyPluginsAsyncSeries
+    [react-frame]/[tapable]/lib/Tapable.js:131:46
+  
+  - Compilation.js:579 Compilation.seal
+    [react-frame]/[webpack]/lib/Compilation.js:579:8
+  
+  - Compiler.js:493 
+    [react-frame]/[webpack]/lib/Compiler.js:493:16
+  
+  - Tapable.js:225 
+    [react-frame]/[tapable]/lib/Tapable.js:225:11
+  
+  - Compilation.js:481 _addModuleChain
+    [react-frame]/[webpack]/lib/Compilation.js:481:11
+  
+  - Compilation.js:452 processModuleDependencies.err
+    [react-frame]/[webpack]/lib/Compilation.js:452:13
+  
+  - next_tick.js:73 _combinedTickCallback
+    internal/process/next_tick.js:73:7
+  
+  - next_tick.js:104 process._tickCallback
+    internal/process/next_tick.js:104:9
+  
+</anonymous></anonymous></pre><script type=text/javascript src=manifest.ed5c7ad5.bundle.js></script><script type=text/javascript src=vendor.ed5c7ad5.bundle.js></script><script type=text/javascript src=main.ed5c7ad5.bundle.js></script>
