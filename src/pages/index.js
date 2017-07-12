@@ -84,6 +84,7 @@ class Index extends Component {
     var totalW = lastEl[0].offsetLeft + lastEl[0].clientWidth
     var offsetLeft = $(el)[0].offsetLeft
     var half = $('#navbar-scroll').width() / 2 // 导航的一半宽
+    console.log(half)
     var x = 0
     var nextW = $(el)[0].nextSibling ? $(el)[0].nextSibling : 0
     if ($(el)[0].offsetLeft + $(el)[0].clientWidth < half) {

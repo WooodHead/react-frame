@@ -25,11 +25,10 @@ class TopicPublicSelect extends Component {
     })
   }
   componentDidMount () {
-    var height = $(window).height() - 90
+    var height = $(window).height()
     $('.' + styles['view']).css({height: height})
   }
   hiddenPopUp () {
-    console.log(Popup)
     Popup.hide()
   }
   componentWillUnmount () {
@@ -39,7 +38,7 @@ class TopicPublicSelect extends Component {
     Popup.hide()
     const { history } = this.props
     history.push({
-      pathname: '/topic/add/id/' + id
+      pathname: '/topic/add/' + id
     })
   }
   render () {
