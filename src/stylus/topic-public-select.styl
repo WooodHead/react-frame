@@ -1,3 +1,12 @@
+@keyframes updown
+  0%
+    opacity: 0
+  70%
+    transform: translateY(-15px)
+  100%
+    transform: translateY(0px)
+updowFn(x)
+  animation: updown 600ms cubic-bezier(.45,.44,.53,1.03) (x*120)ms 1 both
 .view
   background: url('@/imgs/bg_sq_publishtc@2x.png') no-repeat
   background-size: 100% auto
@@ -15,15 +24,17 @@
       color: #447BFF;
       text-align: center;
     .types-area
-      height: 300px
-      overflow: scroll
       margin-top: 64px
       display: inline-block
       width: 580px
-      margin-bottom: 180px
+      margin-bottom: 40px
+      for i in 1 2 3 4 5 6 7 8
+        .type-item:nth-child({i})
+          updowFn: i
       .type-item
+        transform: translateY(1000px)
         display: inline-block
-        padding-bottom: 64px
+        padding-bottom: 40px
         width: 290px
         .icon
           img

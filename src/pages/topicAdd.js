@@ -37,7 +37,7 @@ class TopicAdd extends Component {
         return
       }
       topicAddRequest({
-        type_id: 7,
+        type_id: this.state.typeid,
         title: value.title,
         content: value.content
       }).then((res) => {
@@ -79,7 +79,10 @@ class TopicAdd extends Component {
     }, 0)
   }
   componentWillMount () {
-    console.log(this)
+    const { id } = this.props.match.params
+    this.setState({
+      typeid: id
+    })
   }
   componentDidMount () {
   }
