@@ -98,7 +98,7 @@ class TopicAdd extends Component {
         <div className="scroll-wrap bg-white">
           <div className={styles.title}>
             <span>标题：</span>
-            <input {...getFieldProps('title', {
+            <input type="text" {...getFieldProps('title', {
               onChange: this.wordChange,
               initialValue: ''
             })}

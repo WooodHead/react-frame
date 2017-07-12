@@ -5,6 +5,9 @@
     "es6": true,
     "jquery": true
   },
+  "globals": {
+    "mui": true
+  },
   "extends": ["standard"],
   "parserOptions": {
     "ecmaFeatures": {
