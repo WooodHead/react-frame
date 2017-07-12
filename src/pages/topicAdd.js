@@ -3,12 +3,14 @@ import { withRouter } from 'react-router-dom'
 import { createForm } from 'rc-form'
 import { Button, ImagePicker } from 'antd-mobile'
 
+import Alert from '@/plugins/alert'
+
 import { topicAddRequest, imgUploadRequest } from '@/util/api'
 import Navbar from '@/components/common/Navbar'
 import styles from '@/stylus/topic-add'
 
 const data = []
-
+console.log(Alert)
 class TopicAdd extends Component {
   constructor () {
     super()
@@ -21,45 +23,53 @@ class TopicAdd extends Component {
     this.wordChange = this.wordChange.bind(this)
   }
   handleSubmit () {
-    console.log(this)
-    this.props.form.validateFields((error, value) => {
-      console.log(error, 'error')
-      const { title, content } = value
-      if (title === '' && content === '') {
-        return
-      }
-      if (title.length < 4 || title.length > 23) {
-        this.Toast.info('标题为4-23个字')
-        return
-      }
-      if (content.length < 15 || content.length > 500) {
-        this.Toast.info('内容为15-500字')
-        return
-      }
-      topicAddRequest({
-        type_id: this.state.typeid,
-        title: value.title,
-        content: value.content
-      }).then((res) => {
-        console.log(res)
-        if (res.error) {
-          this.Toast.info(res.error.message)
-        }
-      })
-    })
+    Alert.show()
+    // var mask = mui.createMask(function () {
+    //   console.log('create')
+    // }) // callback为用户点击蒙版时自动执行的回调；
+    // mask.show() // 显示遮罩
+    // mask.close() // 关闭遮罩
+    // console.log(this)
+    // this.props.form.validateFields((error, value) => {
+    //   console.log(error, 'error')
+    //   const { title, content } = value
+    //   if (title === '' && content === '') {
+    //     return
+    //   }
+    //   if (title.length < 4 || title.length > 23) {
+    //     this.Toast.info('标题为4-23个字')
+    //     return
+    //   }
+    //   if (content.length < 15 || content.length > 500) {
+    //     this.Toast.info('内容为15-500字')
+    //     return
+    //   }
+    //   topicAddRequest({
+    //     type_id: this.state.typeid,
+    //     title: value.title,
+    //     content: value.content
+    //   }).then((res) => {
+    //     console.log(res)
+    //     if (res.error) {
+    //       this.Toast.info(res.error.message)
+    //     }
+    //   })
+    // })
   }
   onChange (files, type, index) {
-    console.log(files, type, index, 'onChange')
-    this.setState({
-      files: files
-    })
+    console.log(files, 'onChange')
     if (type === 'remove') {
+      this.setState({
+        files: files
+      })
       return
     }
     imgUploadRequest({
       file: files[files.length - 1].file
     }).then((res) => {
-      console.log(res)
+      this.setState({
+        files: files
+      })
     })
   }
   wordChange () {
