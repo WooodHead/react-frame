@@ -68,14 +68,14 @@ class Index extends Component {
     })
     var that = this
     // 监听导航点击，左右滑动事件进行导航选中位置重置
-    mui('#navbar-scroll').on('tap', '.mui-control-item', function () {
-      var el = this
-      that.resetNavScrollPosition(el)
-    })
+    // mui('#navbar-scroll').on('tap', '.mui-control-item', function () {
+    // })
     document.querySelector('.home-slider').addEventListener('slide', function (event) {
       var num = event.detail.slideNumber
       var el = $('#navbar-scroll').find('.mui-control-item').eq(num)[0]
-      that.resetNavScrollPosition(el)
+      setTimeout(() => {
+        that.resetNavScrollPosition(el)
+      }, 0)
     })
   }
   // 航选中位置重置
@@ -91,10 +91,9 @@ class Index extends Component {
     } else if (totalW - offsetLeft < half) {
       // 当前元素到最后元素的宽不足容器一半 不做任何处理
     } else {
+      // offset 向右移动当前元素宽度一半的位置，然后再往后移动一半达到居中
       x = $(el)[0].offsetLeft - half + $(el)[0].clientWidth / 2
-      setTimeout(() => {
-        mui('#navbar-scroll').scroll().scrollTo(-x, 0, 0)
-      }, 0)
+      mui('#navbar-scroll').scroll().scrollTo(-x, 0, 0)
     }
   }
   initPullRefresh (id) {
