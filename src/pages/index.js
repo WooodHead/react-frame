@@ -72,7 +72,7 @@ class Index extends Component {
       var y = -event.detail.y
       var tabbar = $(event.target).find('.am-tabs-bar')
       if (y > tabbar[0].offsetTop) {
-        tabbar.css({transform: 'translate3d(0px, ' + (y - tabbar[0].offsetTop) + 'px, 0px)', zIndex: 999999})
+        // tabbar.css({transform: 'translate3d(0px, ' + (y - tabbar[0].offsetTop) + 'px, 0px)', zIndex: 999999})
       }
     })
     // 监听左右滑动事件进行导航选中位置重置
