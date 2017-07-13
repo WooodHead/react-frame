@@ -3,79 +3,87 @@ import { withRouter } from 'react-router-dom'
 import { createForm } from 'rc-form'
 import { Button, ImagePicker } from 'antd-mobile'
 
-import Alert from '@/plugins/alert'
-
 import { topicAddRequest, imgUploadRequest } from '@/util/api'
 import Navbar from '@/components/common/Navbar'
 import styles from '@/stylus/topic-add'
 
 const data = []
-console.log(Alert)
+
 class TopicAdd extends Component {
   constructor () {
     super()
     this.state = {
       files: data,
-      disable: true
+      disable: true,
+      title: '',
+      content: '',
+      imgs: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
     this.wordChange = this.wordChange.bind(this)
   }
   handleSubmit () {
-    Alert.show()
-    // var mask = mui.createMask(function () {
-    //   console.log('create')
-    // }) // callback为用户点击蒙版时自动执行的回调；
-    // mask.show() // 显示遮罩
-    // mask.close() // 关闭遮罩
-    // console.log(this)
-    // this.props.form.validateFields((error, value) => {
-    //   console.log(error, 'error')
-    //   const { title, content } = value
-    //   if (title === '' && content === '') {
-    //     return
-    //   }
-    //   if (title.length < 4 || title.length > 23) {
-    //     this.Toast.info('标题为4-23个字')
-    //     return
-    //   }
-    //   if (content.length < 15 || content.length > 500) {
-    //     this.Toast.info('内容为15-500字')
-    //     return
-    //   }
-    //   topicAddRequest({
-    //     type_id: this.state.typeid,
-    //     title: value.title,
-    //     content: value.content
-    //   }).then((res) => {
-    //     console.log(res)
-    //     if (res.error) {
-    //       this.Toast.info(res.error.message)
-    //     }
-    //   })
-    // })
+    this.props.form.validateFields((error, value) => {
+      console.log(error, 'error')
+      const { title, content } = value
+      const { typeid, imgs } = this.state
+      if (title === '' && content === '') {
+        return
+      }
+      if (title.length < 4 || title.length > 23) {
+        this.Toast.info('标题为4-23个字')
+        return
+      }
+      if (content.length < 15 || content.length > 500) {
+        this.Toast.info('内容为15-500字')
+        return
+      }
+      topicAddRequest({
+        type_id: typeid,
+        title: title,
+        content: content,
+        imgs: imgs
+      }).then((res) => {
+        console.log(res)
+        if (res.error) {
+          this.Toast.info(res.error.message)
+        }
+      })
+    })
   }
   onChange (files, type, index) {
-    console.log(files, 'onChange')
+    console.log(files, type, index, 'onChange')
     if (type === 'remove') {
+      console.log(this.state.imgs, 'state-img')
+      let imgs = [].concat(this.state.imgs)
+      imgs.splice(index, 1)
       this.setState({
-        files: files
+        files: files,
+        imgs: imgs
       })
       return
     }
     imgUploadRequest({
       file: files[files.length - 1].file
     }).then((res) => {
-      this.setState({
-        files: files
-      })
+      console.log(res.data.picUrl, this.state.imgs)
+      if (res.data.picUrl) {
+        this.setState({
+          files: files,
+          imgs: this.state.imgs.concat([res.data.picUrl])
+        })
+      }
     })
   }
   wordChange () {
     setTimeout(() => {
       this.props.form.validateFields((error, value) => {
         console.log(error)
+        this.setState({
+          title: value.title,
+          content: value.content
+        })
         if (value.title === '' || value.content === '') {
           this.setState({
             disable: true
@@ -96,13 +104,26 @@ class TopicAdd extends Component {
   }
   componentDidMount () {
   }
+  navbarClick () {
+    const {title, content, imgs} = this.state
+    if (title.length > 0 || content.length > 0 || imgs.length > 0) {
+      this.Alert.show({
+        content: '确定要放弃编辑吗？',
+        confirm: () => {
+          this.props.history.goBack()
+        }
+      })
+    } else {
+      this.props.history.goBack()
+    }
+  }
   render () {
     const { getFieldProps } = this.props.form
-    console.log(getFieldProps('title'))
     const { files } = this.state
     return (
       <div className="layout">
         <Navbar
+          leftClick={this.navbarClick.bind(this)}
           titleContent={<span>发帖</span>}
           rightContent={
             <div className={this.state.disable ? styles.disable : styles.submit} onClick={this.handleSubmit}><span>发表</span></div>

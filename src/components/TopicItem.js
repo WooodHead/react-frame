@@ -11,7 +11,7 @@ class TopicItem extends Component {
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
           <img src={user ? user['head_img'] : ''} className={styles['avatar']} />
-          <Link to={'/topic/id/' + this.props.id}>
+          <Link to={'/topic/detail/' + this.props.id}>
             <div className={styles['header-right']}>
               <div className={styles['header-right-first-fl']}>
                 <span className={styles['nickname']} style={{marginRight: '18px'}}>{user ? user.nickname : ''}</span>
@@ -27,7 +27,7 @@ class TopicItem extends Component {
             </div>
           </Link>
         </div>
-        <Link to={'/topic/id/' + this.props.id}>
+        <Link to={'/topic/detail/' + this.props.id}>
           <div className={styles['content']}>
             <p>{title}</p>
           </div>
