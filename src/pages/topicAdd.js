@@ -23,6 +23,7 @@ class TopicAdd extends Component {
     this.onChange = this.onChange.bind(this)
     this.wordChange = this.wordChange.bind(this)
   }
+  // 发布帖子
   handleSubmit () {
     this.props.form.validateFields((error, value) => {
       console.log(error, 'error')
@@ -45,7 +46,9 @@ class TopicAdd extends Component {
         content: content,
         imgs: imgs
       }).then((res) => {
-        console.log(res)
+        if (res.success) {
+          this.Toast.info(res.success.message)
+        }
         if (res.error) {
           this.Toast.info(res.error.message)
         }

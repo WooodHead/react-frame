@@ -38,7 +38,7 @@
 #modal
   .modal-mask
     position: absolute
-    top: 0
+    top: 90px
     bottom: 0
     left: 0
     right: 0
@@ -47,7 +47,7 @@
     animation-fill-mode: forwards
   .modal-wrap
     position: absolute
-    top: 0
+    top: 90px
     bottom: 0
     left: 0
     right: 0
@@ -59,26 +59,28 @@
       animation-fill-mode: forwards
       display: flex
       flex-direction: column
-      background:#FFF
       width: 540px
-      border-radius: 20px
+      overflow: hidden
+      border-radius: 12px
       .header
-        height: 100px
+        height: 172px
         background: url('@/imgs/bg_sq_tc@2x.png') top left / 100% auto no-repeat
       .text-content
+        background:#FFF
         color: #666666
         min-height: 100px
         display: flex
         align-items: center
         justify-content: center
-        margin: 30px
         p
           margin: 0
           padding: 0
           font-size: 28px
           line-height: 48px
           font-family: PingFangSC-Regular
+          margin: 24px 30px 52px
       .footer
+        background:#FFF
         display: flex
         height: 96px
         line-height: 96px

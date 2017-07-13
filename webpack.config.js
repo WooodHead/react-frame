@@ -181,14 +181,14 @@ module.exports = {
       colors: true,
       errors: true
     },
-    // proxy: {
-    //   '/': {
-    //     target: 'http://192.168.11.161:8082/',
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //     }
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        target: 'http://192.168.11.218/',
+        changeOrigin: true,
+        pathRewrite: {
+        }
+      }
+    }
     // 启用gzip压缩一切服务:
     // compress: true,
     // host: '0.0.0.0',
