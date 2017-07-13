@@ -84,15 +84,10 @@ export const getTopicList = (params) => {
 // 帖子发布接口
 export const topicAddRequest = (params) => {
   return http({
-    url: '/api/public/rpc',
+    url: apiList,
     method: 'BbsPublishThread',
     params: [params]
   }).then(res => res.data)
-  // return http({
-  //   url: apiList,
-  //   method: 'BbsPublishThread',
-  //   params: [params]
-  // }).then(res => res.data)
 }
 // 图片上传接口
 export const imgUploadRequest = (params) => {
