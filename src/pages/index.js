@@ -67,9 +67,15 @@ class Index extends Component {
       resetTabsBarPosition()
     })
     var that = this
-    // 监听导航点击，左右滑动事件进行导航选中位置重置
-    // mui('#navbar-scroll').on('tap', '.mui-control-item', function () {
-    // })
+    // 监听滚动设置tab位置固定
+    mui('.m-s-w-1').on('scroll', '.mui-scroll', function (event) {
+      var y = -event.detail.y
+      var tabbar = $(event.target).find('.am-tabs-bar')
+      if (y > tabbar[0].offsetTop) {
+        tabbar.css({transform: 'translate3d(0px, ' + (y - tabbar[0].offsetTop) + 'px, 0px)', zIndex: 999999})
+      }
+    })
+    // 监听左右滑动事件进行导航选中位置重置
     document.querySelector('.home-slider').addEventListener('slide', function (event) {
       var num = event.detail.slideNumber
       var el = $('#navbar-scroll').find('.mui-control-item').eq(num)[0]
@@ -131,16 +137,8 @@ class Index extends Component {
 
   componentDidUpdate () {
     var that = this
-    mui('#navbar-scroll').scroll({
-      startX: 50,
-      snapX: 0.5
-    })
+    mui('#navbar-scroll').scroll()
     mui('.home-slider').slider()
-    mui('.m-s-w-2').scroll({
-      indicators: false,
-      deceleration: 0.0005,
-      bounce: true
-    })
     const { topicTypes } = that.props
     topicTypes.map((item, index) => {
       that.initPullRefresh(item.id)
