@@ -46,8 +46,8 @@ class TopicAdd extends Component {
         content: content,
         imgs: imgs
       }).then((res) => {
-        if (res.success) {
-          this.Toast.info(res.success.message)
+        if (res.result) {
+          this.Toast.info(res.result.message)
         }
         if (res.error) {
           this.Toast.info(res.error.message)
