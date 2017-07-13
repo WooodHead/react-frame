@@ -14,17 +14,20 @@ class TopicAdd extends Component {
     super()
     this.state = {
       files: data,
-      disable: true
+      disable: true,
+      title: '',
+      content: '',
+      imgs: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
     this.wordChange = this.wordChange.bind(this)
   }
   handleSubmit () {
-    console.log(this)
     this.props.form.validateFields((error, value) => {
       console.log(error, 'error')
       const { title, content } = value
+      const { typeid, imgs } = this.state
       if (title === '' && content === '') {
         return
       }
@@ -37,9 +40,10 @@ class TopicAdd extends Component {
         return
       }
       topicAddRequest({
-        type_id: this.state.typeid,
-        title: value.title,
-        content: value.content
+        type_id: typeid,
+        title: title,
+        content: content,
+        imgs: imgs
       }).then((res) => {
         console.log(res)
         if (res.error) {
@@ -50,22 +54,36 @@ class TopicAdd extends Component {
   }
   onChange (files, type, index) {
     console.log(files, type, index, 'onChange')
-    this.setState({
-      files: files
-    })
     if (type === 'remove') {
+      console.log(this.state.imgs, 'state-img')
+      let imgs = [].concat(this.state.imgs)
+      imgs.splice(index, 1)
+      this.setState({
+        files: files,
+        imgs: imgs
+      })
       return
     }
     imgUploadRequest({
       file: files[files.length - 1].file
     }).then((res) => {
-      console.log(res)
+      console.log(res.data.picUrl, this.state.imgs)
+      if (res.data.picUrl) {
+        this.setState({
+          files: files,
+          imgs: this.state.imgs.concat([res.data.picUrl])
+        })
+      }
     })
   }
   wordChange () {
     setTimeout(() => {
       this.props.form.validateFields((error, value) => {
         console.log(error)
+        this.setState({
+          title: value.title,
+          content: value.content
+        })
         if (value.title === '' || value.content === '') {
           this.setState({
             disable: true
@@ -86,13 +104,26 @@ class TopicAdd extends Component {
   }
   componentDidMount () {
   }
+  navbarClick () {
+    const {title, content, imgs} = this.state
+    if (title.length > 0 || content.length > 0 || imgs.length > 0) {
+      this.Alert.show({
+        content: '确定要放弃编辑吗？',
+        confirm: () => {
+          this.props.history.goBack()
+        }
+      })
+    } else {
+      this.props.history.goBack()
+    }
+  }
   render () {
     const { getFieldProps } = this.props.form
-    console.log(getFieldProps('title'))
     const { files } = this.state
     return (
       <div className="layout">
         <Navbar
+          leftClick={this.navbarClick.bind(this)}
           titleContent={<span>发帖</span>}
           rightContent={
             <div className={this.state.disable ? styles.disable : styles.submit} onClick={this.handleSubmit}><span>发表</span></div>

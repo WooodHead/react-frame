@@ -83,16 +83,16 @@ export const getTopicList = (params) => {
 }
 // 帖子发布接口
 export const topicAddRequest = (params) => {
-  return http({
-    url: 'http://192.168.11.218/api/public/',
-    method: 'BbsPublishThread',
-    params: [params]
-  }).then(res => res.data)
   // return http({
-  //   url: apiList,
+  //   url: 'http://192.168.11.218/api/public/',
   //   method: 'BbsPublishThread',
   //   params: [params]
   // }).then(res => res.data)
+  return http({
+    url: apiList,
+    method: 'BbsPublishThread',
+    params: [params]
+  }).then(res => res.data)
 }
 // 图片上传接口
 export const imgUploadRequest = (params) => {
