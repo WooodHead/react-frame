@@ -9,57 +9,42 @@ import * as actions from '@/actions/topic'
 
 import styles from '@/stylus/topic-container'
 
-// 懒加载引入mui
-var load = require('bundle-loader?lazy!lib/mui/js/mui')
-
 const TabPane = Tabs.TabPane
-function callback (key) {
-  console.log('onChange', key)
-}
-function handleTabClick (key) {
-  console.log('onTabClick', key)
-}
 
-function MyBody (props) {
-  return (
-    <div className="am-list-body my-body">
-      <span style={{ display: 'none' }}>you can custom body wrap element</span>
-      {props.children}
-    </div>
-  )
-}
 class Topic extends Component {
-  constructor () {
-    super()
-    this.dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
-    })
-    this.state = {
-      refreshing: false
-    }
-  }
   componentWillMount () {
     const { typeid, dispatch } = this.props
     dispatch(actions.fetchTopicList({
-      method: 'getBbsThreadAllList',
+      methid: 0,
       id: typeid,
       page: 1
     }))
   }
   componentDidMount () {
   }
+  handleTabClick (key) {
+    key = Number(key)
+    const {selectedNavbarIndex, topicList, selectedTabs, typeid, dispatch} = this.props
+    var currentSelectedTabs = [...selectedTabs]
+    currentSelectedTabs[selectedNavbarIndex] = key
+    // 改变当前选中的tabs索引
+    dispatch({type: 'change home selected tabs', currentSelectedTabs})
+    topicList[typeid][key].length === 0 && dispatch(actions.fetchTopicList({
+      methid: key,
+      id: typeid,
+      page: 1
+    }))
+  }
   render () {
-    const { topicList, typeid } = this.props
-
-    const ds = this.dataSource.cloneWithRows(topicList[typeid])
-
+    const { topicList, typeid, selectedTabs, index } = this.props
+    const defaultActiveKey = selectedTabs[index].toString()
     return (
       <div className={styles['topic-container'] + ' home-topic-container mt-32'}>
-        <Tabs className="topic-container-tabs-bar" defaultActiveKey="1" onChange={callback} swipeable={false} animated={false} onTabClick={handleTabClick}>
-          <TabPane tab="全部" key="1" >
+        <Tabs className="topic-container-tabs-bar" defaultActiveKey={defaultActiveKey} swipeable={false} animated={true} onTabClick={this.handleTabClick.bind(this)}>
+          <TabPane tab="全部" key="0" >
             <div className={styles['list-view']}>
               {
-                topicList[typeid] && topicList[typeid].map(function (item, index) {
+                topicList[typeid] && topicList[typeid][0].map(function (item, index) {
                   // console.log(item, 'item')
                   return (
                     (<TopicItem key={index} {...item} className="mb-18" />)
@@ -68,17 +53,41 @@ class Topic extends Component {
               }
             </div>
           </TabPane>
-          <TabPane tab="精华" key="2">
-            <TopicItem className="mb-18"/>
-            <TopicItem className="mb-18"/>
-            <TopicItem className="mb-18"/>
-            <TopicItem className="mb-18"/>
+          <TabPane tab="精华" key="1">
+            <div className={styles['list-view']}>
+              {
+                topicList[typeid] && topicList[typeid][1].map(function (item, index) {
+                  // console.log(item, 'item')
+                  return (
+                    (<TopicItem key={index} {...item} className="mb-18" />)
+                  )
+                })
+              }
+            </div>
           </TabPane>
-          <TabPane tab="最热" key="3">
-            <TopicItem className="mb-18"/>
+          <TabPane tab="最热" key="2">
+            <div className={styles['list-view']}>
+              {
+                topicList[typeid] && topicList[typeid][2].map(function (item, index) {
+                  // console.log(item, 'item')
+                  return (
+                    (<TopicItem key={index} {...item} className="mb-18" />)
+                  )
+                })
+              }
+            </div>
           </TabPane>
-          <TabPane tab="最新" key="4">
-            <TopicItem className="mb-18"/>
+          <TabPane tab="最新" key="3">
+            <div className={styles['list-view']}>
+              {
+                topicList[typeid] && topicList[typeid][3].map(function (item, index) {
+                  // console.log(item, 'item')
+                  return (
+                    (<TopicItem key={index} {...item} className="mb-18" />)
+                  )
+                })
+              }
+            </div>
           </TabPane>
         </Tabs>
       </div>

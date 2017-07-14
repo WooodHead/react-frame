@@ -17,38 +17,6 @@ import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
 
-function callback (key) {
-  console.log('onChange', key)
-}
-function resetTabsBarPosition (obj) {
-  var el = $('.' + styles['home-tabs'] + ' > .am-tabs-content')
-  var navbarHeight = $('.' + styles['home-tabs']).children('.am-tabs-bar').height()
-  console.log(navbarHeight)
-  var tabbarWidth = ($(window).width() - 40) + 'px'
-
-  let tabsBar = el.children('.am-tabs-tabpane-active').find('.am-tabs-bar')
-  let tabsContent = el.children('.am-tabs-tabpane-active').find('.am-tabs-content')
-  if (el.scrollTop() > (tabsBar[0].offsetTop - navbarHeight)) {
-    // 浮动tabsbar
-    tabsBar.css({'position': 'fixed', width: tabbarWidth, top: navbarHeight + 'px', 'z-index': '999'})
-    tabsContent.css({'margin-top': tabsBar.height() + 'px'})
-  }
-
-  if (el.scrollTop() <= (tabsContent[0].offsetTop - navbarHeight - tabsBar.height())) {
-    // 回归tabsbar
-    tabsBar.css({'position': 'relative', 'top': '0px'})
-    tabsContent.css({'margin-top': '0'})
-  }
-}
-function handleTabClick (key) {
-  setTimeout(function () {
-    resetTabsBarPosition()
-  }, 100)
-}
-function handlePan () {
-  console.log('pan')
-}
-
 class Index extends Component {
   constructor () {
     super()
@@ -59,13 +27,14 @@ class Index extends Component {
     }
   }
   componentWillMount () {
-    const {dispatch} = this.props
-    dispatch(actions.fetchTopicAllType())
+    this.props.topicTypes.length === 0 && this.props.dispatch(actions.fetchTopicAllType())
   }
   componentDidMount () {
-    $('.' + styles['home-tabs'] + ' > .am-tabs-content').scroll(function (e) {
-      resetTabsBarPosition()
-    })
+    if (this.props.topicTypes.length) {
+      mui('#navbar-scroll').scroll()
+      this.initMui()
+      this.initNavScrollPosition()
+    }
     var that = this
     // 监听滚动设置tab位置固定
     mui('.m-s-w-1').on('scroll', '.mui-scroll', function (event) {
@@ -78,13 +47,22 @@ class Index extends Component {
     // 监听左右滑动事件进行导航选中位置重置
     document.querySelector('.home-slider').addEventListener('slide', function (event) {
       var num = event.detail.slideNumber
+      that.props.dispatch({type: 'change selected navbar index', index: num})
       var el = $('#navbar-scroll').find('.mui-control-item').eq(num)[0]
       setTimeout(() => {
         that.resetNavScrollPosition(el)
       }, 0)
     })
   }
-  // 航选中位置重置
+  // 初始化导航选中位置
+  initNavScrollPosition () {
+    const { selectedNavbarIndex } = this.props
+    var el = $('#navbar-scroll').find('.mui-control-item').eq(selectedNavbarIndex)[0]
+    setTimeout(() => {
+      this.resetNavScrollPosition(el)
+    }, 0)
+  }
+  // 导航选中位置重置
   resetNavScrollPosition (el) {
     var lastEl = $(el).parent().children('.mui-control-item:last-child')
     var totalW = lastEl[0].offsetLeft + lastEl[0].clientWidth
@@ -103,7 +81,10 @@ class Index extends Component {
       mui('#navbar-scroll').scroll().scrollTo(-x, 0, 0)
     }
   }
-  initPullRefresh (id) {
+  // 上拉下拉
+  initPullRefresh (id, index) {
+    const {selectedTabs, currentPages} = this.props
+    const methid = selectedTabs[index]
     var that = this
     mui('#refreshContainer_' + id).pullRefresh({
       down: {
@@ -113,9 +94,15 @@ class Index extends Component {
         height: 100, // 可选,默认50.触发下拉刷新拖动距离,
         auto: false, // 可选,默认false.首次加载自动上拉刷新一次
         callback: function () {
-          setTimeout(() => {
-            this.endPulldownToRefresh(true)
-          }, 1000)
+          that.props.dispatch(actions.fetchTopicList({
+            methid: methid,
+            id: id,
+            page: 1,
+            refresh: true,
+            cb: () => {
+              this.endPulldownToRefresh(true)
+            }
+          }))
         } // 必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
       },
       up: {
@@ -126,34 +113,40 @@ class Index extends Component {
         contentrefresh: '正在加载...', // 可选，正在加载状态时，上拉加载控件上显示的标题内容
         contentnomore: '没有更多数据了', // 可选，请求完毕若没有更多数据时显示的提醒内容；
         callback: function () {
-          console.log(that.props)
-          setTimeout(() => {
-            this.endPullupToRefresh(false)
-          }, 1000)
+          that.props.dispatch(actions.fetchTopicList({
+            methid: methid,
+            id: id,
+            page: 1,
+            cb: () => {
+              this.endPullupToRefresh(false)
+            }
+          }))
         } // 必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
       }
     })
   }
-
-  componentDidUpdate () {
-    var that = this
-    mui('#navbar-scroll').scroll()
+  // 初始化mui组件
+  initMui () {
     mui('.home-slider').slider()
-    const { topicTypes } = that.props
+    const { topicTypes } = this.props
     topicTypes.map((item, index) => {
-      that.initPullRefresh(item.id)
+      this.initPullRefresh(item.id, index)
     })
   }
-
+  componentDidUpdate () {
+    console.log('did update')
+    this.initMui()
+  }
+  // 导航 title部分
   rennderTitleContent () {
-    const { topicTypes } = this.props
+    const { topicTypes, selectedNavbarIndex } = this.props
     return (
       <div id="navbar-scroll" className="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
         <div className="mui-scroll">
           {
             topicTypes.map((item, index) => {
               return (
-                <a key={index} href={'#scrollWrapItem' + index} className={'mui-control-item ' + (index === 0 ? 'mui-active' : '')}>
+                <a key={index} href={'#scrollWrapItem' + index} className={'mui-control-item ' + (selectedNavbarIndex === index ? 'mui-active' : '')}>
                   {item.name}
                 </a>
               )
@@ -164,7 +157,7 @@ class Index extends Component {
     )
   }
   render () {
-    const { topicTypes, selectedTypeId } = this.props
+    const { topicTypes, selectedNavbarIndex } = this.props
     return (
       <div className="layout">
         <div className="home-slider mui-slider mui-fullscreen">
@@ -177,11 +170,11 @@ class Index extends Component {
             {
               topicTypes.map((item, index) => {
                 return (
-                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedTypeId === item.id ? 'mui-active' : '')} key={index}>
+                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedNavbarIndex === index ? 'mui-active' : '')} key={index}>
                     <div id={'refreshContainer_' + item.id} className="mui-content mui-scroll-wrapper layout-conent">
                       <div className="mui-scroll">
                         <Stick />
-                        <Topic typeid={item.id}/>
+                        <Topic index={index} typeid={item.id}/>
                       </div>
                     </div>
                   </div>
@@ -196,12 +189,4 @@ class Index extends Component {
   }
 }
 
-function mapStateToProps ({topic}) {
-  const { topicTypes, selectedTypeId } = topic
-  return {
-    topicTypes,
-    selectedTypeId
-  }
-}
-
-export default withRouter(connect(mapStateToProps)(Index))
+export default withRouter(connect(({topic}) => topic)(Index))

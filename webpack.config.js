@@ -117,8 +117,11 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader']
+          fallback: 'style-loader', //  不被提取时用style-loader
+          use: [
+            'css-loader?sourceMap=true',
+            'postcss-loader'
+          ]
         })
       },
       {
@@ -141,7 +144,12 @@ module.exports = {
                 sourceMap: true,
               }
             },
-            'stylus-loader'
+            {
+              loader: 'stylus-loader',
+              options: {
+                sourceMap: true,
+              }
+            }
           ]
         })
       },
@@ -197,12 +205,24 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
-    extensions: ['.web.js', '.js', '.min.js', '.json', '.styl'],
+    extensions: ['.web.js', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
       'lib': path.join(__dirname, 'lib'),
       '@': path.join(__dirname, 'src/')
     }
   },
-  devtool: !isPro ? 'eval-source-map' : ''
-  // devtool: ''
+  devtool: !isPro ? 'source-map' : ''
+  // eval： 生成代码 每个模块都被eval执行，并且存在@sourceURL
+  //
+  // cheap-eval-source-map： 转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl
+  //
+  // cheap-module-eval-source-map： 原始代码（只有行内） 同样道理，但是更高的质量和更低的性能
+  //
+  // eval-source-map： 原始代码 同样道理，但是最高的质量和最低的性能
+  //
+  // cheap-source-map： 转换代码（行内） 生成的sourcemap没有列映射，从loaders生成的sourcemap没有被使用
+  //
+  // cheap-module-source-map： 原始代码（只有行内） 与上面一样除了每行特点的从loader中进行映射
+  //
+  // source-map： 原始代码 最好的sourcemap质量有完整的结果，但是会很慢
 }
