@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { NavBar, Icon, Toast, Button, WhiteSpace, WingBlank } from 'antd-mobile'
+import { NavBar, Icon, Toast, Button, WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
 
 import Alert from '@/plugins/alert'
 import http, * as api from '@/util/api'
@@ -13,12 +14,19 @@ class App extends Component {
   componentWillMount () {
   }
   render () {
-    const { history } = this.props
+    const { loading } = this.props
     return (
       <div className="app">
         {this.props.children}
+        <ActivityIndicator
+          toast
+          text="加载中..."
+          animating={loading}
+        />
       </div>
     )
   }
 }
-export default withRouter(App)
+export default withRouter(connect(({common}) => {
+  return common
+})(App))

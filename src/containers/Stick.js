@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import StickItem from '@/components/StickItem'
 import styles from '@/stylus/stick'
 
+import {getBbsThreadTopList} from '@/util/api'
+
 const data = [
   {
     title: '网利社区全新升级了，欢迎大家勇跃勇跃勇跃勇跃...',
@@ -21,6 +23,11 @@ const data = [
   }
 ]
 class Stick extends Component {
+  componentWillMount () {
+    // getBbsThreadTopList().then((res) => {
+    //   console.log(res)
+    // })
+  }
   render () {
     return (
       <div className={styles['stick-container']}>

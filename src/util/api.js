@@ -1,4 +1,6 @@
 import axios from 'axios'
+import store from '@/stores'
+
 var isPro = process.env.NODE_ENV === 'production'
 var isCrossDomain = window.location.hostname.indexOf('wanglibao.com') === -1
 
@@ -18,6 +20,19 @@ export const apiList = host + '/yunying/rpc'
 export const imgUpload = host + '/yunying/upload/img'
 export const apiAccount = host + '/passport/service.php?c=account'
 
+axios.interceptors.request.use(function (config) {
+  store.dispatch({type: 'loading show'})
+  return config
+}, function (error) {
+  return Promise.reject(error)
+})
+axios.interceptors.response.use(function (response) {
+  store.dispatch({type: 'loading hidden'})
+  return response
+}, function (error) {
+  return Promise.reject(error)
+})
+
 function http () {
   if (arguments[0] instanceof Array) {
     var resultArr = []
@@ -30,6 +45,7 @@ function http () {
     return fetchData(params)
   }
 }
+
 function fetchData (params) {
   params.type = params.type ? params.type : 'post'
   params['params'] = params['params'] ? params['params'] : []
@@ -68,6 +84,14 @@ export const getTopicAllType = (cb) => {
     return res.data
   })
 }
+// 获取置顶帖子列表
+export const getBbsThreadTopList = () => {
+  return http({
+    url: apiList,
+    method: 'getBbsThreadTopList',
+    params: [{}]
+  }).then(res => res.data)
+}
 // 获取帖子列表
 export const getTopicList = (params) => {
   return simulate ? http({
@@ -79,6 +103,16 @@ export const getTopicList = (params) => {
     url: apiList,
     method: params.method,
     params: params.params
+  }).then(res => res.data)
+}
+// 获取帖子详情
+export const getBbsThreadDetail = (id) => {
+  return http({
+    url: apiList,
+    method: 'getBbsThreadDetail',
+    params: [{
+      id: id
+    }]
   }).then(res => res.data)
 }
 // 帖子发布接口
