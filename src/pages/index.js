@@ -32,6 +32,16 @@ class Index extends Component {
       this.props.dispatch(actions.fetchTopicAllType({
         cb: () => {
           this.props.dispatch({type: 'init home data'})
+          // const { typeid, topicList, dispatch } = this.props
+          // var initData = topicList[typeid][0]
+          // if (initData.length === 0) {
+          //   dispatch(actions.fetchTopicList({
+          //     methid: 0,
+          //     id: typeid,
+          //     page: 1
+          //   }))
+          // }
+          this.initMui()
         }
       }))
     }
@@ -53,7 +63,9 @@ class Index extends Component {
     })
     // 监听左右滑动事件进行导航选中位置重置
     document.querySelector('.home-slider').addEventListener('slide', function (event) {
+      console.log('板块切换')
       var num = event.detail.slideNumber
+      that.initPullRefresh(num)
       that.props.dispatch({type: 'change selected navbar index', index: num})
       var el = $('#navbar-scroll').find('.mui-control-item').eq(num)[0]
       setTimeout(() => {
@@ -63,7 +75,6 @@ class Index extends Component {
   }
   componentDidUpdate () {
     console.log('did update')
-    this.initMui()
   }
   // 初始化导航选中位置
   initNavScrollPosition () {
@@ -93,15 +104,22 @@ class Index extends Component {
     }
   }
   // 上拉下拉
-  initPullRefresh (id, index) {
+  initPullRefresh (index) {
+    console.log(index)
+    const { selectedNavbarIndex, topicList, topicTypes } = this.props
+    const id = topicTypes[index].id
+    var autoRefresh = false
+    if (index === selectedNavbarIndex) {
+      autoRefresh = true
+    }
     var that = this
-    mui('#refreshContainer_' + id).pullRefresh({
+    mui('#refreshContainer_' + index).pullRefresh({
       down: {
         indicators: false,
         style: 'circle', // 必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
         color: '#2BD009', // 可选，默认“#2BD009” 下拉刷新控件颜色
         height: 100, // 可选,默认50.触发下拉刷新拖动距离,
-        auto: false, // 可选,默认false.首次加载自动上拉刷新一次
+        auto: autoRefresh, // 可选,默认false.首次加载自动上拉刷新一次
         callback: function () {
           const {selectedTabs, currentPages, selectedNavbarIndex} = that.props
           const tabIndex = selectedTabs[selectedNavbarIndex]
@@ -153,7 +171,7 @@ class Index extends Component {
     mui('.home-slider').slider()
     const { topicTypes } = this.props
     topicTypes.map((item, index) => {
-      this.initPullRefresh(item.id, index)
+      this.initPullRefresh(index)
     })
   }
   goTop (type) {
@@ -193,7 +211,7 @@ class Index extends Component {
               initHomeState && topicTypes.map((item, index) => {
                 return (
                   <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedNavbarIndex === index ? 'mui-active' : '')} key={index}>
-                    <div id={'refreshContainer_' + item.id} className="mui-content mui-scroll-wrapper layout-conent">
+                    <div id={'refreshContainer_' + index} className="mui-content mui-scroll-wrapper layout-conent">
                       <div className="mui-scroll">
                         <Stick />
                         <Topic index={index} typeid={item.id}/>

@@ -13,16 +13,6 @@ const TabPane = Tabs.TabPane
 
 class Topic extends Component {
   componentWillMount () {
-    // const { typeid, topicList, dispatch } = this.props
-    // var initData = topicList[typeid][0]
-    // console.log('topic will mount')
-    // if (initData.length === 0) {
-    //   dispatch(actions.fetchTopicList({
-    //     methid: 0,
-    //     id: typeid,
-    //     page: 1
-    //   }))
-    // }
   }
   componentDidMount () {
   }
