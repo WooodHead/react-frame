@@ -2,7 +2,7 @@
  * topic actions
  */
 import { createAction } from 'redux-actions'
-import { getTopicAllType, getTopicList } from '@/util/api'
+import { getTopicAllType, getBbsThreadTopList, getTopicList } from '@/util/api'
 
 // 获取帖子所有板块
 export const fetchTopicAllType = (payload) => (dispatch) => {
@@ -14,7 +14,13 @@ export const fetchTopicAllType = (payload) => (dispatch) => {
     }
   })
 }
-
+// 获取置顶帖子列表数据
+export const fetchBbsThreadTopList = (payload) => (dispatch) => {
+  getBbsThreadTopList().then(res => {
+    console.log(res)
+  })
+}
+// 获取帖子列表数据
 export const fetchTopicList = (payload) => (dispatch) => {
   var methods = ['getBbsThreadAllList', 'getBbsThreadGreatList', 'getBbsThreadHotList', 'getBbsThreadLastList']
   console.log(payload, 'payload')

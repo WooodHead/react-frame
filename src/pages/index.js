@@ -32,15 +32,7 @@ class Index extends Component {
       this.props.dispatch(actions.fetchTopicAllType({
         cb: () => {
           this.props.dispatch({type: 'init home data'})
-          // const { typeid, topicList, dispatch } = this.props
-          // var initData = topicList[typeid][0]
-          // if (initData.length === 0) {
-          //   dispatch(actions.fetchTopicList({
-          //     methid: 0,
-          //     id: typeid,
-          //     page: 1
-          //   }))
-          // }
+          this.props.dispatch(actions.fetchBbsThreadTopList())
           this.initMui()
         }
       }))
@@ -65,16 +57,13 @@ class Index extends Component {
     document.querySelector('.home-slider').addEventListener('slide', function (event) {
       console.log('板块切换')
       var num = event.detail.slideNumber
-      that.initPullRefresh(num)
       that.props.dispatch({type: 'change selected navbar index', index: num})
+      that.initPullRefresh(num)
       var el = $('#navbar-scroll').find('.mui-control-item').eq(num)[0]
       setTimeout(() => {
         that.resetNavScrollPosition(el)
       }, 0)
     })
-  }
-  componentDidUpdate () {
-    console.log('did update')
   }
   // 初始化导航选中位置
   initNavScrollPosition () {
@@ -105,14 +94,17 @@ class Index extends Component {
   }
   // 上拉下拉
   initPullRefresh (index) {
-    console.log(index)
-    const { selectedNavbarIndex, topicList, topicTypes } = this.props
+    const { selectedNavbarIndex, topicList, topicTypes, selectedTabs } = this.props
     const id = topicTypes[index].id
+    const currentId = topicTypes[selectedNavbarIndex].id
     var autoRefresh = false
-    if (index === selectedNavbarIndex) {
+    const defaultActiveTab = selectedTabs[selectedNavbarIndex]
+    console.log(topicList[id][defaultActiveTab], id, 'id')
+    if (topicList[currentId][defaultActiveTab].length === 0 && index === selectedNavbarIndex) {
       autoRefresh = true
     }
     var that = this
+    console.log(index, autoRefresh, selectedNavbarIndex)
     mui('#refreshContainer_' + index).pullRefresh({
       down: {
         indicators: false,
@@ -174,8 +166,8 @@ class Index extends Component {
       this.initPullRefresh(index)
     })
   }
-  goTop (type) {
-    mui('#refreshContainer_' + type.id).pullRefresh().scrollTo(0, 0, 100)
+  goTop (index) {
+    mui('#refreshContainer_' + index).pullRefresh().scrollTo(0, 0, 100)
   }
   // 导航 title部分
   rennderTitleContent () {
@@ -224,7 +216,7 @@ class Index extends Component {
           </div>
         </div>
         <HomeCommentEnter className={styles['comment-enter']} />
-        <GoTop onClick={this.goTop.bind(this, topicTypes[selectedNavbarIndex])} className={styles['go-top']} />
+        <GoTop onClick={this.goTop.bind(this, selectedNavbarIndex)} className={styles['go-top']} />
       </div>
     )
   }

@@ -20,10 +20,6 @@ class HomeCommentEnter extends Component {
       }
     )
   }
-  componentDidMount () {
-    console.log(this)
-    // this.popUp()
-  }
   render () {
     const { className } = this.props
     return (

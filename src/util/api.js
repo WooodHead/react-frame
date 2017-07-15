@@ -90,17 +90,14 @@ export const getBbsThreadTopList = () => {
   return http({
     url: apiList,
     method: 'getBbsThreadTopList',
-    params: [{}]
+    params: [{
+      id: 2
+    }]
   }).then(res => res.data)
 }
 // 获取帖子列表
 export const getTopicList = (params) => {
-  return simulate ? http({
-    type: 'get',
-    url: '/topic-list.json',
-    method: params.method,
-    params: params.params
-  }).then(res => res.data) : http({
+  return http({
     url: apiList,
     method: params.method,
     params: params.params
