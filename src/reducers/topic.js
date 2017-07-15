@@ -6,7 +6,16 @@ import { handleActions } from 'redux-actions'
 export default handleActions({
   // 获取帖子所有的类型
   'fetch topic all type': (state, { payload }) => {
-    const { topicTypes, page, total } = payload
+    const { topicTypes } = payload
+    return {
+      ...state,
+      topicTypes
+    }
+  },
+  // 首次获取板块后初始化一些数据
+  'init home data': (state) => {
+    console.log('init home data')
+    const { topicTypes } = state
     var topicList = {}
     var selectedTabs = []
     var currentPages = []
@@ -17,6 +26,7 @@ export default handleActions({
     }
     return {
       ...state,
+      initHomeState: true,
       selectedNavbarIndex: 0,
       selectedTabs,
       currentPages,
@@ -36,21 +46,15 @@ export default handleActions({
       selectedTabs: currentSelectedTabs
     }
   },
-  'fetch topic list request': (state) => {
+  'change home pages': (state, { currentPages }) => {
     return {
       ...state,
-      loading: true
-    }
-  },
-  'fetch topic list failure': (state, { payload }) => {
-    return {
-      ...state,
-      ...payload
+      currentPages: [...currentPages]
     }
   },
   'fetch topic list success': (state, { payload }) => {
     const { selectedTabs, selectedNavbarIndex } = state
-    const { data, total, page, lastPage, typeid, refresh } = payload
+    const { data, typeid, refresh } = payload
     var topicList = {...state.topicList}
     var index = selectedTabs[selectedNavbarIndex]
     if (refresh) {
@@ -66,6 +70,7 @@ export default handleActions({
 }, {
   topicList: {},
   topicTypes: [],
+  initHomeState: false, // 首页初始化情况
   selectedNavbarIndex: 0, // 当前选中的帖子类型索引
   selectedTabs: [], // 当前选中的tab [1,1,1,1,...]
   currentPages: [] // 当前板块下 所在tab的页码 [[1,1,1,1], [1,1,1,1], ...]

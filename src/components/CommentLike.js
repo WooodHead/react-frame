@@ -21,7 +21,8 @@ class CommentLike extends Component {
   render () {
     return (
       <div onClick={this.toClick} className={styles['like-area'] + ' ' + (this.state.clicked ? styles['clicked'] : styles['can-click'])}>
-        <span>88888</span>
+        <span className={styles['num']}>88889</span>
+        <span className={styles['icon']}></span>
       </div>
     )
   }

@@ -117,7 +117,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader', //  不被提取时用style-loader
+          fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
           use: [
             'css-loader?sourceMap=true',
             'postcss-loader'

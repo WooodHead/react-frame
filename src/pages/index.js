@@ -13,6 +13,7 @@ import NavbarPerson from '@/components/common/icons/NavbarPerson'
 import Stick from '@/containers/Stick'
 import Topic from '@/containers/Topic'
 import HomeCommentEnter from '@/components/HomeCommentEnter'
+import GoTop from '@/components/common/GoTop'
 import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
@@ -27,7 +28,13 @@ class Index extends Component {
     }
   }
   componentWillMount () {
-    this.props.topicTypes.length === 0 && this.props.dispatch(actions.fetchTopicAllType())
+    if (this.props.topicTypes.length === 0) {
+      this.props.dispatch(actions.fetchTopicAllType({
+        cb: () => {
+          this.props.dispatch({type: 'init home data'})
+        }
+      }))
+    }
   }
   componentDidMount () {
     if (this.props.topicTypes.length) {
@@ -53,6 +60,10 @@ class Index extends Component {
         that.resetNavScrollPosition(el)
       }, 0)
     })
+  }
+  componentDidUpdate () {
+    console.log('did update')
+    this.initMui()
   }
   // 初始化导航选中位置
   initNavScrollPosition () {
@@ -83,8 +94,6 @@ class Index extends Component {
   }
   // 上拉下拉
   initPullRefresh (id, index) {
-    const {selectedTabs, currentPages} = this.props
-    const methid = selectedTabs[index]
     var that = this
     mui('#refreshContainer_' + id).pullRefresh({
       down: {
@@ -94,13 +103,16 @@ class Index extends Component {
         height: 100, // 可选,默认50.触发下拉刷新拖动距离,
         auto: false, // 可选,默认false.首次加载自动上拉刷新一次
         callback: function () {
+          const {selectedTabs, currentPages, selectedNavbarIndex} = that.props
+          const tabIndex = selectedTabs[selectedNavbarIndex]
           that.props.dispatch(actions.fetchTopicList({
-            methid: methid,
+            methid: tabIndex,
             id: id,
             page: 1,
             refresh: true,
             cb: () => {
               this.endPulldownToRefresh(true)
+              this.refresh(true)
             }
           }))
         } // 必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
@@ -111,14 +123,25 @@ class Index extends Component {
         height: 50, // 可选.默认50.触发上拉加载拖动距离
         auto: false, // 可选,默认false.自动上拉加载一次
         contentrefresh: '正在加载...', // 可选，正在加载状态时，上拉加载控件上显示的标题内容
-        contentnomore: '没有更多数据了', // 可选，请求完毕若没有更多数据时显示的提醒内容；
+        contentnomore: '没有更多了，逛逛网利社区其他～', // 可选，请求完毕若没有更多数据时显示的提醒内容；
         callback: function () {
+          const {selectedTabs, currentPages, selectedNavbarIndex} = that.props
+          var newCurrentPages = [...currentPages]
+          const tabIndex = selectedTabs[selectedNavbarIndex]
+          console.log(selectedNavbarIndex, tabIndex, 'info2')
+          var page = newCurrentPages[selectedNavbarIndex][tabIndex] + 1
+          newCurrentPages[selectedNavbarIndex][tabIndex] = page
+
           that.props.dispatch(actions.fetchTopicList({
-            methid: methid,
+            methid: tabIndex,
             id: id,
-            page: 1,
-            cb: () => {
-              this.endPullupToRefresh(false)
+            page: page,
+            cb: (res) => {
+              if (res.data['last_page'] > page) {
+                this.endPullupToRefresh(false)
+              } else if (res.data['last_page'] <= page) {
+                this.endPullupToRefresh(true)
+              }
             }
           }))
         } // 必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
@@ -133,9 +156,8 @@ class Index extends Component {
       this.initPullRefresh(item.id, index)
     })
   }
-  componentDidUpdate () {
-    console.log('did update')
-    this.initMui()
+  goTop (type) {
+    mui('#refreshContainer_' + type.id).pullRefresh().scrollTo(0, 0, 100)
   }
   // 导航 title部分
   rennderTitleContent () {
@@ -157,7 +179,7 @@ class Index extends Component {
     )
   }
   render () {
-    const { topicTypes, selectedNavbarIndex } = this.props
+    const { topicTypes, selectedNavbarIndex, initHomeState } = this.props
     return (
       <div className="layout">
         <div className="home-slider mui-slider mui-fullscreen">
@@ -168,7 +190,7 @@ class Index extends Component {
           />
           <div className="m-s-w-1 mui-slider-group">
             {
-              topicTypes.map((item, index) => {
+              initHomeState && topicTypes.map((item, index) => {
                 return (
                   <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedNavbarIndex === index ? 'mui-active' : '')} key={index}>
                     <div id={'refreshContainer_' + item.id} className="mui-content mui-scroll-wrapper layout-conent">
@@ -184,6 +206,7 @@ class Index extends Component {
           </div>
         </div>
         <HomeCommentEnter className={styles['comment-enter']} />
+        <GoTop onClick={this.goTop.bind(this, topicTypes[selectedNavbarIndex])} className={styles['go-top']} />
       </div>
     )
   }

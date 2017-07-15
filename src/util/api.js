@@ -30,6 +30,7 @@ axios.interceptors.response.use(function (response) {
   store.dispatch({type: 'loading hidden'})
   return response
 }, function (error) {
+  store.dispatch({type: 'loading hidden'})
   return Promise.reject(error)
 })
 

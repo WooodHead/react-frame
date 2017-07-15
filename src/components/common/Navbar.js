@@ -13,6 +13,7 @@ class Navbar extends Component {
   }
   render () {
     const { titleContent, rightContent, titleClass, leftClick } = this.props
+    console.log(titleContent)
     return (
       <div className={styles['navbar']}>
         <div className={styles['navbar-left']}>

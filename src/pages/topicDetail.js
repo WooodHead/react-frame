@@ -56,7 +56,7 @@ class TopicDetail extends Component {
             <div className={styles['content']}>
               <p>{detail.content}</p>
               {/* <div dangerouslySetInnerHTML={createMarkup()}></div> */}
-              <img src="https://image.wanglibao.com/yunying/201707071340461979.png" />
+              <img style={{marginTop: '.32rem'}} src="https://image.wanglibao.com/yunying/201707071340461979.png" />
             </div>
             <div className={styles['love-area']}>
               <TopicLove />
