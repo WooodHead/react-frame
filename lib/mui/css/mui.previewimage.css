@@ -11,23 +11,28 @@
 	z-index: 10;
 }
 .mui-preview-header {
-	height: 44px;
-	top: 0;
+	height: 100px;
+  background: #212121;
+	bottom: 0;
+  padding: 0 40px;
 }
 .mui-preview-footer {
 	height: 50px;
 	bottom: 0px;
 }
 .mui-preview-header .mui-preview-indicator {
-	display: block;
-	line-height: 25px;
-	color: #fff;
-	text-align: center;
-	margin: 15px auto 4;
+	display: inline-block;
 	width: 70px;
-	background-color: rgba(0, 0, 0, 0.4);
-	border-radius: 12px;
-	font-size: 16px;
+	font-size: 24px;
+  color: #3F3F3F;
+  /*letter-spacing: -0.17px;*/
+  line-height: 100px;
+}
+.mui-preview-header span.mui-preview-indicator::first-letter {
+  font-family: PingFangSC-Regular;
+  font-size: 48px;
+  color: #FFFFFF;
+  letter-spacing: 0.17px;
 }
 .mui-preview-image {
 	display: none;

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import styles from '@/stylus/icons/navbar-person'
 class NavbarPerson extends Component {
   render () {
-    const { style } = this.props
+    const { style, history } = this.props
     return (
-      <Link to="/mine"><div style={style} className={styles.person}></div></Link>
+      <div onClick={() => history.push('/mine')} style={style} className={styles.person}></div>
     )
   }
 }

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 import Navbar from '@/components/common/Navbar'
 import NoLogin from '@/containers/mine/NoLogin'
+import Logined from '@/containers/mine/Logined'
 import MineMenu from '@/containers/mine/MineMenu'
 class Mine extends Component {
   render () {
@@ -12,7 +13,8 @@ class Mine extends Component {
           titleContent="我的"
           />
         <div className="scroll-wrap bg-white">
-          <NoLogin />
+          {/* <NoLogin /> */}
+          <Logined />
           <MineMenu />
         </div>
       </div>

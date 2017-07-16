@@ -27,6 +27,7 @@
     "rc-form": "^1.4.3",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.6.0",
+    "react-core-image-upload": "^2.2.2",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
