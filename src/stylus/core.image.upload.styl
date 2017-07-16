@@ -1,7 +1,9 @@
 :global
   .g-core-image-upload-btn
-    position: relative;
+    position: absolute;
     overflow: hidden;
+    width: 80px;
+    height: 80px;
   .g-core-image-upload-form
     position: absolute;
     left: 0;
@@ -30,7 +32,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .9);
+    background: rgb(0, 0, 0);
     color: #f1f1f1;
   .g-core-image-corp-container .image-aside
     overflow: hidden;
@@ -52,11 +54,11 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    height: 40px;
+    bottom: 0;
+    height: 100px;
     padding-left: 10px;
     padding-right: 10px;
-    background: #fefefe;
+    background: #212121;
     color: #777;
   .g-core-image-corp-container .info-aside .image-corp-preview
     position: relative;
@@ -67,21 +69,22 @@
     border-radius: 160px;
   .g-core-image-corp-container .info-aside .image-corp-preview img
     width: 100%;
-  .g-core-image-corp-container .btn-groups
-    text-align: right;
-    margin: 5px 0 0;
-  .g-core-image-corp-container .btn
-    display: inline-block;
-    padding: 0 15px;
-    height: 32px;
-    margin-left: 15px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    font-size: 13px;
-    color: #222;
-    line-height: 32px;
-    transition: all .1s ease-in;
+  .g-core-image-corp-container
+    .btn-groups
+      padding: 0 40px
+      line-height: 100px;
+      .btn
+        font-family: PingFangSC-Regular;
+        color: #FFFFFF;
+        letter-spacing: -0.11px;
+        display: inline-block;
+        margin-left: 15px;
+        font-size: 32px;
+        color: #999999;
+        transition: all .1s ease-in;
+      .btn-upload
+        color: #FFFFFF;
+        float: right;
   .g-core-image-corp-container .btn:hover
     border: 1px solid #777;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
@@ -91,14 +94,6 @@
     background: #eee !important;
     border-color: #ccc;
     cursor: not-allowed;
-  .g-core-image-corp-container .btn-upload
-    background: #2d2d2d;
-    border-color: #3d3d3d;
-    color: #fff;
-  .g-core-image-corp-container .btn-upload:hover
-    background: #222;
-    border-color: #222;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
   .g-core-image-corp-container .g-crop-image-box,
   .g-core-image-corp-container .g-crop-image-box .g-crop-image-principal
     position: relative;
@@ -106,7 +101,7 @@
     position: absolute;
     background: #fff;
     opacity: .55;
-    border: 2px dashed rgba(0,0,0,.8);
+    border: 1PX solid #FFFFFF;
     cursor: move;
   .g-core-image-corp-container .g-resize
     z-index: 90;

@@ -22,13 +22,12 @@
 }
 .mui-preview-header .mui-preview-indicator {
 	display: inline-block;
-	width: 70px;
 	font-size: 24px;
   color: #3F3F3F;
   /*letter-spacing: -0.17px;*/
   line-height: 100px;
 }
-.mui-preview-header span.mui-preview-indicator::first-letter {
+.mui-preview-header span.mui-preview-indicator .current {
   font-family: PingFangSC-Regular;
   font-size: 48px;
   color: #FFFFFF;

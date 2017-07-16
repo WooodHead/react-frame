@@ -1,21 +1,33 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import styles from '@/stylus/mine/logined'
 
 import ReactCoreImageUpload from '@/components/CoreImageUpload'
+import { imgUpload } from '@/util/api'
 
-export default class extends Component {
-  constructor () {
-    super()
+class Logined extends Component {
+  constructor (props) {
+    super(props)
     this.state = {
       src: 'http://img1.vued.vanthink.cn/vued0a233185b6027244f9d43e653227439a.png'
     }
     this.handleRes = this.handleRes.bind(this)
+    this.imageChanged = this.imageChanged.bind(this)
+    this.imageUploading = this.imageUploading.bind(this)
   }
   handleRes (res) {
-    console.log(res)
-    this.setState({
-      src: res.data.src
-    })
+    console.log(res, 'loaded')
+    this.props.dispatch({type: 'loading hidden'})
+    // this.setState({
+    //   src: res.data.src
+    // })
+  }
+  imageChanged () {
+    console.log(arguments, 'changed')
+  }
+  imageUploading () {
+    this.props.dispatch({type: 'loading show'})
   }
   render () {
     return (
@@ -23,11 +35,14 @@ export default class extends Component {
         <div className={styles.user}>
           <div className={styles.avatar}>
             <ReactCoreImageUpload
-              text="Upload Your Image"
+              text=""
               className='pure-button'
-              crop={true}
-              inputOfFile="files"
-              url="./api/upload.php"
+              crop='server'
+              inputOfFile="img"
+              cropBtn={{ok: '选取', 'cancel': '取消'}}
+              url={imgUpload}
+              imageChanged={this.imageChanged}
+              imageUploading={this.imageUploading}
               imageUploaded={this.handleRes}>
             </ReactCoreImageUpload>
             <img src="https://php1.wanglibao.com/images/bbs/avatar1.png"/>
@@ -55,3 +70,4 @@ export default class extends Component {
     )
   }
 }
+export default connect((state) => state)(Logined)
