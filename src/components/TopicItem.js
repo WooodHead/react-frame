@@ -10,7 +10,7 @@ class TopicItem extends Component {
     return (
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
-          <img src={user ? user['head_img'] : ''} className={styles['avatar']} />
+          <img src={user ? user['head_img'] : ''} className={styles['avatar']} data-preview-src="" data-preview-group="1"/>
           <Link to={'/topic/detail/' + this.props.id}>
             <div className={styles['header-right']}>
               <div className={styles['header-right-first-fl']}>

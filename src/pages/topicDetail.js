@@ -34,6 +34,8 @@ class TopicDetail extends Component {
       }
     })
   }
+  componentDidMount () {
+  }
   render () {
     const { detail } = this.state
     return (
@@ -56,7 +58,7 @@ class TopicDetail extends Component {
             <div className={styles['content']}>
               <p>{detail.content}</p>
               {/* <div dangerouslySetInnerHTML={createMarkup()}></div> */}
-              <img style={{marginTop: '.32rem'}} src="https://image.wanglibao.com/yunying/201707071340461979.png" />
+              <img style={{marginTop: '.32rem'}} data-preview-src="" data-preview-group="1" src="https://image.wanglibao.com/yunying/201707071340461979.png" />
             </div>
             <div className={styles['love-area']}>
               <TopicLove />
