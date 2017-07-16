@@ -133,11 +133,11 @@ class ReactCoreImageUpload extends Component {
     let ratioH = this.props.cropRatio.split(':')[1]
     let Swidth = (imageWidth / 100) * 80
     let Sheight = (Swidth / ratioW) * ratioH
-    $selectCropBox.style.cssText = 'width:' + Swidth + 'pxheight: ' + Sheight + 'pxleft:' + (imageWidth - Swidth) / 2 + 'pxtop:' + (imageHeight - Sheight) / 2 + 'px'
+    $selectCropBox.style.cssText = 'width:' + Swidth + 'px;height: ' + Sheight + 'px;left:' + (imageWidth - Swidth) / 2 + 'px;top:' + (imageHeight - Sheight) / 2 + 'px;'
     if (Sheight > imageHeight) {
       Sheight = (imageHeight / 100) * 80
       Swidth = (Sheight * ratioW) / ratioH
-      $selectCropBox.style.cssText = 'width:' + Swidth + 'pxheight:' + Sheight + 'pxleft:' + (imageWidth - Swidth) / 2 + 'pxtop:' + (imageHeight - Sheight) / 2 + 'px'
+      $selectCropBox.style.cssText = 'width:' + Swidth + 'px;height:' + Sheight + 'px;left:' + (imageWidth - Swidth) / 2 + 'px;top:' + (imageHeight - Sheight) / 2 + 'px'
     }
   }
 
@@ -160,7 +160,7 @@ class ReactCoreImageUpload extends Component {
         }
       })
       // I don't hope to use a state to change the container stye
-      $container.style.cssText = 'width:' + W + 'pxheight:' + W / R + 'pxmargin-top:' + (H - W / R) / 2 + 'px'
+      $container.style.cssText = 'width:' + W + 'px;height:' + W / R + 'px;margin-top:' + (H - W / R) / 2 + 'px'
     } else {
       this.setState({
         image: {
@@ -169,7 +169,7 @@ class ReactCoreImageUpload extends Component {
           height: H
         }
       })
-      $container.style.cssText = 'width:' + H * R + 'pxheight:' + H + 'pxmargin-left:' + (W - H * R) / 2 + 'px'
+      $container.style.cssText = 'width:' + H * R + 'px;height:' + H + 'px;margin-left:' + (W - H * R) / 2 + 'px;'
     }
     this.imgChangeRatio = imageWidth / this.state.image.width
   }
