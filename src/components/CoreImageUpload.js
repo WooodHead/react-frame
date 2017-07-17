@@ -45,7 +45,7 @@ class ReactCoreImageUpload extends Component {
           </div>
           <div className='info-aside'>
             <div className='btn-groups'>
-              <div type='button' onClick={this.cancel.bind(this)} className='btn btn-cancel'>
+              <div onClick={this.cancel.bind(this)} className='btn btn-cancel'>
                 {this.props.cropBtn.cancel}
               </div>
               <div onClick={this.doCrop.bind(this)} className='btn btn-upload'>
