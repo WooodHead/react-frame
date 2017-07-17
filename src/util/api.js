@@ -161,4 +161,24 @@ export const bbsUserInfoRequest = (params) => {
     params: [{}]
   }).then(res => res.data)
 }
+// 添加收藏请求
+export const AddThreadCollect = (id) => {
+  return http({
+    url: apiList,
+    method: 'AddThreadCollect',
+    params: [{
+      id: id
+    }]
+  }).then(res => res.data)
+}
+// 点赞请求
+export const AddCommentZan = (id) => {
+  return http({
+    url: apiList,
+    method: 'AddCommentZan',
+    params: [{
+      id: id
+    }]
+  }).then(res => res.data)
+}
 export default http

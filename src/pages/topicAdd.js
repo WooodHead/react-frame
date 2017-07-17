@@ -3,9 +3,11 @@ import { withRouter } from 'react-router-dom'
 import { createForm } from 'rc-form'
 import { Button, ImagePicker } from 'antd-mobile'
 
-import { topicAddRequest, imgUploadRequest } from '@/util/api'
+import { topicAddRequest, imgUploadRequest, currentHost } from '@/util/api'
 import Navbar from '@/components/common/Navbar'
 import styles from '@/stylus/topic-add'
+
+import wlb from '@/util/webview'
 
 const data = []
 
@@ -25,6 +27,7 @@ class TopicAdd extends Component {
   }
   // 发布帖子
   handleSubmit () {
+    const { history } = this.props
     this.props.form.validateFields((error, value) => {
       console.log(error, 'error')
       const { title, content } = value
@@ -47,10 +50,35 @@ class TopicAdd extends Component {
         imgs: imgs
       }).then((res) => {
         if (res.result) {
-          this.Toast.info(res.result.message)
+          this.Toast.info(res.result.message, 1)
+          // 发帖成功
+          if (res.result.data.isverify === 1) {
+            setTimeout(() => {
+              history.push('/topic/detail/' + res.result.data.id)
+            }, 1000)
+          }
+          // 待审核
+          if (res.result.data.isverify === 0) {
+            setTimeout(() => {
+              history.push('/')
+            }, 1000)
+          }
         }
         if (res.error) {
           this.Toast.info(res.error.message)
+          if (res.error.code === 4004) {
+            setTimeout(() => {
+              wlb.ready({
+                app: function (mixins) {
+                  var time = new Date().getTime()
+                  mixins.loginApp({ refresh: 1, url: window.location.href + '?t=' + time })
+                },
+                other: function () {
+                  window.location.href = currentHost + '/wechat/verify?next=' + window.location.href + '?source=app'
+                }
+              })
+            }, 1000)
+          }
         }
       })
     })
