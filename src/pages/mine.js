@@ -6,9 +6,13 @@ import Navbar from '@/components/common/Navbar'
 import NoLogin from '@/containers/mine/NoLogin'
 import Logined from '@/containers/mine/Logined'
 import MineMenu from '@/containers/mine/MineMenu'
+
+import * as actions from '@/actions/user'
 class Mine extends Component {
+  componentWillMount () {
+    this.props.dispatch(actions.fetchUserInfo())
+  }
   render () {
-    console.log(this.props)
     const { loginState } = this.props
     return (
       <div className="layout">

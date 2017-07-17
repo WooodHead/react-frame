@@ -9,19 +9,12 @@ import { imgUpload } from '@/util/api'
 class Logined extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      src: 'http://img1.vued.vanthink.cn/vued0a233185b6027244f9d43e653227439a.png'
-    }
     this.handleRes = this.handleRes.bind(this)
     this.imageChanged = this.imageChanged.bind(this)
     this.imageUploading = this.imageUploading.bind(this)
   }
   handleRes (res) {
-    console.log(res, 'loaded')
     this.props.dispatch({type: 'loading hidden'})
-    // this.setState({
-    //   src: res.data.src
-    // })
   }
   imageChanged () {
     console.log(arguments, 'changed')
@@ -30,6 +23,8 @@ class Logined extends Component {
     this.props.dispatch({type: 'loading show'})
   }
   render () {
+    const { userinfo } = this.props
+    console.log(userinfo)
     return (
       <div className={styles.container}>
         <div className={styles.user}>
@@ -38,31 +33,31 @@ class Logined extends Component {
               text=""
               className='pure-button'
               crop='server'
-              inputOfFile="img"
+              inputOfFile="headImg"
               cropBtn={{ok: '选取', 'cancel': '取消'}}
               url={imgUpload}
               imageChanged={this.imageChanged}
               imageUploading={this.imageUploading}
               imageUploaded={this.handleRes}>
             </ReactCoreImageUpload>
-            <img src="https://php1.wanglibao.com/images/bbs/avatar1.png"/>
+            <img src={userinfo['head_img']}/>
           </div>
           <div className={styles['user-right']}>
-            <h1 className={styles['nickname']}>网利宝</h1>
+            <h1 className={styles['nickname']}>{userinfo.nickname}</h1>
             <div className={styles['edit-info']}><span>编辑资料</span></div>
           </div>
         </div>
         <div className={styles['info']}>
           <div className={styles['item']}>
-            <div className={styles['num']}>76</div>
+            <div className={styles['num']}>{userinfo.userZanNum}</div>
             <div className={styles['title']}><span>收到的赞</span></div>
           </div>
           <div className={styles['item']}>
-            <div className={styles['num']}>0</div>
+            <div className={styles['num']}>{userinfo.userCommentNum}</div>
             <div className={styles['title']}><span>收到的评论</span></div>
           </div>
           <div className={styles['item']}>
-            <div className={styles['num']}>76</div>
+            <div className={styles['num']}>{userinfo.userThreadCollectionNum}</div>
             <div className={styles['title']}><span>被收藏</span></div>
           </div>
         </div>
@@ -70,4 +65,4 @@ class Logined extends Component {
     )
   }
 }
-export default connect((state) => state)(Logined)
+export default connect(({user}) => user)(Logined)

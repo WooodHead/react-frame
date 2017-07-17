@@ -42,8 +42,6 @@ export default class extends Component {
         <div className={styles.movement}>
           <div></div>
           <div></div>
-          <div></div>
-          <div></div>
         </div>
       </div>
     )

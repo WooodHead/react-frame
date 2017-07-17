@@ -140,4 +140,12 @@ export const loginStateRequest = (params) => {
     params: []
   }).then(res => res.data)
 }
+// 用户基本信息
+export const bbsUserInfoRequest = (params) => {
+  return http({
+    url: apiList,
+    method: 'getBbsUserInfo',
+    params: [{}]
+  }).then(res => res.data)
+}
 export default http
