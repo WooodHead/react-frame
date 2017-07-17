@@ -5,6 +5,31 @@ import styles from '@/stylus/topic-item'
 
 import TopicTag from '@/components/common/TopicTag'
 class TopicItem extends Component {
+  constructor () {
+    super()
+    this.toStart = this.toStart.bind(this)
+    this.toLove = this.toLove.bind(this)
+  }
+  toStart () {
+    var el = this.refs.start
+    $.tipsBox({
+      obj: $(el),
+      str: '+1',
+      callback: function () {
+        // alert(5);
+      }
+    })
+  }
+  toLove () {
+    var el = this.refs.love
+    $.tipsBox({
+      obj: $(el),
+      str: '+1',
+      callback: function () {
+        // alert(5);
+      }
+    })
+  }
   render () {
     const { className, title, user, history } = this.props
     return (
@@ -29,9 +54,9 @@ class TopicItem extends Component {
           <p>{title}</p>
         </div>
         <div className={styles['footer']}>
-          <div className={styles['start']}><span>{this.props['collection_num']}</span></div>
+          <div className={styles['start']} ref="start" onClick={this.toStart}><span>{this.props['collection_num']}</span></div>
           <div className={styles['comment']}><span>{this.props['comment_num']}</span></div>
-          <div className={styles['love']}><span>{this.props['zan_num']}</span></div>
+          <div className={styles['love']} ref="love" onClick={this.toLove}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>
     )

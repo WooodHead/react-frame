@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Tabs, ListView, RefreshControl } from 'antd-mobile'
 
 import TopicItem from '@/components/TopicItem'
-import Loading from '@/components/loading/TopicLoadMore'
 
 import { connect } from 'react-redux'
 import * as actions from '@/actions/topic'
