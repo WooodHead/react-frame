@@ -1,4 +1,4 @@
-import helper from 'lib/helper'
+import helper from './helper'
 
 const isMobile = helper.isMobile
 let moves
