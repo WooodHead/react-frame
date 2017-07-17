@@ -53,7 +53,7 @@ class TopicPublicSelect extends Component {
                 return (
                   <div onClick={this.toPublic.bind(this, item.id)} key={index} className={styles['type-item']}>
                     <div className={styles['icon']}>
-                      <img src={require('@/imgs/ic_sq_atw@2x.png')} />
+                      <img src={item.icon} />
                     </div>
                     <h2 className={styles['type-name']}>{item.name}</h2>
                   </div>

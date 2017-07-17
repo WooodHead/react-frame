@@ -4,29 +4,45 @@ import { withRouter } from 'react-router-dom'
 import styles from '@/stylus/topic-item'
 
 import TopicTag from '@/components/common/TopicTag'
+
+import { AddThreadCollect, AddCommentZan } from '@/util/api'
 class TopicItem extends Component {
   constructor () {
     super()
-    this.toStart = this.toStart.bind(this)
-    this.toLove = this.toLove.bind(this)
+    this.state = {
+      collected: false,
+      loved: false
+    }
   }
-  toStart () {
+  // 收藏
+  toStart (id) {
     var el = this.refs.start
-    $.tipsBox({
-      obj: $(el),
-      str: '+1',
-      callback: function () {
-        // alert(5);
+    AddThreadCollect(id).then(res => {
+      if (res.result) {
+        $.tipsBox({
+          obj: $(el),
+          str: '+1',
+          color: '#008DFF'
+        })
+      }
+      if (res.error) {
+        this.Toast.show(res.error.message)
       }
     })
   }
-  toLove () {
+  // 点赞
+  toLove (id) {
     var el = this.refs.love
-    $.tipsBox({
-      obj: $(el),
-      str: '+1',
-      callback: function () {
-        // alert(5);
+    AddCommentZan(id).then(res => {
+      if (res.result) {
+        $.tipsBox({
+          obj: $(el),
+          str: '+1',
+          color: '#E83C25'
+        })
+      }
+      if (res.error) {
+        this.Toast.show(res.error.message)
       }
     })
   }
@@ -54,9 +70,9 @@ class TopicItem extends Component {
           <p>{title}</p>
         </div>
         <div className={styles['footer']}>
-          <div className={styles['start']} ref="start" onClick={this.toStart}><span>{this.props['collection_num']}</span></div>
+          <div className={styles['start']} ref="start" onClick={this.toStart.bind(this, this.props.id)}><span>{this.props['collection_num']}</span></div>
           <div className={styles['comment']}><span>{this.props['comment_num']}</span></div>
-          <div className={styles['love']} ref="love" onClick={this.toLove}><span>{this.props['zan_num']}</span></div>
+          <div className={styles['love']} ref="love" onClick={this.toLove.bind(this, this.props.id)}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>
     )
