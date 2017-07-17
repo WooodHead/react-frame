@@ -9,6 +9,7 @@
     "clear": "rimraf dist",
     "watch": "webpack --progress --colors --watch --env development",
     "test": "http-server ./dist -p 8081",
+    "pro": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'production'",
     "api": "http-server ./api -p 8082"
   },
   "keywords": [
@@ -22,12 +23,9 @@
     "babel-polyfill": "^6.23.0",
     "bundle-loader": "^0.5.5",
     "classnames": "^2.2.5",
-    "es6-promise": "^4.1.0",
     "jquery": "^3.2.1",
     "rc-form": "^1.4.3",
     "react": "^15.5.4",
-    "react-addons-css-transition-group": "^15.6.0",
-    "react-core-image-upload": "^2.2.2",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
