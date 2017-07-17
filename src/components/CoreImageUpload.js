@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
+import http from '@/util/api'
 import xhr from '@/util/xhr'
 import Resize from '@/util/resize'
 import Drag from '@/util/drag'
@@ -187,12 +188,12 @@ class ReactCoreImageUpload extends Component {
     }
 
     let $selectCrop = this.__find('.select-recorte')
-    this.data['request'] = 'crop'
+    // this.data['request'] = 'crop'
 
-    this.data['postionX'] = parseInt(window.getComputedStyle($selectCrop).left) * this.imgChangeRatio
-    this.data['postionY'] = parseInt(window.getComputedStyle($selectCrop).top) * this.imgChangeRatio
-    this.data['width'] = parseInt(window.getComputedStyle($selectCrop).width) * this.imgChangeRatio
-    this.data['height'] = parseInt(window.getComputedStyle($selectCrop).height) * this.imgChangeRatio
+    this.data['postionX'] = Math.ceil(parseInt(window.getComputedStyle($selectCrop).left) * this.imgChangeRatio)
+    this.data['postionY'] = Math.ceil(parseInt(window.getComputedStyle($selectCrop).top) * this.imgChangeRatio)
+    this.data['width'] = Math.ceil(parseInt(window.getComputedStyle($selectCrop).width) * this.imgChangeRatio)
+    this.data['height'] = Math.ceil(parseInt(window.getComputedStyle($selectCrop).height) * this.imgChangeRatio)
     this.tryAjaxUpload(function () {
       btn.value = btn.value.replace('...', '')
       btn.disabled = false

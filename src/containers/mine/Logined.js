@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import styles from '@/stylus/mine/logined'
 
 import ReactCoreImageUpload from '@/components/CoreImageUpload'
-import { imgUpload } from '@/util/api'
+import { imgUpload, updateBbsUserHeadimg } from '@/util/api'
 
 class Logined extends Component {
   constructor (props) {
@@ -14,6 +14,19 @@ class Logined extends Component {
     this.imageUploading = this.imageUploading.bind(this)
   }
   handleRes (res) {
+    const { dispatch } = this.props
+    var userinfo = {...this.props.userinfo}
+    if (res.data) {
+      userinfo['head_img'] = res.data.picUrl
+      updateBbsUserHeadimg(res.data.picUrl).then(res => {
+        if (res.result) {
+          dispatch({type: 'change user info', userinfo})
+        }
+      })
+    }
+    if (res['error_code']) {
+      this.Toast.show(res['error_code'].error.message)
+    }
     this.props.dispatch({type: 'loading hidden'})
   }
   imageChanged () {
@@ -24,7 +37,6 @@ class Logined extends Component {
   }
   render () {
     const { userinfo } = this.props
-    console.log(userinfo)
     return (
       <div className={styles.container}>
         <div className={styles.user}>
@@ -33,7 +45,7 @@ class Logined extends Component {
               text=""
               className='pure-button'
               crop='server'
-              inputOfFile="headImg"
+              inputOfFile="img"
               cropBtn={{ok: '选取', 'cancel': '取消'}}
               url={imgUpload}
               imageChanged={this.imageChanged}

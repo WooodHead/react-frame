@@ -14,7 +14,6 @@ export const fetchUserInfo = payload => dispatch => {
 
 export const fetchLoginState = (payload) => dispatch => {
   loginStateRequest().then(res => {
-    console.log(res)
     if (res.result) {
       var loginState = res.result.status === 1 ? 'logined' : 'nologin'
       dispatch({type: 'change login state', loginState})

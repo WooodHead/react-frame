@@ -49,6 +49,7 @@ function http () {
 
 function fetchData (params) {
   params.type = params.type ? params.type : 'post'
+  var header = params.header ? params.header : ''
   params['params'] = params['params'] ? params['params'] : []
   let jsonObj = {
     jsonrpc: '2.0',
@@ -60,6 +61,7 @@ function fetchData (params) {
   return axios({
     url: params.url,
     method: params.type,
+    header: header,
     data: json,
     timeout: 10000,
     withCredentials: isCrossDomain || !isPro
@@ -132,12 +134,23 @@ export const imgUploadRequest = (params) => {
     headers: {'Content-Type': 'multipart/form-data'}
   }).then(res => res.data)
 }
+
 // 登录状态接口
 export const loginStateRequest = (params) => {
   return http({
     url: apiAccount,
     method: 'loginStatus',
     params: []
+  }).then(res => res.data)
+}
+// 上传头像
+export const updateBbsUserHeadimg = (url) => {
+  return http({
+    url: apiList,
+    method: 'updateBbsUserHeadimg',
+    params: [{
+      headImg: url
+    }]
   }).then(res => res.data)
 }
 // 用户基本信息
