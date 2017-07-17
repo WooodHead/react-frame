@@ -157,8 +157,8 @@ module.exports = {
         test: /\.(png|jpe?g|git)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
-          name: '[name].[hash:7].[ext]'
+          limit: 1000,
+          name: isPro? 'images/[name].[hash:7].[ext]' : '[name].[hash:7].[ext]'
         }
       },
       {

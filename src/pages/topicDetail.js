@@ -7,6 +7,7 @@ import store from '@/stores'
 import Navbar from '@/components/common/Navbar'
 import TopicLove from '@/components/TopicLove'
 import TopicComment from '@/containers/TopicComment'
+import CommentEnter from '@/components/CommentEnter'
 
 import { getBbsThreadDetail } from '@/util/api'
 
@@ -66,6 +67,7 @@ class TopicDetail extends Component {
           </div>
           <TopicComment />
         </div>
+        <CommentEnter />
       </div>
     )
   }

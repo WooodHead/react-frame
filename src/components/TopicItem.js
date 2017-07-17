@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
+import cx from 'classnames'
 import styles from '@/stylus/topic-item'
 
 import TopicTag from '@/components/common/TopicTag'
@@ -19,6 +19,9 @@ class TopicItem extends Component {
     var el = this.refs.start
     AddThreadCollect(id).then(res => {
       if (res.result) {
+        this.setState({
+          collected: true
+        })
         $.tipsBox({
           obj: $(el),
           str: '+1',
@@ -48,6 +51,7 @@ class TopicItem extends Component {
   }
   render () {
     const { className, title, user, history } = this.props
+    var collected = this.state.collected
     return (
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
@@ -70,8 +74,8 @@ class TopicItem extends Component {
           <p>{title}</p>
         </div>
         <div className={styles['footer']}>
-          <div className={styles['start']} ref="start" onClick={this.toStart.bind(this, this.props.id)}><span>{this.props['collection_num']}</span></div>
-          <div className={styles['comment']}><span>{this.props['comment_num']}</span></div>
+          <div className={cx({[styles['start']]: !collected, [styles['started']]: collected})} ref="start" onClick={this.toStart.bind(this, this.props.id)}><span>{this.props['collection_num']}</span></div>
+          <div className={styles['comment']}><span onClick={() => history.push('/topic/detail/' + this.props.id + '#comment')}>{this.props['comment_num']}</span></div>
           <div className={styles['love']} ref="love" onClick={this.toLove.bind(this, this.props.id)}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>
