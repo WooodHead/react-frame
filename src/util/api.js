@@ -132,4 +132,12 @@ export const imgUploadRequest = (params) => {
     headers: {'Content-Type': 'multipart/form-data'}
   }).then(res => res.data)
 }
+// 登录状态接口
+export const loginStateRequest = (params) => {
+  return http({
+    url: apiAccount,
+    method: 'loginStatus',
+    params: []
+  }).then(res => res.data)
+}
 export default http
