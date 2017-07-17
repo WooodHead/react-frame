@@ -93,7 +93,7 @@ export const getBbsThreadTopList = () => {
     url: apiList,
     method: 'getBbsThreadTopList',
     params: [{
-      id: 2
+      id: 3
     }]
   }).then(res => res.data)
 }
