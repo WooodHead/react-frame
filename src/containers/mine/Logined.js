@@ -28,7 +28,7 @@ class Logined extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.user}>
-          <div className={styles.avatar}>
+          <div className={styles['user-left']}>
             <ReactCoreImageUpload
               text=""
               className='pure-button'
@@ -40,7 +40,7 @@ class Logined extends Component {
               imageUploading={this.imageUploading}
               imageUploaded={this.handleRes}>
             </ReactCoreImageUpload>
-            <img src={userinfo['head_img']}/>
+            <img className={styles.avatar} src={userinfo['head_img']}/>
           </div>
           <div className={styles['user-right']}>
             <h1 className={styles['nickname']}>{userinfo.nickname}</h1>
