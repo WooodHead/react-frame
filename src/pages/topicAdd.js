@@ -29,7 +29,7 @@ class TopicAdd extends Component {
       console.log(error, 'error')
       const { title, content } = value
       const { typeid, imgs } = this.state
-      if (title === '' && content === '') {
+      if (title === '' || content === '') {
         return
       }
       if (title.length < 4 || title.length > 23) {

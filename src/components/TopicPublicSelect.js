@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import store from '@/stores'
 
-import styles from '@/stylus/topic-public-select'
+import styles from '@/stylus/topic.public.select'
 import { Popup } from 'antd-mobile'
 class TopicPublicSelect extends Component {
   constructor () {

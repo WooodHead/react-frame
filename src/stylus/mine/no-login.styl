@@ -1,0 +1,45 @@
+@keyframes move
+  0%
+    transform: translateX(-50%)
+  100%
+    transform: translateX(0%)
+.container
+  height: 294px
+  background-image: linear-gradient(-180deg, #006ADB 0%, #008DFF 100%)
+  position: relative
+  overflow: hidden
+  .btn
+    position: absolute
+    top: 46px
+    margin: 0 auto
+    left: 0
+    right: 0
+    width: 300px
+    height: 72px
+    opacity: .7
+    border: 1px solid rgb(255,255,255)
+    border-radius: 100px
+    display: flex
+    align-items: center
+    justify-content: center
+    span
+      font-family: PingFangSC-Medium;
+      font-size: 28px;
+      color: #FFFFFF;
+      letter-spacing: 0.12px;
+  .movement
+    height: 113px
+    position: absolute
+    bottom: 0
+    width: 100%
+    div
+      height: 113px
+      width: 2560px
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      for i in 1 2 3 4
+        &:nth-child({i})
+          background: url('@/imgs/my-wave-0' + i + '.png') repeat-x
+          animation: move (4*i+3)s linear infinite

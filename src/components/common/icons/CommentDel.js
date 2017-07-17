@@ -10,8 +10,8 @@ class CommentDel extends Component {
 export default CommentDel
 const styles = {
   icon: {
-    background: 'url(\'' + require('@/imgs/ic_sq_delete@2x.png') + '\') center / 36px 36px no-repeat',
-    width: '36px',
-    height: '36px'
+    background: 'url(\'' + require('@/imgs/ic_sq_delete@2x.png') + '\') center / .36rem .36rem no-repeat',
+    width: '.36rem',
+    height: '.36rem'
   }
 }

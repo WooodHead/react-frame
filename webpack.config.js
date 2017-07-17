@@ -117,7 +117,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader', //  不被提取时用style-loader
+          fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
           use: [
             'css-loader?sourceMap=true',
             'postcss-loader'
@@ -189,19 +189,19 @@ module.exports = {
       colors: true,
       errors: true
     },
-    proxy: {
-      '/api': {
-        target: 'http://192.168.11.218/',
-        changeOrigin: true,
-        pathRewrite: {
-        }
-      }
-    }
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://192.168.11.218/',
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //     }
+    //   }
+    // }
     // 启用gzip压缩一切服务:
     // compress: true,
     // host: '0.0.0.0',
     // host: '192.168.11.232',
-    // port: '3001'
+    port: '3001'
   },
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],

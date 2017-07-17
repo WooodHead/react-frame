@@ -13,21 +13,14 @@ import store from '@/stores'
 import Bundle from '@/components/common/Bundle'
 import App from '@/containers/App'
 
-import loadIndex from 'bundle-loader?lazy&name=app-[name]!@/pages/index'
-import loadList from 'bundle-loader?lazy&name=app-[name]!@/pages/list'
-import loadTopicAdd from 'bundle-loader?lazy&name=app-[name]!@/pages/topicAdd'
-import loadTopicDetail from 'bundle-loader?lazy&name=app-[name]!@/pages/topicDetail'
-import loadTest from 'bundle-loader?lazy&name=app-[name]!@/pages/test'
-// import Test from '@/pages/test'
-// import Index from '@/pages/index'
+import loadIndex from 'bundle-loader?lazy&name=[name]!@/pages/index'
+import loadTopicAdd from 'bundle-loader?lazy&name=[name]!@/pages/topicAdd'
+import loadTopicDetail from 'bundle-loader?lazy&name=[name]!@/pages/topicDetail'
+import loadMine from 'bundle-loader?lazy&name=[name]!@/pages/mine'
+
 const Index = (props) => (
   <Bundle load={loadIndex}>
     {(Index) => <Index {...props}/>}
-  </Bundle>
-)
-const List = (props) => (
-  <Bundle load={loadList}>
-    {(List) => <List {...props}/>}
   </Bundle>
 )
 const TopicAdd = (props) => (
@@ -40,9 +33,9 @@ const TopicDetail = (props) => (
     {(TopicDetail) => <TopicDetail {...props}/>}
   </Bundle>
 )
-const Test = (props) => (
-  <Bundle load={loadTest}>
-    {(Test) => <Test {...props} />}
+const Mine = (props) => (
+  <Bundle load={loadMine}>
+    {(Mine) => <Mine {...props}/>}
   </Bundle>
 )
 
@@ -57,10 +50,9 @@ const router = () => (
       <App>
         <Switch>
           <Route path="/" exact={true} component={Index}/>
-          <Route path="/list" component={List}/>
           <Route path="/topic/add/:id" component={TopicAdd}/>
           <Route path="/topic/detail/:id" component={TopicDetail}/>
-          <Route path ="/test" component={Test}/>
+          <Route path="/mine" component={Mine}/>
         </Switch>
       </App>
     </Router>

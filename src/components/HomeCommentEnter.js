@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Popup } from 'antd-mobile'
 
-import styles from '@/stylus/home-commententer'
+import styles from '@/stylus/home.comment.enter'
 
 import TopicPublicSelect from '@/components/TopicPublicSelect'
 
@@ -19,10 +19,6 @@ class HomeCommentEnter extends Component {
         animationType: 'slide-up'
       }
     )
-  }
-  componentDidMount () {
-    console.log(this)
-    // this.popUp()
   }
   render () {
     const { className } = this.props

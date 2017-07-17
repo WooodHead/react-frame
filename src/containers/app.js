@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import * as actions from '@/actions/user'
 
 import { NavBar, Icon, Toast, Button, WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
 
@@ -12,6 +13,7 @@ Component.prototype.$api = api
 Component.prototype.Alert = Alert
 class App extends Component {
   componentWillMount () {
+    this.props.dispatch(actions.fetchLoginState())
   }
   render () {
     const { loading } = this.props

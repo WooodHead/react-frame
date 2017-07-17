@@ -30,6 +30,7 @@ axios.interceptors.response.use(function (response) {
   store.dispatch({type: 'loading hidden'})
   return response
 }, function (error) {
+  store.dispatch({type: 'loading hidden'})
   return Promise.reject(error)
 })
 
@@ -89,17 +90,14 @@ export const getBbsThreadTopList = () => {
   return http({
     url: apiList,
     method: 'getBbsThreadTopList',
-    params: [{}]
+    params: [{
+      id: 2
+    }]
   }).then(res => res.data)
 }
 // 获取帖子列表
 export const getTopicList = (params) => {
-  return simulate ? http({
-    type: 'get',
-    url: '/topic-list.json',
-    method: params.method,
-    params: params.params
-  }).then(res => res.data) : http({
+  return http({
     url: apiList,
     method: params.method,
     params: params.params
@@ -132,6 +130,14 @@ export const imgUploadRequest = (params) => {
     data: param,
     method: 'post',
     headers: {'Content-Type': 'multipart/form-data'}
+  }).then(res => res.data)
+}
+// 登录状态接口
+export const loginStateRequest = (params) => {
+  return http({
+    url: apiAccount,
+    method: 'loginStatus',
+    params: []
   }).then(res => res.data)
 }
 export default http

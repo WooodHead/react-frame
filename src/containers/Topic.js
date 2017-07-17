@@ -12,16 +12,6 @@ import styles from '@/stylus/topic-container'
 const TabPane = Tabs.TabPane
 
 class Topic extends Component {
-  componentWillMount () {
-    const { typeid, dispatch } = this.props
-    dispatch(actions.fetchTopicList({
-      methid: 0,
-      id: typeid,
-      page: 1
-    }))
-  }
-  componentDidMount () {
-  }
   handleTabClick (key) {
     key = Number(key)
     const {selectedNavbarIndex, topicList, selectedTabs, typeid, dispatch} = this.props
@@ -34,6 +24,8 @@ class Topic extends Component {
       id: typeid,
       page: 1
     }))
+    // 重置上拉加载
+    mui('#refreshContainer_' + selectedNavbarIndex).pullRefresh().refresh(true)
   }
   render () {
     const { topicList, typeid, selectedTabs, index } = this.props
