@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import styles from '@/stylus/mine/logined'
 
-import ReactCoreImageUpload from '@/components/CoreImageUpload'
+// import ReactCoreImageUpload from '@/components/CoreImageUpload'
 import { imgUpload } from '@/util/api'
 
 class Logined extends Component {
@@ -34,17 +34,19 @@ class Logined extends Component {
       <div className={styles.container}>
         <div className={styles.user}>
           <div className={styles.avatar}>
-            <ReactCoreImageUpload
-              text=""
-              className='pure-button'
-              crop='server'
-              inputOfFile="img"
-              cropBtn={{ok: '选取', 'cancel': '取消'}}
-              url={imgUpload}
-              imageChanged={this.imageChanged}
-              imageUploading={this.imageUploading}
-              imageUploaded={this.handleRes}>
-            </ReactCoreImageUpload>
+            {/*
+              <ReactCoreImageUpload
+                text=""
+                className='pure-button'
+                crop='server'
+                inputOfFile="img"
+                cropBtn={{ok: '选取', 'cancel': '取消'}}
+                url={imgUpload}
+                imageChanged={this.imageChanged}
+                imageUploading={this.imageUploading}
+                imageUploaded={this.handleRes}>
+              </ReactCoreImageUpload>
+              */}
             <img src="https://php1.wanglibao.com/images/bbs/avatar1.png"/>
           </div>
           <div className={styles['user-right']}>
