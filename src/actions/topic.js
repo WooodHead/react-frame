@@ -17,7 +17,10 @@ export const fetchTopicAllType = (payload) => (dispatch) => {
 // 获取置顶帖子列表数据
 export const fetchBbsThreadTopList = (payload) => (dispatch) => {
   getBbsThreadTopList().then(res => {
-    console.log(res)
+    if (res.result) {
+      var topTopicList = res.result.data.data
+      dispatch({type: 'set top topic list', topTopicList})
+    }
   })
 }
 // 获取帖子列表数据

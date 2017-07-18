@@ -52,6 +52,12 @@ export default handleActions({
       currentPages: [...currentPages]
     }
   },
+  'set top topic list': (state, { topTopicList }) => {
+    return {
+      ...state,
+      topTopicList
+    }
+  },
   'fetch topic list success': (state, { payload }) => {
     const { selectedTabs, selectedNavbarIndex } = state
     const { data, typeid, refresh } = payload
@@ -69,6 +75,7 @@ export default handleActions({
   }
 }, {
   topicList: {},
+  topTopicList: [], // 置顶帖子列表
   topicTypes: [],
   initHomeState: false, // 首页初始化情况
   selectedNavbarIndex: 0, // 当前选中的帖子类型索引

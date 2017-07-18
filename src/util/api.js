@@ -93,7 +93,7 @@ export const getBbsThreadTopList = () => {
     url: apiList,
     method: 'getBbsThreadTopList',
     params: [{
-      id: 3
+      id: 1
     }]
   }).then(res => res.data)
 }
@@ -171,11 +171,11 @@ export const AddThreadCollect = (id) => {
     }]
   }).then(res => res.data)
 }
-// 点赞请求
+// 帖子点赞请求
 export const AddCommentZan = (id) => {
   return http({
     url: apiList,
-    method: 'AddCommentZan',
+    method: 'AddThreadZan',
     params: [{
       id: id
     }]
