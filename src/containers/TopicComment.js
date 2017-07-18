@@ -35,12 +35,6 @@ class TopicComment extends Component {
     })
   }
   componentDidMount () {
-    const hash = this.props.location.hash
-    if (hash === '#comment') {
-      $('.scroll-wrap').animate({
-        scrollTop: $('#comment').offset().top - 90
-      }, 100)
-    }
   }
   render () {
     return (

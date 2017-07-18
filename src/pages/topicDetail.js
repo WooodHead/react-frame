@@ -30,11 +30,22 @@ class TopicDetail extends Component {
         this.setState({
           detail: res.result.data
         })
+        setTimeout(() => {
+          this.scrollToComment()
+        }, 0)
       } else {
         console.log(this.props.history)
         this.props.history.replace('/')
       }
     })
+  }
+  scrollToComment () {
+    const hash = this.props.location.hash
+    if (hash === '#comment') {
+      $('.scroll-wrap').animate({
+        scrollTop: $('#comment').offset().top - 90
+      }, 100)
+    }
   }
   componentDidMount () {
   }
