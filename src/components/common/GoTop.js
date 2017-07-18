@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import store from '@/stores'
 export default class extends Component {
   handleClick () {
-    const { onClick } = this.props
-    onClick && onClick()
+    const index = store.getState().topic.selectedNavbarIndex
+    mui('#refreshContainer_' + index).pullRefresh().scrollTo(0, 0, 100)
   }
   render () {
     const { className, onClick } = this.props

@@ -52,6 +52,11 @@ class TopicDetail extends Component {
   render () {
     const { detail } = this.state
     var id = this.props.match.params.id
+    var cover = []
+    if (detail.cover) {
+      cover = JSON.parse(detail.cover)
+      console.log(cover, 'cover')
+    }
     return (
       <div className="layout">
         <Navbar titleContent="帖子详情" />
@@ -72,10 +77,20 @@ class TopicDetail extends Component {
             <div className={styles['content']}>
               <p>{detail.content}</p>
               {/* <div dangerouslySetInnerHTML={createMarkup()}></div> */}
-              <img style={{marginTop: '.32rem'}} data-preview-src="" data-preview-group="1" src="https://image.wanglibao.com/yunying/201707071340461979.png" />
+              <div className={styles['imgs']}>
+                {
+                  cover.length > 0 && cover.map((item, index) => {
+                    return (
+                      <div key={index} className={styles['img-item']}>
+                        <img style={{marginTop: '.32rem'}} data-preview-src="" data-preview-group="1" src={item} />
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </div>
             <div className={styles['love-area']}>
-              <TopicLove />
+              <TopicLove item={detail} />
             </div>
           </div>
           <TopicComment />

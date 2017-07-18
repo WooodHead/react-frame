@@ -105,7 +105,7 @@ class TopicItem extends Component {
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
           <img src={user ? user['head_img'] : ''} className={styles['avatar']} data-preview-src="" data-preview-group="1"/>
-          <div className={styles['header-right']} onClick={() => history.push('/topic/detail/' + this.props.id)}>
+          <div className={styles['header-right']} onClick={() => history.push({pathname: '/topic/detail/' + this.props.id, state: index})}>
             <div className={styles['header-right-first-fl']}>
               <span className={styles['nickname']} style={{marginRight: '18px'}}>{user ? user.nickname : ''}</span>
               { this.props['isofficial'] === 1 && <TopicTag type="official" style={{marginRight: '18px'}}/> }
@@ -119,12 +119,12 @@ class TopicItem extends Component {
             </div>
           </div>
         </div>
-        <div onClick={() => history.push('/topic/detail/' + this.props.id)} className={styles['content']}>
+        <div onClick={() => history.push({pathname: '/topic/detail/' + this.props.id, state: index})} className={styles['content']}>
           <p>{title}</p>
         </div>
         <div className={styles['footer']}>
           <div className={cx({[styles['start']]: !collected, [styles['started']]: this.props['collection'] || collected})} ref="start" onClick={this.toStart.bind(this, this.props.id, index)}><span>{this.props['collection_num']}</span></div>
-          <div className={styles['comment']}><span onClick={() => history.push('/topic/detail/' + this.props.id + '#comment')}>{this.props['comment_num']}</span></div>
+          <div className={styles['comment']}><span onClick={() => history.push({pathname: '/topic/detail/' + this.props.id + '#comment', state: index})}>{this.props['comment_num']}</span></div>
           <div className={cx({[styles['love']]: !loved, [styles['loved']]: this.props['zan'] || loved})} ref="love" onClick={this.toLove.bind(this, this.props.id, index)}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>

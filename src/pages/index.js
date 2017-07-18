@@ -13,7 +13,8 @@ import NavbarPerson from '@/components/common/icons/NavbarPerson'
 import Stick from '@/containers/Stick'
 import Topic from '@/containers/Topic'
 import PublishTopicEnter from '@/components/PublishTopicEnter'
-import GoTop from '@/components/common/GoTop'
+import HomeFixationIcons from '@/containers/HomeFixationIcons'
+
 import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
@@ -166,9 +167,6 @@ class Index extends Component {
       this.initPullRefresh(index)
     })
   }
-  goTop (index) {
-    mui('#refreshContainer_' + index).pullRefresh().scrollTo(0, 0, 100)
-  }
   // 导航 title部分
   rennderTitleContent () {
     const { topicTypes, selectedNavbarIndex } = this.props
@@ -216,7 +214,7 @@ class Index extends Component {
           </div>
         </div>
         <PublishTopicEnter className={styles['publish-topic-enter']} />
-        <GoTop onClick={this.goTop.bind(this, selectedNavbarIndex)} className={styles['go-top']} />
+        <HomeFixationIcons className={styles['fixation-icons']} />
       </div>
     )
   }
