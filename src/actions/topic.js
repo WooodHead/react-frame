@@ -2,7 +2,7 @@
  * topic actions
  */
 import { createAction } from 'redux-actions'
-import { getTopicAllType, getBbsThreadTopList, getTopicList } from '@/util/api'
+import { getTopicAllType, getBbsThreadTopList, getTopicList, getBbsThreadDetail, getBbsCommentList } from '@/util/api'
 
 // 获取帖子所有板块
 export const fetchTopicAllType = (payload) => (dispatch) => {
@@ -26,7 +26,6 @@ export const fetchBbsThreadTopList = (payload) => (dispatch) => {
 // 获取帖子列表数据
 export const fetchTopicList = (payload) => (dispatch) => {
   var methods = ['getBbsThreadAllList', 'getBbsThreadGreatList', 'getBbsThreadHotList', 'getBbsThreadLastList']
-  console.log(payload, 'payload')
   getTopicList({'method': methods[payload.methid], params: [{'id': payload.id, 'page': payload.page}]}).then(res => {
     if (res.result) {
       const { data } = res.result.data
@@ -40,6 +39,33 @@ export const fetchTopicList = (payload) => (dispatch) => {
       setTimeout(() => {
         payload.cb && payload.cb(res.result)
       }, 0)
+    }
+  })
+}
+// 获取帖子详情数据
+export const fetchTopicDetail = (id, cb, err) => (dispatch) => {
+  dispatch({type: 'change topic detail data', topicDetailData: {}})
+  getBbsThreadDetail(id).then(res => {
+    if (res.result) {
+      const topicDetailData = res.result.data
+      dispatch({type: 'change topic detail data', topicDetailData})
+      cb && cb()
+    }
+    if (res.error) {
+      err && err()
+    }
+  })
+}
+// 获取帖子详情评论列表
+export const fetchTopicDetailCommentlist = (payload) => (dispatch) => {
+  const { refresh, page, id } = payload
+  getBbsCommentList({
+    page: page,
+    id: id
+  }).then(res => {
+    if (res.result) {
+      var data = res.result.data.data
+      dispatch({type: 'change topic detail comment list', refresh: refresh, commentList: data})
     }
   })
 }

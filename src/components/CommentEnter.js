@@ -16,8 +16,8 @@ export default class extends Component {
   }
   render () {
     return (
-      <div className={styles.view} onClick={this.toPublish.bind(this)}>
-        <span className={styles.content}>说点什么吧～</span>
+      <div className={styles.view}>
+        <span className={styles.content} onClick={this.toPublish.bind(this)}>说点什么吧～</span>
         <div className={styles.right}>
           <div className={styles.comment}>
             <span>1.8k</span>

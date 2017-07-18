@@ -14,7 +14,6 @@ export default handleActions({
   },
   // 首次获取板块后初始化一些数据
   'init home data': (state) => {
-    console.log('init home data')
     const { topicTypes } = state
     var topicList = {}
     var selectedTabs = []
@@ -79,6 +78,24 @@ export default handleActions({
       ...state,
       topicList
     }
+  },
+  // 改变帖子详情数据
+  'change topic detail data': (state, {topicDetailData}) => {
+    return {
+      ...state,
+      topicDetailData
+    }
+  },
+  'change topic detail comment list': (state, payload) => {
+    var { refresh, commentList } = payload
+    var oldCommentList = state.commentList
+    if (!refresh) {
+      commentList = commentList.concat(...oldCommentList)
+    }
+    return {
+      ...state,
+      commentList
+    }
   }
 }, {
   topicList: {},
@@ -87,5 +104,7 @@ export default handleActions({
   initHomeState: false, // 首页初始化情况
   selectedNavbarIndex: 0, // 当前选中的帖子类型索引
   selectedTabs: [], // 当前选中的tab [1,1,1,1,...]
-  currentPages: [] // 当前板块下 所在tab的页码 [[1,1,1,1], [1,1,1,1], ...]
+  currentPages: [], // 当前板块下 所在tab的页码 [[1,1,1,1], [1,1,1,1], ...]
+  topicDetailData: {}, // 帖子详情数据
+  commentList: [] // 帖子详情评论列表
 })

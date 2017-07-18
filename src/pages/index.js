@@ -100,12 +100,10 @@ class Index extends Component {
     const currentId = topicTypes[selectedNavbarIndex].id
     var autoRefresh = false
     const defaultActiveTab = selectedTabs[selectedNavbarIndex]
-    console.log(topicList[id][defaultActiveTab], id, 'id')
     if (topicList[currentId][defaultActiveTab].length === 0 && index === selectedNavbarIndex) {
       autoRefresh = true
     }
     var that = this
-    console.log(index, autoRefresh, selectedNavbarIndex)
     mui('#refreshContainer_' + index).pullRefresh({
       down: {
         indicators: false,

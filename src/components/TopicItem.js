@@ -124,7 +124,7 @@ class TopicItem extends Component {
         </div>
         <div className={styles['footer']}>
           <div className={cx({[styles['start']]: !collected, [styles['started']]: this.props['collection'] || collected})} ref="start" onClick={this.toStart.bind(this, this.props.id, index)}><span>{this.props['collection_num']}</span></div>
-          <div className={styles['comment']}><span onClick={() => history.push({pathname: '/topic/detail/' + this.props.id + '#comment', state: index})}>{this.props['comment_num']}</span></div>
+          <div className={styles['comment']}><span onClick={() => history.push({pathname: '/topic/detail/' + this.props.id, state: index, hash: 'comment'})}>{this.props['comment_num']}</span></div>
           <div className={cx({[styles['love']]: !loved, [styles['loved']]: this.props['zan'] || loved})} ref="love" onClick={this.toLove.bind(this, this.props.id, index)}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>

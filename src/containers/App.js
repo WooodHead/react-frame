@@ -16,7 +16,6 @@ Component.prototype.$api = api
 Component.prototype.Alert = Alert
 class App extends Component {
   componentWillMount () {
-    console.log('app')
     wlb.ready({
       app (mixins) {
         mixins.firstLoadWebView({ name: 'wanglishequ' })
@@ -28,7 +27,8 @@ class App extends Component {
             cookie.set(split[0], split[1], { path: '/', domain: '.wanglibao.com' })
           }
         })
-      }
+      },
+      other () {}
     })
     this.props.dispatch(actions.fetchLoginState())
   }

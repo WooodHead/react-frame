@@ -3,12 +3,13 @@
  */
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import styles from '@/stylus/topic.comment'
 
-import TopicCommentItem from '@/components/TopicCommentItem'
+import * as actions from '@/actions/topic'
 
-import { getBbsCommentList } from '@/util/api'
+import TopicCommentItem from '@/components/TopicCommentItem'
 
 class TopicComment extends Component {
   constructor () {
@@ -19,37 +20,41 @@ class TopicComment extends Component {
     }
   }
   componentWillMount () {
-    this.fetchData({refresh: true})
+  }
+  componentDidMount () {
+    $('.scroll-wrap').scroll((el) => {
+      if (el.target.scrollTop + el.target.clientHeight > el.target.scrollHeight - 50) {
+        console.log('fetch data')
+      }
+    })
   }
   fetchData (params) {
     const id = this.props.match.params.id
     const page = this.state.page
-    getBbsCommentList({
-      page: page,
-      id: id
-    }).then(res => {
-      console.log(res)
-      if (params.refresh) {
-        console.log(2)
-      }
-    })
-  }
-  componentDidMount () {
+    this.props.dispatch(actions.fetchTopicDetailCommentlist({
+      refresh: true,
+      id: id,
+      page: page
+    }))
   }
   render () {
+    const { topicDetailData, commentList } = this.props
     return (
       <div className={styles['comment-area']} id="comment">
         <div className={styles['title-bar']}>
-          <span>评论（88）</span>
+          <span>评论（{topicDetailData.comment_num || 0}）</span>
         </div>
         <div className="bg-white">
-          <TopicCommentItem />
-          <TopicCommentItem />
-          <TopicCommentItem />
-          <TopicCommentItem />
+          {
+            commentList.map((item, index) => {
+              return (
+                <TopicCommentItem key={index} index={index} item={item} />
+              )
+            })
+          }
         </div>
       </div>
     )
   }
 }
-export default withRouter(TopicComment)
+export default withRouter(connect(({topic}) => topic)(TopicComment))

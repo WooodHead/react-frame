@@ -5,39 +5,33 @@ import styles from '@/stylus/topic-detail'
 
 import store from '@/stores'
 
+import * as actions from '@/actions/topic'
 import Navbar from '@/components/common/Navbar'
 import TopicLove from '@/components/TopicLove'
 import TopicComment from '@/containers/TopicComment'
 import CommentEnter from '@/components/CommentEnter'
-
-import { getBbsThreadDetail } from '@/util/api'
+import Share from '@/components/common/icons/Share'
 
 function createMarkup () {
   return {__html: '<embed src=\'http://player.youku.com/player.php/Type/Folder/Fid//Ob//sid/XMjg2OTQ3NTIyOA==/v.swf\' quality=\'high\' width=\'480\' height=\'400\' align=\'middle\' allowScriptAccess=\'always\' allowFullScreen=\'true\' mode=\'transparent\' type=\'application/x-shockwave-flash\'></embed>'}
 }
 
 class TopicDetail extends Component {
-  constructor () {
-    super()
-    this.state = {
-      detail: {}
-    }
-  }
   componentWillMount () {
     var id = this.props.match.params.id
-    getBbsThreadDetail(id).then(res => {
-      if (res.result) {
-        this.setState({
-          detail: res.result.data
-        })
-        setTimeout(() => {
-          this.scrollToComment()
-        }, 0)
-      } else {
-        console.log(this.props.history)
-        this.props.history.replace('/')
-      }
-    })
+    const { dispatch } = this.props
+    dispatch(actions.fetchTopicDetail(id, () => {
+      setTimeout(() => {
+        this.scrollToComment()
+      }, 0)
+    }, () => {
+      this.props.history.replace('/')
+    }))
+    dispatch(actions.fetchTopicDetailCommentlist({
+      refresh: true,
+      id: id,
+      page: 1
+    }))
   }
   scrollToComment () {
     const hash = this.props.location.hash
@@ -50,7 +44,8 @@ class TopicDetail extends Component {
   componentDidMount () {
   }
   render () {
-    const { detail } = this.state
+    const { topicDetailData } = this.props
+    const detail = topicDetailData
     var id = this.props.match.params.id
     var cover = []
     if (detail.cover) {
@@ -59,7 +54,13 @@ class TopicDetail extends Component {
     }
     return (
       <div className="layout">
-        <Navbar titleContent="帖子详情" />
+        <Navbar
+          titleContent="看帖"
+          rightContent={<Share options={{
+            title: detail.title,
+            content: detail.content
+          }} />}
+          />
         <div className="scroll-wrap">
           <div className={styles['topic-box']}>
             <h1 className={styles['title']}>{detail.title}</h1>
@@ -100,4 +101,4 @@ class TopicDetail extends Component {
     )
   }
 }
-export default withRouter(connect()(TopicDetail))
+export default withRouter(connect(({topic}) => topic)(TopicDetail))
