@@ -12,7 +12,7 @@ import NavbarMessage from '@/components/common/icons/NavbarMessage'
 import NavbarPerson from '@/components/common/icons/NavbarPerson'
 import Stick from '@/containers/Stick'
 import Topic from '@/containers/Topic'
-import HomeCommentEnter from '@/components/HomeCommentEnter'
+import PublishTopicEnter from '@/components/PublishTopicEnter'
 import GoTop from '@/components/common/GoTop'
 import styles from '@/stylus/home'
 
@@ -215,7 +215,7 @@ class Index extends Component {
             }
           </div>
         </div>
-        <HomeCommentEnter className={styles['comment-enter']} />
+        <PublishTopicEnter className={styles['publish-topic-enter']} />
         <GoTop onClick={this.goTop.bind(this, selectedNavbarIndex)} className={styles['go-top']} />
       </div>
     )

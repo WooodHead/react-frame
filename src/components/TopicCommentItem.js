@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from '@/stylus/topic-comment'
+import styles from '@/stylus/topic.comment'
 
 import CommentLike from '@/components/CommentLike'
 import CommentDel from '@/components/common/icons/CommentDel'
@@ -28,7 +28,7 @@ class TopicCommentItem extends Component {
             </div>
           </div>
           <div className={styles['topic-comment-item-content']}>
-            网利社区全新升级了！网利社区全新升级了！网利社区全新升级了！网利社区全新升级了！网利社区全网利社区全全全...
+            网利社区全新升级了！网利社区全新升级了！网利社区全新升级了！网利社区全新升级了！网利社区全网利社区全全全...<span>下</span>
           </div>
         </div>
       </div>

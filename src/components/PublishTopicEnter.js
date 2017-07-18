@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Popup } from 'antd-mobile'
 
-import styles from '@/stylus/home.comment.enter'
+import styles from '@/stylus/publish.topic.enter'
 
-import TopicPublicSelect from '@/components/TopicPublicSelect'
+import TopicPublishSelect from '@/components/TopicPublishSelect'
 
 class HomeCommentEnter extends Component {
   constructor () {
@@ -14,7 +14,7 @@ class HomeCommentEnter extends Component {
   popUp () {
     const { history } = this.props
     Popup.show(
-      <TopicPublicSelect history={history} />,
+      <TopicPublishSelect history={history} />,
       {
         animationType: 'slide-up'
       }
@@ -23,7 +23,7 @@ class HomeCommentEnter extends Component {
   render () {
     const { className } = this.props
     return (
-      <div onClick={this.popUp} className={className + ' ' + styles['comment']}>
+      <div onClick={this.popUp} className={className + ' ' + styles['view']}>
         <span>说点什么吧~</span>
       </div>
     )
