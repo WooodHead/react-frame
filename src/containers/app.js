@@ -13,6 +13,7 @@ Component.prototype.$api = api
 Component.prototype.Alert = Alert
 class App extends Component {
   componentWillMount () {
+    console.log('app')
     this.props.dispatch(actions.fetchLoginState())
   }
   render () {
