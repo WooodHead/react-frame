@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import styles from '@/stylus/stick'
 
 class StickItem extends Component {
   render () {
+    const { item, history } = this.props
     return (
-      <Link to="/topic/detail/2">
-        <div className={styles['stick-item'] + ' ' + this.props.className}>
-          <div className={styles['stick-icon']}><span>置顶</span></div>
-          <p>[公告] 网利社区全新升级了，欢迎大家勇跃勇跃勇跃勇跃...</p>
-        </div>
-      </Link>
+      <div onClick={() => history.push('/topic/detail/' + item.id)} className={styles['stick-item'] + ' ' + this.props.className}>
+        <div className={styles['stick-icon']}><span>置顶</span></div>
+        <p>[公告] {item.title}</p>
+      </div>
     )
   }
 }
-export default StickItem
+export default withRouter(StickItem)
