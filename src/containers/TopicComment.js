@@ -8,7 +8,32 @@ import styles from '@/stylus/topic.comment'
 
 import TopicCommentItem from '@/components/TopicCommentItem'
 
+import { getBbsCommentList } from '@/util/api'
+
 class TopicComment extends Component {
+  constructor () {
+    super()
+    this.state = {
+      page: 1,
+      data: []
+    }
+  }
+  componentWillMount () {
+    this.fetchData({refresh: true})
+  }
+  fetchData (params) {
+    const id = this.props.match.params.id
+    const page = this.state.page
+    getBbsCommentList({
+      page: page,
+      id: id
+    }).then(res => {
+      console.log(res)
+      if (params.refresh) {
+        console.log(2)
+      }
+    })
+  }
   componentDidMount () {
     const hash = this.props.location.hash
     if (hash === '#comment') {

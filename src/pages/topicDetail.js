@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import styles from '@/stylus/topic-detail'
 
 import store from '@/stores'
@@ -39,6 +40,7 @@ class TopicDetail extends Component {
   }
   render () {
     const { detail } = this.state
+    var id = this.props.match.params.id
     return (
       <div className="layout">
         <Navbar titleContent="帖子详情" />
@@ -67,9 +69,9 @@ class TopicDetail extends Component {
           </div>
           <TopicComment />
         </div>
-        <CommentEnter />
+        <CommentEnter id={id} />
       </div>
     )
   }
 }
-export default withRouter(TopicDetail)
+export default withRouter(connect()(TopicDetail))

@@ -181,4 +181,20 @@ export const AddCommentZan = (id) => {
     }]
   }).then(res => res.data)
 }
+// 相关帖子评论列表
+export const getBbsCommentList = (params) => {
+  return http({
+    url: apiList,
+    method: 'getBbsCommentList',
+    params: [params]
+  }).then(res => res.data)
+}
+// 发布评论
+export const publishComment = (params) => {
+  return http({
+    url: apiList,
+    method: 'BbsPublishComment',
+    params: [params]
+  }).then(res => res.data)
+}
 export default http

@@ -8,7 +8,7 @@ import PublishComment from '@/components/PublishComment'
 export default class extends Component {
   toPublish () {
     Popup.show(
-      <PublishComment />,
+      <PublishComment id={this.props.id} />,
       {
         animationType: 'slide-up'
       }
@@ -16,7 +16,7 @@ export default class extends Component {
   }
   render () {
     return (
-      <div className={styles.view} onClick={this.toPublish}>
+      <div className={styles.view} onClick={this.toPublish.bind(this)}>
         <span className={styles.content}>说点什么吧～</span>
         <div className={styles.right}>
           <div className={styles.comment}>
