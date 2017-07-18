@@ -58,6 +58,13 @@ export default handleActions({
       topTopicList
     }
   },
+  'change home topic list data': (state, {topicList}) => {
+    console.log('change home topic list data')
+    return {
+      ...state,
+      topicList
+    }
+  },
   'fetch topic list success': (state, { payload }) => {
     const { selectedTabs, selectedNavbarIndex } = state
     const { data, typeid, refresh } = payload

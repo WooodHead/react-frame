@@ -38,7 +38,7 @@ class Topic extends Component {
                 topicList[typeid] && topicList[typeid][0].map(function (item, index) {
                   // console.log(item, 'item')
                   return (
-                    (<TopicItem key={index} {...item} className="mb-18" />)
+                    (<TopicItem key={index} index={index} {...item} className="mb-18" />)
                   )
                 })
               }
@@ -50,7 +50,7 @@ class Topic extends Component {
                 topicList[typeid] && topicList[typeid][1].map(function (item, index) {
                   // console.log(item, 'item')
                   return (
-                    (<TopicItem key={index} {...item} className="mb-18" />)
+                    (<TopicItem key={index} index={index} {...item} className="mb-18" />)
                   )
                 })
               }
@@ -62,7 +62,7 @@ class Topic extends Component {
                 topicList[typeid] && topicList[typeid][2].map(function (item, index) {
                   // console.log(item, 'item')
                   return (
-                    (<TopicItem key={index} {...item} className="mb-18" />)
+                    (<TopicItem key={index} index={index} {...item} className="mb-18" />)
                   )
                 })
               }
@@ -74,7 +74,7 @@ class Topic extends Component {
                 topicList[typeid] && topicList[typeid][3].map(function (item, index) {
                   // console.log(item, 'item')
                   return (
-                    (<TopicItem key={index} {...item} className="mb-18" />)
+                    (<TopicItem key={index} index={index} {...item} className="mb-18" />)
                   )
                 })
               }

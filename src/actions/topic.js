@@ -27,7 +27,7 @@ export const fetchBbsThreadTopList = (payload) => (dispatch) => {
 export const fetchTopicList = (payload) => (dispatch) => {
   var methods = ['getBbsThreadAllList', 'getBbsThreadGreatList', 'getBbsThreadHotList', 'getBbsThreadLastList']
   console.log(payload, 'payload')
-  getTopicList({'method': methods[payload.methid], params: [{'id': payload.id, 'page': payload.page, 'pageNum': 3}]}).then(res => {
+  getTopicList({'method': methods[payload.methid], params: [{'id': payload.id, 'page': payload.page}]}).then(res => {
     if (res.result) {
       const { data } = res.result.data
       const page = payload.page

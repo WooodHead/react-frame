@@ -171,11 +171,31 @@ export const AddThreadCollect = (id) => {
     }]
   }).then(res => res.data)
 }
+// 删除收藏
+export const DelThreadCollect = (id) => {
+  return http({
+    url: apiList,
+    method: 'DelThreadCollect',
+    params: [{
+      id: id
+    }]
+  }).then(res => res.data)
+}
 // 帖子点赞请求
 export const AddCommentZan = (id) => {
   return http({
     url: apiList,
     method: 'AddThreadZan',
+    params: [{
+      id: id
+    }]
+  }).then(res => res.data)
+}
+// 帖子取消点赞
+export const DelThreadZan = (id) => {
+  return http({
+    url: apiList,
+    method: 'delThreadZan',
     params: [{
       id: id
     }]

@@ -1,57 +1,106 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import cx from 'classnames'
-import styles from '@/stylus/topic-item'
+import styles from '@/stylus/topic.item'
 
 import TopicTag from '@/components/common/TopicTag'
 
-import { AddThreadCollect, AddCommentZan } from '@/util/api'
+import { AddThreadCollect, DelThreadCollect, AddCommentZan, DelThreadZan } from '@/util/api'
 class TopicItem extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       collected: false,
       loved: false
     }
+    const { topicList } = this.props
+    this.topicList = {...topicList}
+    // console.log(this.topicList, this.props)
   }
   // 收藏
-  toStart (id) {
+  toStart (id, index) {
+    const { selectedNavbarIndex, topicTypes, selectedTabs } = this.props
+    const typeid = topicTypes[selectedNavbarIndex].id
+    const tabIndex = selectedTabs[selectedNavbarIndex]
     var el = this.refs.start
-    AddThreadCollect(id).then(res => {
-      if (res.result) {
-        this.setState({
-          collected: true
-        })
-        $.tipsBox({
-          obj: $(el),
-          str: '+1',
-          color: '#008DFF'
-        })
-      }
-      if (res.error) {
-        this.Toast.show(res.error.message)
-      }
-    })
+    if (this.props['collection'] || this.state.collected) {
+      DelThreadCollect(id).then(res => {
+        if (res.result) {
+          this.setState({
+            collected: false
+          })
+          this.topicList[typeid][tabIndex][index].collection_num -= 1
+          this.topicList[typeid][tabIndex][index].collection = null
+          setTimeout(() => {
+            this.props.dispatch({type: 'change home topic list data', topicList: {...this.topicList}})
+          }, 0)
+        }
+      })
+    } else {
+      AddThreadCollect(id).then(res => {
+        if (res.result) {
+          this.setState({
+            collected: true
+          })
+          $.tipsBox({
+            obj: $(el),
+            str: '+1',
+            color: '#008DFF'
+          })
+          this.topicList[typeid][tabIndex][index].collection_num += 1
+          this.topicList[typeid][tabIndex][index].collection = res.result.data
+          this.props.dispatch({type: 'change home topic list data', topicList: {...this.topicList}})
+        }
+        if (res.error) {
+          this.Toast.show(res.error.message)
+        }
+      })
+    }
   }
   // 点赞
-  toLove (id) {
+  toLove (id, index) {
+    const { selectedNavbarIndex, topicTypes, selectedTabs } = this.props
+    const typeid = topicTypes[selectedNavbarIndex].id
+    const tabIndex = selectedTabs[selectedNavbarIndex]
     var el = this.refs.love
-    AddCommentZan(id).then(res => {
-      if (res.result) {
-        $.tipsBox({
-          obj: $(el),
-          str: '+1',
-          color: '#E83C25'
-        })
-      }
-      if (res.error) {
-        this.Toast.show(res.error.message)
-      }
-    })
+    console.log(this.props.zan)
+    if (this.props['zan'] || this.state.loved) {
+      DelThreadZan(id).then(res => {
+        if (res.result) {
+          this.setState({
+            loved: false
+          })
+          this.topicList[typeid][tabIndex][index].zan_num -= 1
+          this.topicList[typeid][tabIndex][index].zan = null
+          this.props.dispatch({type: 'change home topic list data', topicList: {...this.topicList}})
+        }
+      })
+    } else {
+      AddCommentZan(id).then(res => {
+        if (res.result) {
+          this.setState({
+            loved: true
+          })
+          $.tipsBox({
+            obj: $(el),
+            str: '+1',
+            color: '#E83C25'
+          })
+          this.topicList[typeid][tabIndex][index].zan_num += 1
+          this.topicList[typeid][tabIndex][index].zan = res.result.data
+          this.props.dispatch({type: 'change home topic list data', topicList: {...this.topicList}})
+        }
+        if (res.error) {
+          this.Toast.show(res.error.message)
+        }
+      })
+    }
   }
   render () {
-    const { className, title, user, history } = this.props
+    const { className, title, user, history, index } = this.props
     var collected = this.state.collected
+    var loved = this.state.loved
     return (
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
@@ -74,12 +123,12 @@ class TopicItem extends Component {
           <p>{title}</p>
         </div>
         <div className={styles['footer']}>
-          <div className={cx({[styles['start']]: !collected, [styles['started']]: collected})} ref="start" onClick={this.toStart.bind(this, this.props.id)}><span>{this.props['collection_num']}</span></div>
+          <div className={cx({[styles['start']]: !collected, [styles['started']]: this.props['collection'] || collected})} ref="start" onClick={this.toStart.bind(this, this.props.id, index)}><span>{this.props['collection_num']}</span></div>
           <div className={styles['comment']}><span onClick={() => history.push('/topic/detail/' + this.props.id + '#comment')}>{this.props['comment_num']}</span></div>
-          <div className={styles['love']} ref="love" onClick={this.toLove.bind(this, this.props.id)}><span>{this.props['zan_num']}</span></div>
+          <div className={cx({[styles['love']]: !loved, [styles['loved']]: this.props['zan'] || loved})} ref="love" onClick={this.toLove.bind(this, this.props.id, index)}><span>{this.props['zan_num']}</span></div>
         </div>
       </div>
     )
   }
 }
-export default withRouter(TopicItem)
+export default withRouter(connect(({topic}) => topic)(TopicItem))
