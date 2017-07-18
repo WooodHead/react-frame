@@ -3,13 +3,26 @@ import { withRouter } from 'react-router-dom'
 
 import styles from '@/stylus/navbar'
 
+import wlb from '@/util/webview'
+
 class Navbar extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.goBack = this.goBack.bind(this)
   }
   goBack () {
-    this.props.history.goBack()
+    wlb.ready({
+      app: (mixins) => {
+        if (this.props.match.path === '/') {
+          mixins.touchClose()
+        } else {
+          this.props.history.goBack()
+        }
+      },
+      other: () => {
+        this.props.history.goBack()
+      }
+    })
   }
   render () {
     const { titleContent, rightContent, titleClass, leftClick } = this.props
