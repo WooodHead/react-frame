@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/stores'
+import wlb from '@/util/webview'
 
 var isPro = process.env.NODE_ENV === 'production'
 var isCrossDomain = window.location.hostname.indexOf('wanglibao.com') === -1
@@ -28,6 +29,22 @@ axios.interceptors.request.use(function (config) {
 })
 axios.interceptors.response.use(function (response) {
   store.dispatch({type: 'loading hidden'})
+  const config = JSON.parse(response.config.data)
+  if (config.method !== 'getBbsUserInfo') {
+    if (response.data.error && response.data.error.code === 4004) {
+      setTimeout(() => {
+        wlb.ready({
+          app: function (mixins) {
+            var time = new Date().getTime()
+            mixins.loginApp({ url: window.location.href + '?t=' + time })
+          },
+          other: function () {
+            window.location.href = currentHost + '/wechat/verify?next=' + window.location.href + '?source=app'
+          }
+        })
+      }, 1000)
+    }
+  }
   return response
 }, function (error) {
   store.dispatch({type: 'loading hidden'})

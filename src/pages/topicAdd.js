@@ -7,8 +7,6 @@ import { topicAddRequest, imgUploadRequest, currentHost } from '@/util/api'
 import Navbar from '@/components/common/Navbar'
 import styles from '@/stylus/topic-add'
 
-import wlb from '@/util/webview'
-
 const data = []
 
 class TopicAdd extends Component {
@@ -66,19 +64,6 @@ class TopicAdd extends Component {
         }
         if (res.error) {
           this.Toast.info(res.error.message)
-          if (res.error.code === 4004) {
-            setTimeout(() => {
-              wlb.ready({
-                app: function (mixins) {
-                  var time = new Date().getTime()
-                  mixins.loginApp({ refresh: 1, url: window.location.href + '?t=' + time })
-                },
-                other: function () {
-                  window.location.href = currentHost + '/wechat/verify?next=' + window.location.href + '?source=app'
-                }
-              })
-            }, 1000)
-          }
         }
       })
     })
