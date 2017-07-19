@@ -120,7 +120,7 @@ class Index extends Component {
             page: 1,
             refresh: true,
             cb: () => {
-              // this.endPulldownToRefresh(true)
+              this.endPulldownToRefresh(true)
               this.refresh(true)
             }
           }))
