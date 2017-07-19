@@ -22,8 +22,9 @@ class PublishComment extends Component {
   componentDidMount () {
     var el = this.refs['comment-text']
     $('textarea').focus(() => {
-      console.log(focus)
-      $(el).css({position: 'fixed', bottom: 0, left: 0, right: 0})
+      setTimeout(() => {
+        $(el).css({position: 'fixed', bottom: 0, left: 0, right: 0})
+      }, 0)
     })
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
