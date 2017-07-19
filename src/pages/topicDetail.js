@@ -6,6 +6,7 @@ import styles from '@/stylus/topic-detail'
 import store from '@/stores'
 
 import * as actions from '@/actions/topic'
+import { fetchUserInfo } from '@/actions/user'
 import Navbar from '@/components/common/Navbar'
 import TopicLove from '@/components/TopicLove'
 import TopicComment from '@/containers/TopicComment'
@@ -20,6 +21,7 @@ class TopicDetail extends Component {
   componentWillMount () {
     var id = this.props.match.params.id
     const { dispatch } = this.props
+    dispatch(fetchUserInfo())
     dispatch(actions.fetchTopicDetail(id, () => {
       setTimeout(() => {
         this.scrollToComment()

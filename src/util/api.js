@@ -182,7 +182,7 @@ export const DelThreadCollect = (id) => {
   }).then(res => res.data)
 }
 // 帖子点赞请求
-export const AddCommentZan = (id) => {
+export const AddThreadZan = (id) => {
   return http({
     url: apiList,
     method: 'AddThreadZan',
@@ -215,6 +215,26 @@ export const publishComment = (params) => {
     url: apiList,
     method: 'BbsPublishComment',
     params: [params]
+  }).then(res => res.data)
+}
+// 评论点赞
+export const AddCommentZan = (id) => {
+  return http({
+    url: apiList,
+    method: 'AddCommentZan',
+    params: [{
+      id: id
+    }]
+  }).then(res => res.data)
+}
+// 删除评论
+export const delBbsComment = (id) => {
+  return http({
+    url: apiList,
+    method: 'delBbsComment',
+    params: [{
+      id: id
+    }]
   }).then(res => res.data)
 }
 export default http

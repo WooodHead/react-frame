@@ -88,6 +88,7 @@ export default handleActions({
   },
   'change topic detail comment list': (state, payload) => {
     var { refresh, commentList } = payload
+    console.log(payload, 'payload')
     var oldCommentList = state.commentList
     if (!refresh) {
       commentList = commentList.concat(...oldCommentList)

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import styles from '@/stylus/topic.comment'
 
 import CommentLike from '@/components/CommentLike'
-import CommentDel from '@/components/common/icons/CommentDel'
+import CommentDel from '@/components/comment/CommentDel'
 
 class TopicCommentItem extends Component {
   constructor (props) {
@@ -19,6 +19,7 @@ class TopicCommentItem extends Component {
   }
   render () {
     const { item, index } = this.props
+    var el = this.refs.content
     return (
       <div className={styles['topic-comment-item']}>
         <div className={styles['avatar']}>
@@ -35,12 +36,14 @@ class TopicCommentItem extends Component {
               </div>
             </div>
             <div className={styles['first-fl-right']}>
-              <CommentLike item={item} />
-              <CommentDel className="ml-24 mt-2"/>
+              <CommentLike index={index} item={item} />
+              <CommentDel index={index} item={item} className="ml-24 mt-2"/>
             </div>
           </div>
-          <div className={cx({[styles['topic-comment-item-content']]: !this.state.isfull, [styles['isfull']]: this.state.isfull})}>{item.content}</div>
-          <div className={this.state.isfull ? styles['pack-up'] : styles['show']} onClick={this.handleFold.bind(this)}><span>{this.state.isfull ? '收起评论' : '显示全部'}</span></div>
+          <div className={cx({[styles['topic-comment-item-content']]: !this.state.isfull, [styles['isfull']]: this.state.isfull})} ref="content">{item.content}</div>
+          {
+            el && el.scrollHeight > el.clientHeight && (<div className={this.state.isfull ? styles['pack-up'] : styles['show']} onClick={this.handleFold.bind(this)}><span>{this.state.isfull ? '收起评论' : '显示全部'}</span></div>)
+          }
         </div>
       </div>
     )

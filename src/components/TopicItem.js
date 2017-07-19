@@ -6,7 +6,7 @@ import styles from '@/stylus/topic.item'
 
 import TopicTag from '@/components/common/TopicTag'
 
-import { AddThreadCollect, DelThreadCollect, AddCommentZan, DelThreadZan } from '@/util/api'
+import { AddThreadCollect, DelThreadCollect, AddThreadZan, DelThreadZan } from '@/util/api'
 class TopicItem extends Component {
   constructor (props) {
     super(props)
@@ -77,7 +77,7 @@ class TopicItem extends Component {
         }
       })
     } else {
-      AddCommentZan(id).then(res => {
+      AddThreadZan(id).then(res => {
         if (res.result) {
           this.setState({
             loved: true

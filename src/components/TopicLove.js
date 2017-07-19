@@ -9,7 +9,7 @@ import cx from 'classnames'
 
 import styles from '@/stylus/topic-love'
 
-import { AddCommentZan } from '@/util/api'
+import { AddThreadZan } from '@/util/api'
 
 class TopicLove extends Component {
   constructor (props) {
@@ -26,7 +26,7 @@ class TopicLove extends Component {
     console.log(index)
     var el = this.refs.loved
     if (zan === null && this.state.clicked === false) {
-      AddCommentZan(id).then(res => {
+      AddThreadZan(id).then(res => {
         if (res.result) {
           this.setState({
             clicked: true,
