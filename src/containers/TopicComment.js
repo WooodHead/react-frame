@@ -9,6 +9,7 @@ import styles from '@/stylus/topic.comment'
 
 import * as actions from '@/actions/topic'
 
+import LoadingMore from '@/components/common/LoadingMore'
 import TopicCommentItem from '@/components/TopicCommentItem'
 
 class TopicComment extends Component {
@@ -16,7 +17,8 @@ class TopicComment extends Component {
     super()
     this.state = {
       page: 1,
-      data: []
+      data: [],
+      loading: false
     }
   }
   componentWillMount () {
@@ -51,6 +53,9 @@ class TopicComment extends Component {
                 <TopicCommentItem key={index} index={index} item={item} />
               )
             })
+          }
+          {
+            this.state.loading && (<LoadingMore />)
           }
         </div>
       </div>

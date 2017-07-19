@@ -10,7 +10,7 @@ import { fetchUserInfo } from '@/actions/user'
 import Navbar from '@/components/common/Navbar'
 import TopicLove from '@/components/TopicLove'
 import TopicComment from '@/containers/TopicComment'
-import CommentEnter from '@/components/CommentEnter'
+import CommentEnter from '@/components/comment/CommentEnter'
 import Share from '@/components/common/icons/Share'
 
 function createMarkup () {

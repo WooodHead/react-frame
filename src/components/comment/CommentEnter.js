@@ -14,12 +14,17 @@ export default class extends Component {
       }
     )
   }
+  scrollCommentTop () {
+    $('.scroll-wrap').animate({
+      scrollTop: $('#comment').offset().top - 90
+    }, 100)
+  }
   render () {
     return (
       <div className={styles.view}>
         <span className={styles.content} onClick={this.toPublish.bind(this)}>说点什么吧～</span>
         <div className={styles.right}>
-          <div className={styles.comment}>
+          <div onClick={this.scrollCommentTop.bind(this)} className={styles.comment}>
             <span>1.8k</span>
           </div>
           <div className={styles.collect}>
