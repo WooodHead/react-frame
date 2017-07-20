@@ -17,7 +17,6 @@ import loadIndex from 'bundle-loader?lazy&name=[name]!@/pages/index'
 import loadTopicAdd from 'bundle-loader?lazy&name=[name]!@/pages/topicAdd'
 import loadTopicDetail from 'bundle-loader?lazy&name=[name]!@/pages/topicDetail'
 import loadMine from 'bundle-loader?lazy&name=[name]!@/pages/mine'
-import loadTest from 'bundle-loader?lazy&name=[name]!@/pages/test'
 
 const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -39,11 +38,6 @@ const Mine = (props) => (
     {(Mine) => <Mine {...props}/>}
   </Bundle>
 )
-const Test = (props) => (
-  <Bundle load={loadTest}>
-    {(Test) => <Test {...props}/>}
-  </Bundle>
-)
 
 const isPro = process.env.NODE_ENV === 'production'
 
@@ -59,7 +53,6 @@ const router = () => (
           <Route path="/topic/add/:id" component={TopicAdd}/>
           <Route path="/topic/detail/:id" component={TopicDetail}/>
           <Route path="/mine" component={Mine}/>
-          <Route path="/test" component={Test}/>
         </Switch>
       </App>
     </Router>
