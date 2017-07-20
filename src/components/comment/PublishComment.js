@@ -36,7 +36,7 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
-    alert(2)
+    // alert(2)
     alert(plus.os.name)
     document.addEventListener('plusready', plusReady, false)
   }
