@@ -22,6 +22,7 @@ class TopicDetail extends Component {
     dispatch(fetchUserInfo())
     dispatch(actions.fetchTopicDetail(id, () => {
       setTimeout(() => {
+        mui.previewImage()
         this.scrollToComment()
       }, 0)
     }, () => {

@@ -66,16 +66,17 @@ class TopicItem extends Component {
     var el = this.refs.love
     console.log(this.props.zan)
     if (this.props['zan'] || this.state.loved) {
-      DelThreadZan(id).then(res => {
-        if (res.result) {
-          this.setState({
-            loved: false
-          })
-          this.topicList[typeid][tabIndex][index].zan_num -= 1
-          this.topicList[typeid][tabIndex][index].zan = null
-          this.props.dispatch({type: 'change home topic list data', topicList: {...this.topicList}})
-        }
-      })
+      this.Toast.show('您已经点过赞了～')
+      // DelThreadZan(id).then(res => {
+      //   if (res.result) {
+      //     this.setState({
+      //       loved: false
+      //     })
+      //     this.topicList[typeid][tabIndex][index].zan_num -= 1
+      //     this.topicList[typeid][tabIndex][index].zan = null
+      //     this.props.dispatch({type: 'change home topic list data', topicList: {...this.topicList}})
+      //   }
+      // })
     } else {
       AddThreadZan(id).then(res => {
         if (res.result) {

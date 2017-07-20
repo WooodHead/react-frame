@@ -7,7 +7,6 @@ import 'stylus/app'
 import 'lib/mui/js/mui.zoom'
 import 'lib/mui/js/mui.previewimage'
 import '@/util/common'
-mui.previewImage()
 render(
   <Router />,
   document.getElementById('root')

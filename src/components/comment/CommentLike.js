@@ -40,12 +40,13 @@ class CommentLike extends Component {
           color: '#E83C25'
         })
         this.props.dispatch({type: 'change topic detail comment list', refresh: true, commentList: [...commentList]})
+      } else {
+        this.Toast.show(res.error.message)
       }
     })
   }
   render () {
     const { item, index } = this.props
-    console.log(item)
     return (
       <div onClick={this.toClick} className={cx({[styles['like-area']]: true, [styles['clicked']]: item.zan || this.state.clicked, [styles['can-click']]: item.zan === null && !this.state.clicked})}>
         <span className={styles['num']}>{item.zan_num}</span>

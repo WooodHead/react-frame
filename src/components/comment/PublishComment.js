@@ -9,6 +9,12 @@ import { publishComment } from '@/util/api'
 
 import store from '@/stores'
 const { dispatch } = store
+// H5 plus事件处理
+function plusReady () {
+  var webView = plus.webview.currentWebview().nativeInstanceObject()
+  webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
+  document.getElementById('testautofocus').focus()
+}
 
 class PublishComment extends Component {
   constructor () {
@@ -29,6 +35,7 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
+    document.addEventListener('plusready', plusReady, false)
   }
   toCancel () {
     Popup.hide()
@@ -99,6 +106,7 @@ class PublishComment extends Component {
               onChange: this.wordChange,
               initialValue: ''
             })}
+            id='testautofocus'
             placeholder="说点什么吧~"></textarea>
         </div>
       </div>
