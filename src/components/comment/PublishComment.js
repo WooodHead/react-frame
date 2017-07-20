@@ -38,7 +38,7 @@ class PublishComment extends Component {
     })
     // alert(2)
     // alert(plus.os.name)
-    // document.addEventListener('plusready', plusReady, false)
+    document.addEventListener('plusready', plusReady, false)
   }
   toCancel () {
     Popup.hide()
