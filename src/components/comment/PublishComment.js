@@ -56,6 +56,10 @@ class PublishComment extends Component {
     const { id, form } = this.props
     form.validateFields((error, value) => {
       console.log(error)
+      if (value.content.length < 2 || value.content.length > 500) {
+        this.Toast.show('评论字数在2-500之间')
+        return
+      }
       publishComment({
         id: id,
         content: value.content
@@ -63,9 +67,14 @@ class PublishComment extends Component {
         if (res.result) {
           console.log(res.result)
           this.Toast.show(res.result.message)
-          let commentItem = res.result.data
-          commentItem.users = store.getState().user.userinfo
-          dispatch({type: 'change topic detail comment list', commentList: [commentItem]})
+          const commentTotal = store.getState().topic.commentTotal // 评论总数
+          const commentList = store.getState().topic.commentList // 评论列表
+          if (commentList.length === commentTotal) {
+            let commentItem = res.result.data
+            commentItem.zan = null
+            commentItem.users = store.getState().user.userinfo
+            dispatch({type: 'change topic detail comment list', commentList: [commentItem]})
+          }
         }
         if (res.error) {
           this.Toast.show(res.error.message)

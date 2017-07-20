@@ -58,14 +58,18 @@ export const fetchTopicDetail = (id, cb, err) => (dispatch) => {
 }
 // 获取帖子详情评论列表
 export const fetchTopicDetailCommentlist = (payload) => (dispatch) => {
-  const { refresh, page, id } = payload
+  const { refresh, page, id, cb } = payload
+  if (refresh) {
+    dispatch({type: 'change topic detail comment list', refresh: refresh, commentList: [], commentTotal: 0})
+  }
   getBbsCommentList({
     page: page,
     id: id
   }).then(res => {
     if (res.result) {
       var data = res.result.data.data
-      dispatch({type: 'change topic detail comment list', refresh: refresh, commentList: data})
+      dispatch({type: 'change topic detail comment list', refresh: refresh, commentList: data, commentTotal: res.result.data.total})
+      cb && cb(res.result)
     }
   })
 }

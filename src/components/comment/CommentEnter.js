@@ -3,7 +3,7 @@ import { Popup } from 'antd-mobile'
 
 import styles from '@/stylus/comment.enter'
 
-import PublishComment from '@/components/PublishComment'
+import PublishComment from '@/components/comment/PublishComment'
 
 export default class extends Component {
   toPublish () {

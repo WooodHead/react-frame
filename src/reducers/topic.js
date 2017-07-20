@@ -87,24 +87,26 @@ export default handleActions({
     }
   },
   'change topic detail comment list': (state, payload) => {
-    var { refresh, commentList } = payload
+    var { refresh, commentList, commentTotal } = payload
     var oldCommentList = state.commentList
     if (!refresh) {
       commentList = oldCommentList.concat(commentList)
     }
     return {
       ...state,
-      commentList
+      commentList,
+      commentTotal
     }
   }
 }, {
   topicList: {},
   topTopicList: [], // 置顶帖子列表
-  topicTypes: [],
+  topicTypes: [], // 板块类型
   initHomeState: false, // 首页初始化情况
   selectedNavbarIndex: 0, // 当前选中的帖子类型索引
   selectedTabs: [], // 当前选中的tab [1,1,1,1,...]
   currentPages: [], // 当前板块下 所在tab的页码 [[1,1,1,1], [1,1,1,1], ...]
   topicDetailData: {}, // 帖子详情数据
-  commentList: [] // 帖子详情评论列表
+  commentList: [], // 帖子详情评论列表
+  commentTotal: 0 // 评论总数
 })

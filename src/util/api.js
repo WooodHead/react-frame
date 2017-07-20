@@ -29,20 +29,23 @@ axios.interceptors.request.use(function (config) {
 })
 axios.interceptors.response.use(function (response) {
   store.dispatch({type: 'loading hidden'})
-  const config = JSON.parse(response.config.data)
-  if (config.method !== 'getBbsUserInfo') {
-    if (response.data.error && response.data.error.code === 4004) {
-      setTimeout(() => {
-        wlb.ready({
-          app: function (mixins) {
-            var time = new Date().getTime()
-            mixins.loginApp({ url: window.location.href + '?t=' + time })
-          },
-          other: function () {
-            window.location.href = currentHost + '/wechat/verify?next=' + window.location.href + '?source=app'
-          }
-        })
-      }, 1000)
+  // console.log(response.config.data, 'response config data', JSON.parse(response.config.data))
+  if (typeof response.config.data === 'string' && typeof JSON.parse(response.config.data) === 'object') {
+    const config = JSON.parse(response.config.data)
+    if (config.method !== 'getBbsUserInfo') {
+      if (response.data.error && response.data.error.code === 4004) {
+        setTimeout(() => {
+          wlb.ready({
+            app: function (mixins) {
+              var time = new Date().getTime()
+              mixins.loginApp({ url: window.location.href + '?t=' + time })
+            },
+            other: function () {
+              window.location.href = currentHost + '/wechat/verify?next=' + window.location.href + '?source=app'
+            }
+          })
+        }, 1000)
+      }
     }
   }
   return response

@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styles from '@/stylus/topic-detail'
 
-import store from '@/stores'
-
 import * as actions from '@/actions/topic'
 import { fetchUserInfo } from '@/actions/user'
 import Navbar from '@/components/common/Navbar'
@@ -50,9 +48,16 @@ class TopicDetail extends Component {
     const detail = topicDetailData
     var id = this.props.match.params.id
     var cover = []
+    // console.log(detail.cover, typeof detail.cover, 'detail cover')
     if (detail.cover) {
-      cover = JSON.parse(detail.cover)
-      console.log(cover, 'cover')
+      try {
+        // JSON.parse(detail.cover)
+        cover = JSON.parse(detail.cover)
+        console.log(cover, 'cover')
+      } catch (e) {
+        console.log(e)
+        cover = []
+      }
     }
     return (
       <div className="layout">

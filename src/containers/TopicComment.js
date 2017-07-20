@@ -10,7 +10,7 @@ import styles from '@/stylus/topic.comment'
 import * as actions from '@/actions/topic'
 
 import LoadingMore from '@/components/common/LoadingMore'
-import TopicCommentItem from '@/components/TopicCommentItem'
+import TopicCommentItem from '@/components/comment/TopicCommentItem'
 
 class TopicComment extends Component {
   constructor () {
@@ -18,7 +18,8 @@ class TopicComment extends Component {
     this.state = {
       page: 1,
       data: [],
-      loading: false
+      loading: false,
+      loaded: false // 数据是否加载完
     }
   }
   componentWillMount () {
@@ -26,25 +27,43 @@ class TopicComment extends Component {
   componentDidMount () {
     $('.scroll-wrap').scroll((el) => {
       if (el.target.scrollTop + el.target.clientHeight > el.target.scrollHeight - 50) {
-        console.log('fetch data')
+        if (this.state.loading === false && this.state.loaded === false) {
+          this.fetchData()
+        }
       }
     })
   }
-  fetchData (params) {
+  fetchData () {
     const id = this.props.match.params.id
-    const page = this.state.page
+    const page = this.state.page + 1
+    this.setState({
+      loading: true,
+      page: this.state.page + 1
+    })
     this.props.dispatch(actions.fetchTopicDetailCommentlist({
-      refresh: true,
       id: id,
-      page: page
+      page: page,
+      cb: (res) => {
+        console.log(res)
+        if (res.data.last_page <= page) {
+          this.setState({
+            loading: false,
+            loaded: true
+          })
+        } else {
+          this.setState({
+            loading: false
+          })
+        }
+      }
     }))
   }
   render () {
-    const { topicDetailData, commentList } = this.props
+    const { topicDetailData, commentList, commentTotal } = this.props
     return (
       <div className={styles['comment-area']} id="comment">
         <div className={styles['title-bar']}>
-          <span>评论（{topicDetailData.comment_num || 0}）</span>
+          <span>评论（{commentTotal || 0}）</span>
         </div>
         <div className="bg-white">
           {
@@ -54,9 +73,7 @@ class TopicComment extends Component {
               )
             })
           }
-          {
-            this.state.loading && (<LoadingMore />)
-          }
+          <LoadingMore loading={this.state.loading} loaded={this.state.loaded} />
         </div>
       </div>
     )

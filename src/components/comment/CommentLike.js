@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import cx from 'classnames'
 
 import styles from '@/stylus/comment.like'
 
@@ -44,8 +45,9 @@ class CommentLike extends Component {
   }
   render () {
     const { item, index } = this.props
+    console.log(item)
     return (
-      <div onClick={this.toClick} className={styles['like-area'] + ' ' + (this.state.clicked ? styles['clicked'] : styles['can-click'])}>
+      <div onClick={this.toClick} className={cx({[styles['like-area']]: true, [styles['clicked']]: item.zan || this.state.clicked, [styles['can-click']]: item.zan === null && !this.state.clicked})}>
         <span className={styles['num']}>{item.zan_num}</span>
         <span className={styles['icon']} ref="comment-loved"></span>
       </div>
