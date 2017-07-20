@@ -16,6 +16,12 @@ function createMarkup () {
 }
 
 class TopicDetail extends Component {
+  constructor () {
+    super()
+    this.state = {
+      commentLoaded: false
+    }
+  }
   componentWillMount () {
     var id = this.props.match.params.id
     const { dispatch } = this.props
@@ -31,7 +37,12 @@ class TopicDetail extends Component {
     dispatch(actions.fetchTopicDetailCommentlist({
       refresh: true,
       id: id,
-      page: 1
+      page: 1,
+      cb: () => {
+        this.setState({
+          commentLoaded: true // 设置评论加载完毕
+        })
+      }
     }))
   }
   scrollToComment () {
@@ -54,7 +65,6 @@ class TopicDetail extends Component {
       try {
         // JSON.parse(detail.cover)
         cover = JSON.parse(detail.cover)
-        console.log(cover, 'cover')
       } catch (e) {
         console.log(e)
         cover = []
@@ -91,7 +101,7 @@ class TopicDetail extends Component {
                   cover.length > 0 && cover.map((item, index) => {
                     return (
                       <div key={index} className={styles['img-item']}>
-                        <img style={{marginTop: '.32rem'}} data-preview-src="" data-preview-group="1" src={item} />
+                        <img style={{marginTop: '.32rem'}} data-preview-src="" data-preview-group={'topic-detail-' + detail.id} src={item} />
                       </div>
                     )
                   })
@@ -102,7 +112,7 @@ class TopicDetail extends Component {
               <TopicLove item={detail} />
             </div>
           </div>
-          <TopicComment />
+          <TopicComment commentLoaded={this.state.commentLoaded} />
         </div>
         <CommentEnter id={id} />
       </div>

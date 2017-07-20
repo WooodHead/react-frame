@@ -88,6 +88,7 @@ export default handleActions({
   },
   'change topic detail comment list': (state, payload) => {
     var { refresh, commentList, commentTotal } = payload
+    commentTotal = commentTotal !== undefined ? commentTotal : state.commentTotal
     var oldCommentList = state.commentList
     if (!refresh) {
       commentList = oldCommentList.concat(commentList)

@@ -105,7 +105,7 @@ class TopicItem extends Component {
     return (
       <div className={styles['topic-item'] + ' ' + className}>
         <div className={styles['header']}>
-          <img src={user ? user['head_img'] : ''} className={styles['avatar']} data-preview-src="" data-preview-group="1"/>
+          <img src={user ? user['head_img'] : ''} className={styles['avatar']} />
           <div className={styles['header-right']} onClick={() => history.push({pathname: '/topic/detail/' + this.props.id, state: index})}>
             <div className={styles['header-right-first-fl']}>
               <span className={styles['nickname']} style={{marginRight: '18px'}}>{user ? user.nickname : ''}</span>

@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { delBbsComment } from '@/util/api'
 class CommentDel extends Component {
   delComment () {
-    var { index, item, commentList } = this.props
+    var { index, item, commentList, commentTotal } = this.props
     delBbsComment(item.id).then(res => {
       console.log(res)
       if (res.result) {
         console.log(this.props)
         commentList.splice(index, 1)
-        this.props.dispatch({type: 'change topic detail comment list', refresh: true, commentList: [...commentList]})
+        this.props.dispatch({type: 'change topic detail comment list', refresh: true, commentTotal: commentTotal - 1, commentList: [...commentList]})
       }
     })
   }

@@ -37,8 +37,8 @@ class PublishComment extends Component {
       $(el).css({position: 'initial'})
     })
     // alert(2)
-    alert(plus.os.name)
-    document.addEventListener('plusready', plusReady, false)
+    // alert(plus.os.name)
+    // document.addEventListener('plusready', plusReady, false)
   }
   toCancel () {
     Popup.hide()
@@ -83,7 +83,7 @@ class PublishComment extends Component {
             let commentItem = res.result.data
             commentItem.zan = null
             commentItem.users = store.getState().user.userinfo
-            dispatch({type: 'change topic detail comment list', commentList: [commentItem]})
+            dispatch({type: 'change topic detail comment list', commentTotal: commentTotal + 1, commentList: [commentItem]})
           }
         }
         if (res.error) {

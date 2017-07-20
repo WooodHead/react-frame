@@ -11,6 +11,7 @@ import * as actions from '@/actions/topic'
 
 import LoadingMore from '@/components/common/LoadingMore'
 import TopicCommentItem from '@/components/comment/TopicCommentItem'
+import NoComment from '@/components/comment/NoComment'
 
 class TopicComment extends Component {
   constructor () {
@@ -59,7 +60,7 @@ class TopicComment extends Component {
     }))
   }
   render () {
-    const { topicDetailData, commentList, commentTotal } = this.props
+    const { commentLoaded, topicDetailData, commentList, commentTotal } = this.props
     return (
       <div className={styles['comment-area']} id="comment">
         <div className={styles['title-bar']}>
@@ -73,7 +74,8 @@ class TopicComment extends Component {
               )
             })
           }
-          <LoadingMore loading={this.state.loading} loaded={this.state.loaded} />
+          { commentLoaded && commentTotal === 0 && <NoComment /> }
+          { commentTotal !== 0 && <LoadingMore loading={this.state.loading} loaded={this.state.loaded} /> }
         </div>
       </div>
     )
