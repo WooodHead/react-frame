@@ -39,7 +39,7 @@ class Index extends Component {
   }
   componentWillMount () {
     native.ready((p) => {
-      alert(JSON.parse(p))
+      alert(JSON.stringify(p))
     })
     if (this.props.topicTypes.length === 0) {
       this.props.dispatch(actions.fetchTopicAllType({
