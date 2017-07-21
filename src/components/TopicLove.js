@@ -24,13 +24,6 @@ class TopicLove extends Component {
     const { id, zan } = this.props.item
     const index = this.props.location.state
     var el = this.refs.loved
-    $.tipsBox({
-      obj: $(el),
-      str: '+1',
-      left: 24,
-      top: 32,
-      color: '#E83C25'
-    })
     if (zan === null && this.state.clicked === false) {
       AddThreadZan(id).then(res => {
         if (res.result) {
@@ -41,6 +34,8 @@ class TopicLove extends Component {
           $.tipsBox({
             obj: $(el),
             str: '+1',
+            left: 24,
+            top: 32,
             color: '#E83C25'
           })
           if (index !== undefined) {
@@ -58,7 +53,7 @@ class TopicLove extends Component {
         }
       })
     } else {
-      // this.Toast.show('您已经点过赞了～')
+      this.Toast.show('您已经点过赞了～')
     }
   }
   componentDidMount () {

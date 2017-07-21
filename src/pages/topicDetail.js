@@ -89,7 +89,7 @@ class TopicDetail extends Component {
                 <div className={styles['topic-info-right-second-fl']}>
                   <span>{detail.created_at}</span>
                   <span className={styles['separated']}>·</span>
-                  <span>{detail.views}人阅读</span>
+                  <span>{detail.views + 1}人阅读</span>
                 </div>
               </div>
             </div>
