@@ -70,7 +70,7 @@ class TopicComment extends Component {
           {
             commentList.map((item, index) => {
               return (
-                <TopicCommentItem key={index} index={index} item={item} />
+                <TopicCommentItem key={'comment-item-' + item.id} index={index} item={item} />
               )
             })
           }

@@ -52,13 +52,13 @@ class TopicAdd extends Component {
           // 发帖成功
           if (res.result.data.isverify === 1) {
             setTimeout(() => {
-              history.push('/topic/detail/' + res.result.data.id)
+              history.replace('/topic/detail/' + res.result.data.id)
             }, 1000)
           }
           // 待审核
           if (res.result.data.isverify === 0) {
             setTimeout(() => {
-              history.push('/')
+              history.replace('/')
             }, 1000)
           }
         }

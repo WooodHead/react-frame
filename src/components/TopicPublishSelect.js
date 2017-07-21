@@ -51,7 +51,7 @@ class TopicPublicSelect extends Component {
             {
               topicTypes.length > 0 && topicTypes.map((item, index) => {
                 return (
-                  <div onClick={this.toPublic.bind(this, item.id)} key={index} className={styles['type-item']}>
+                  <div onClick={this.toPublic.bind(this, item.id)} key={'topic-type-select-' + index} className={styles['type-item']}>
                     <div className={styles['icon']}>
                       <img src={item.icon} />
                     </div>

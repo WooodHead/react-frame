@@ -38,7 +38,7 @@ export default class extends Component {
         {
           menu.map(function (item, index) {
             return (
-              <div key={index} className={styles.item}>
+              <div key={'mine-menu-' + index} className={styles.item}>
                 <span className={cx(styles['icon'], styles[item.icon])}></span>
                 <span className={styles['menu-name']}>{item.name}</span>
                 { item.mark && <span className={styles['mark']}></span> }

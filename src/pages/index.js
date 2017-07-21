@@ -174,7 +174,7 @@ class Index extends Component {
           {
             topicTypes.map((item, index) => {
               return (
-                <a key={index} href={'#scrollWrapItem' + index} className={'mui-control-item ' + (selectedNavbarIndex === index ? 'mui-active' : '')}>
+                <a key={'home-nav-title-content-' + index} href={'#scrollWrapItem' + index} className={'mui-control-item ' + (selectedNavbarIndex === index ? 'mui-active' : '')}>
                   {item.name}
                 </a>
               )
@@ -198,7 +198,7 @@ class Index extends Component {
             {
               initHomeState && topicTypes.map((item, index) => {
                 return (
-                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedNavbarIndex === index ? 'mui-active' : '')} key={index}>
+                  <div id={'scrollWrapItem' + index} className={'mui-slider-item mui-control-content ' + (selectedNavbarIndex === index ? 'mui-active' : '')} key={'home-wrap-' + index}>
                     <div id={'refreshContainer_' + index} className="mui-content mui-scroll-wrapper layout-conent">
                       <div className="mui-scroll">
                         <Stick />

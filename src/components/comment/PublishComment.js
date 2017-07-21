@@ -46,7 +46,7 @@ class PublishComment extends Component {
   wordChange () {
     setTimeout(() => {
       this.props.form.validateFields((error, value) => {
-        console.log(error, value.content)
+        console.log(error)
         this.setState({
           content: value.content
         })

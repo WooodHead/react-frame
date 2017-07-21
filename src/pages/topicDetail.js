@@ -100,8 +100,8 @@ class TopicDetail extends Component {
                 {
                   cover.length > 0 && cover.map((item, index) => {
                     return (
-                      <div key={index} className={styles['img-item']}>
-                        <img style={{marginTop: '.32rem'}} data-preview-src="" data-preview-group={'topic-detail-' + detail.id} src={item} />
+                      <div key={'topic-detail-img-' + index} className={styles['img-item']}>
+                        <img style={{marginTop: '.32rem'}} data-preview-src={item} data-preview-group={'topic-detail-img-' + detail.id} src={item} />
                       </div>
                     )
                   })

@@ -16,7 +16,7 @@ class Stick extends Component {
         {
           topTopicList.map(function (item, index) {
             return (
-              <StickItem className={Number(index) === topTopicList.length - 1 ? styles['no-border'] : ''} key={index} item={item} />
+              <StickItem className={Number(index) === topTopicList.length - 1 ? styles['no-border'] : ''} key={'stick-item' + index} item={item} />
             )
           })
         }

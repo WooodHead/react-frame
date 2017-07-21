@@ -9,7 +9,16 @@ class TopicCommentItem extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isfull: false
+      isfull: false,
+      show: false // 是否显示按钮
+    }
+  }
+  componentDidMount () {
+    var el = this.refs.content
+    if (el.scrollHeight > el.clientHeight) {
+      this.setState({
+        show: true
+      })
     }
   }
   handleFold () {
@@ -19,7 +28,6 @@ class TopicCommentItem extends Component {
   }
   render () {
     const { item, index } = this.props
-    var el = this.refs.content
     return (
       <div className={styles['topic-comment-item']}>
         <div className={styles['avatar']}>
@@ -42,7 +50,7 @@ class TopicCommentItem extends Component {
           </div>
           <div className={cx({[styles['topic-comment-item-content']]: !this.state.isfull, [styles['isfull']]: this.state.isfull})} ref="content">{item.content}</div>
           {
-            el && el.scrollHeight > el.clientHeight && (<div className={this.state.isfull ? styles['pack-up'] : styles['show']} onClick={this.handleFold.bind(this)}><span>{this.state.isfull ? '收起评论' : '显示全部'}</span></div>)
+            this.state.show && (<div className={this.state.isfull ? styles['pack-up'] : styles['show']} onClick={this.handleFold.bind(this)}><span>{this.state.isfull ? '收起评论' : '显示全部'}</span></div>)
           }
         </div>
       </div>

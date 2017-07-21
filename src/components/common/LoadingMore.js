@@ -3,7 +3,6 @@ import { Icon } from 'antd-mobile'
 import styles from '@/stylus/loading'
 export default function (props) {
   const { loading, loaded } = props
-  console.log(loading, 'loading', loaded, 'loaded')
   return (
     <div>
       { loading &&
