@@ -32,12 +32,14 @@ class PublishComment extends Component {
     })
     native.ready((p, s) => {
       // alert(s)
+      // softinputMode
       var webView = plus.webview.currentWebview().nativeInstanceObject()
       webView.plusCallMethod({
         'setKeyboardDisplayRequiresUserAction': false
       })
       setTimeout(() => {
         this.refs.testautofocus.focus()
+        alert(plus.screen.resolutionHeight)
         // console.log(this.refs.testautofocus)
       }, 0)
     })
