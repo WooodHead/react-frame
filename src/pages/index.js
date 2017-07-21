@@ -38,8 +38,8 @@ class Index extends Component {
     }
   }
   componentWillMount () {
-    native.ready((p) => {
-      alert(JSON.stringify(p))
+    native.ready((p, s) => {
+      alert(s)
     })
     if (this.props.topicTypes.length === 0) {
       this.props.dispatch(actions.fetchTopicAllType({

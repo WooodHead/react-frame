@@ -30,8 +30,16 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
-    native.ready((p) => {
-      alert(JSON.parse(p))
+    native.ready((p, s) => {
+      alert(s)
+      var webView = plus.webview.currentWebview().nativeInstanceObject()
+      webView.plusCallMethod({
+        'setKeyboardDisplayRequiresUserAction': false
+      })
+      setTimeout(() => {
+        this.refs.testautofocus.focus()
+        // console.log(this.refs.testautofocus)
+      }, 0)
     })
   }
   toCancel () {
@@ -106,7 +114,7 @@ class PublishComment extends Component {
               onChange: this.wordChange,
               initialValue: ''
             })}
-            id='testautofocus'
+            ref='testautofocus'
             placeholder="说点什么吧~"></textarea>
         </div>
       </div>
