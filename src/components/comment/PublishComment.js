@@ -24,7 +24,7 @@ class PublishComment extends Component {
     this.state = {
       disable: true
     }
-    document.addEventListener('plusready', plusReady, false)
+    // document.addEventListener('plusready', plusReady, false)
   }
   componentDidMount () {
     var el = this.refs['comment-text']
@@ -38,9 +38,7 @@ class PublishComment extends Component {
     })
     alert(JSON.parse(plus))
     setTimeout(() => {
-      var webView = plus.webview.currentWebview().nativeInstanceObject()
-      webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
-      document.getElementById('testautofocus').focus()
+      plusReady()
     }, 0)
   }
   toCancel () {
