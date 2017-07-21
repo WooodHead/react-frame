@@ -6,8 +6,7 @@
     "jquery": true
   },
   "globals": {
-    "mui": true,
-    "plus": false
+    "mui": true
   },
   "extends": ["standard"],
   "parserOptions": {
