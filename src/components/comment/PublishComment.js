@@ -11,7 +11,7 @@ import store from '@/stores'
 const { dispatch } = store
 // H5 plus事件处理
 function plusReady () {
-  alert('plus Ready')
+  alert('plus Ready ' + plus.os.name)
   var webView = plus.webview.currentWebview().nativeInstanceObject()
   webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
   document.getElementById('testautofocus').focus()
@@ -36,8 +36,7 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
-    // alert(2)
-    alert(plus.os.name)
+    alert(2)
     document.addEventListener('plusready', plusReady, false)
   }
   toCancel () {
