@@ -27,7 +27,10 @@ class TopicComment extends Component {
   }
   componentDidMount () {
     $('.scroll-wrap').scroll((el) => {
-      if (el.target.scrollTop + el.target.clientHeight > el.target.scrollHeight - 50) {
+      console.log('scroll')
+      const { commentList, commentTotal } = this.props
+      console.log(commentList.length, commentTotal)
+      if (el.target.scrollTop + el.target.clientHeight > el.target.scrollHeight - 50 && commentList.length < commentTotal) {
         if (this.state.loading === false && this.state.loaded === false) {
           this.fetchData()
         }
@@ -56,6 +59,11 @@ class TopicComment extends Component {
             loading: false
           })
         }
+        setTimeout(() => {
+          this.setState({
+            loaded: false
+          })
+        }, 2000)
       }
     }))
   }

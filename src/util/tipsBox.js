@@ -12,8 +12,10 @@
       }, options)
       $('body').append('<span class=\'num\'>' + options.str + '</span>')
       var box = $('.num')
-      var left = options.obj.offset().left + options.obj.width() / 2
-      var top = options.obj.offset().top - options.obj.height()
+      console.log(options.obj.offset().left, options.left)
+      var left = options.left ? options.obj.offset().left + options.left : options.obj.offset().left + options.obj.width() / 2
+      var top = options.top ? options.obj.offset().top - options.top : options.obj.offset().top - options.obj.height()
+      console.log(left, top)
       box.css({
         'position': 'absolute',
         'left': left + 'px',
@@ -26,7 +28,7 @@
       box.animate({
         'font-size': options.endSize,
         'opacity': '0',
-        'top': top - parseInt(options.endSize) + 'px'
+        'top': (top - parseInt(options.endSize)) / 100 + 'rem'
       }, options.interval, function () {
         box.remove()
         options.callback()
