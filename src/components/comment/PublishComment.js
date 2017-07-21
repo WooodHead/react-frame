@@ -37,7 +37,7 @@ class PublishComment extends Component {
       $(el).css({position: 'initial'})
     })
     // alert(2)
-    // alert(plus.os.name)
+    alert(plus.os.name)
     document.addEventListener('plusready', plusReady, false)
   }
   toCancel () {
