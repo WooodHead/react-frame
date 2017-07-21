@@ -45,7 +45,6 @@ class Index extends Component {
         }
       }))
     }
-    document.addEventListener('plusready', plusReady, false)
   }
   componentDidMount () {
     if (this.props.topicTypes.length) {

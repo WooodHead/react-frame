@@ -25,7 +25,7 @@ var plugins = [
     // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
     minify: {
       removeComments: true,
-      // collapseWhitespace: true,
+      collapseWhitespace: true,
       removeAttributeQuotes: true
       // more options:
       // https://github.com/kangax/html-minifier#options-quick-reference

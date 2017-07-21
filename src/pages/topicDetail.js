@@ -14,10 +14,6 @@ import Share from '@/components/common/icons/Share'
 function createMarkup () {
   return {__html: '<embed src=\'http://player.youku.com/player.php/Type/Folder/Fid//Ob//sid/XMjg2OTQ3NTIyOA==/v.swf\' quality=\'high\' width=\'480\' height=\'400\' align=\'middle\' allowScriptAccess=\'always\' allowFullScreen=\'true\' mode=\'transparent\' type=\'application/x-shockwave-flash\'></embed>'}
 }
-// H5 plus事件处理
-function plusReady () {
-  alert(plus.os.name)
-}
 
 class TopicDetail extends Component {
   constructor () {
@@ -56,9 +52,6 @@ class TopicDetail extends Component {
         scrollTop: $('#comment').offset().top - 90
       }, 100)
     }
-  }
-  componentDidMount () {
-    plusReady()
   }
   render () {
     const { topicDetailData } = this.props

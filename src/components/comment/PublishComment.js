@@ -9,13 +9,7 @@ import { publishComment } from '@/util/api'
 
 import store from '@/stores'
 const { dispatch } = store
-// H5 plus事件处理
-function plusReady () {
-  alert('plus Ready')
-  var webView = plus.webview.currentWebview().nativeInstanceObject()
-  webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
-  document.getElementById('testautofocus').focus()
-}
+
 class PublishComment extends Component {
   constructor () {
     super()
@@ -24,7 +18,6 @@ class PublishComment extends Component {
     this.state = {
       disable: true
     }
-    // document.addEventListener('plusready', plusReady, false)
   }
   componentDidMount () {
     var el = this.refs['comment-text']
@@ -36,10 +29,6 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
-    alert(JSON.parse(plus))
-    setTimeout(() => {
-      plusReady()
-    }, 0)
   }
   toCancel () {
     Popup.hide()
@@ -67,6 +56,9 @@ class PublishComment extends Component {
     const { id, form } = this.props
     form.validateFields((error, value) => {
       console.log(error)
+      if (value.content === '') {
+        return
+      }
       if (value.content.length < 2 || value.content.length > 500) {
         this.Toast.show('评论字数在2-500之间')
         return
