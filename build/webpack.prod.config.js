@@ -75,13 +75,13 @@ if (env === 'production') {
     // }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        // warnings: false,
-        // drop_console: isPro,
-        // drop_debugger: isPro,
+        warnings: false,
+        drop_console: isPro,
+        drop_debugger: isPro,
       },
       //sourceMap: true
     }),
-    // new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ])
 }
 module.exports = {
@@ -94,6 +94,13 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        include: path.resolve(__dirname, '../src'),
+        exclude: [/node_modules/, path.resolve(__dirname, '../lib')],
+        use: 'eslint-loader',
+      },
       {
         test: /\.js$/,
         include: path.resolve(__dirname, '../src'),

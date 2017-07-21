@@ -11,7 +11,7 @@ import store from '@/stores'
 const { dispatch } = store
 // H5 plus事件处理
 function plusReady () {
-  alert('plus Ready ' + plus.os.name)
+  alert('plus Ready ')
   // var webView = plus.webview.currentWebview().nativeInstanceObject()
   // webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
   // document.getElementById('testautofocus').focus()

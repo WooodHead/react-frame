@@ -18,6 +18,13 @@ import HomeFixationIcons from '@/containers/HomeFixationIcons'
 import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
+// H5 plus事件处理
+function plusReady () {
+  alert('plus Ready')
+  // var webView = plus.webview.currentWebview().nativeInstanceObject()
+  // webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
+  // document.getElementById('testautofocus').focus()
+}
 
 class Index extends Component {
   constructor () {
@@ -38,6 +45,7 @@ class Index extends Component {
         }
       }))
     }
+    document.addEventListener('plusready', plusReady, false)
   }
   componentDidMount () {
     if (this.props.topicTypes.length) {
