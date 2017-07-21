@@ -3,9 +3,8 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html模板插入代码。
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 优化css
-var argv = require('yargs').argv;
-var env = argv.env.trim();
-var isPro = env === 'production';
+var env = 'production';
+var isPro = true;
 
 const svgDirs = [
   require.resolve('antd-mobile').replace(/warn\.js$/, '')
@@ -18,10 +17,10 @@ var plugins = [
     }
   }),
   new HtmlWebpackPlugin({
-    template: './src/index.html',
+    template: path.resolve(__dirname, '../src/index.html'),
     // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
     inject: 'true',
-    filename: path.resolve(__dirname, 'dist/index.html'),
+    filename: path.resolve(__dirname, '../dist/index.html'),
     // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
     // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
     minify: {
@@ -86,11 +85,9 @@ if (env === 'production') {
   ])
 }
 module.exports = {
-  entry: {
-    main: ['babel-polyfill', './src/app']
-  },
+  entry: path.resolve(__dirname, '../src/app'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: isPro ? 'js/[name].[chunkhash].js' : '[name].[hash:8].bundle.js',
     chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[name]-[id].[chunkhash:8].bundle.js',
     publicPath: isPro ? '/bbs/' : ''
@@ -100,13 +97,13 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
-        exclude: [/node_modules/, path.resolve(__dirname, 'lib')],
+        include: path.resolve(__dirname, '../src'),
+        exclude: [/node_modules/, path.resolve(__dirname, '../lib')],
         use: 'eslint-loader',
       },
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
+        include: path.resolve(__dirname, '../src'),
         exclude: /node_modules/,
         use: [
           'babel-loader'
@@ -124,7 +121,7 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        include: path.resolve(__dirname, 'src'),
+        include: path.resolve(__dirname, '../src'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -202,11 +199,11 @@ module.exports = {
     port: '3001'
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
+    modules: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../src')],
     extensions: ['.web.js', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
-      'lib': path.join(__dirname, 'lib'),
-      '@': path.join(__dirname, 'src/')
+      'lib': path.join(__dirname, '../lib'),
+      '@': path.join(__dirname, '../src/')
     }
   },
   devtool: !isPro ? 'source-map' : ''

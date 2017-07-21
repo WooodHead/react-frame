@@ -7,7 +7,7 @@
   },
   "globals": {
     "mui": true,
-    "plus": false
+    "plus": true
   },
   "extends": ["standard"],
   "parserOptions": {
