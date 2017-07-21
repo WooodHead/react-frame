@@ -1,6 +1,7 @@
+var plus = null
 var native = {
   ready (cb) {
-    if (window.plus) {
+    if (plus) {
       cb(plus)
     } else {
       document.addEventListener('plusready', function () {
