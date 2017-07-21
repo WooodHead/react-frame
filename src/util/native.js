@@ -1,8 +1,7 @@
-var plus = null
 var native = {
   ready (cb) {
-    alert(JSON.stringify(plus))
-    if (plus) {
+    alert(JSON.stringify(window.plus))
+    if (window.plus) {
       cb(plus)
     } else {
       document.addEventListener('plusready', function () {
