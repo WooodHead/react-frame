@@ -73,15 +73,15 @@ if (env === 'production') {
     //     safe: true
     //   }
     // }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        // warnings: false,
-        // drop_console: isPro,
-        // drop_debugger: isPro,
-      },
-      //sourceMap: true
-    }),
-    new webpack.NoEmitOnErrorsPlugin()
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     // warnings: false,
+    //     // drop_console: isPro,
+    //     // drop_debugger: isPro,
+    //   },
+    //   //sourceMap: true
+    // }),
+    // new webpack.NoEmitOnErrorsPlugin()
   ])
 }
 module.exports = {
