@@ -10,7 +10,12 @@ import { publishComment } from '@/util/api'
 import store from '@/stores'
 const { dispatch } = store
 // H5 plus事件处理
-
+function plusReady () {
+  alert('plus Ready')
+  var webView = plus.webview.currentWebview().nativeInstanceObject()
+  webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
+  document.getElementById('testautofocus').focus()
+}
 class PublishComment extends Component {
   constructor () {
     super()
@@ -19,6 +24,7 @@ class PublishComment extends Component {
     this.state = {
       disable: true
     }
+    document.addEventListener('plusready', plusReady, false)
   }
   componentDidMount () {
     var el = this.refs['comment-text']
