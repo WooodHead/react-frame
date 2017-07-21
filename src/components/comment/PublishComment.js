@@ -31,7 +31,7 @@ class PublishComment extends Component {
       $(el).css({position: 'initial'})
     })
     native.ready((p, s) => {
-      alert(s)
+      // alert(s)
       var webView = plus.webview.currentWebview().nativeInstanceObject()
       webView.plusCallMethod({
         'setKeyboardDisplayRequiresUserAction': false
