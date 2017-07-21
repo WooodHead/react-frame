@@ -30,9 +30,12 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
-    var webView = plus.webview.currentWebview().nativeInstanceObject()
-    webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
-    document.getElementById('testautofocus').focus()
+    alert(JSON.parse(plus))
+    setTimeout(() => {
+      var webView = plus.webview.currentWebview().nativeInstanceObject()
+      webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
+      document.getElementById('testautofocus').focus()
+    }, 0)
   }
   toCancel () {
     Popup.hide()
