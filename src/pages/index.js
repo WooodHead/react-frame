@@ -15,6 +15,8 @@ import Topic from '@/containers/Topic'
 import PublishTopicEnter from '@/components/PublishTopicEnter'
 import HomeFixationIcons from '@/containers/HomeFixationIcons'
 
+import native from '@/util/native'
+
 import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
@@ -36,6 +38,9 @@ class Index extends Component {
     }
   }
   componentWillMount () {
+    native.ready((p) => {
+      alert(JSON.parse(p))
+    })
     if (this.props.topicTypes.length === 0) {
       this.props.dispatch(actions.fetchTopicAllType({
         cb: () => {

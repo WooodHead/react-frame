@@ -31,7 +31,7 @@ class PublishComment extends Component {
       $(el).css({position: 'initial'})
     })
     native.ready((p) => {
-      console.log(p)
+      alert(JSON.parse(p))
     })
   }
   toCancel () {
