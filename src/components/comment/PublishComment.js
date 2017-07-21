@@ -12,9 +12,9 @@ const { dispatch } = store
 // H5 plus事件处理
 function plusReady () {
   alert('plus Ready ' + plus.os.name)
-  var webView = plus.webview.currentWebview().nativeInstanceObject()
-  webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
-  document.getElementById('testautofocus').focus()
+  // var webView = plus.webview.currentWebview().nativeInstanceObject()
+  // webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
+  // document.getElementById('testautofocus').focus()
 }
 
 class PublishComment extends Component {
@@ -25,6 +25,7 @@ class PublishComment extends Component {
     this.state = {
       disable: true
     }
+    document.addEventListener('plusready', plusReady, false)
   }
   componentDidMount () {
     var el = this.refs['comment-text']
@@ -36,8 +37,6 @@ class PublishComment extends Component {
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
     })
-    alert(2)
-    document.addEventListener('plusready', plusReady, false)
   }
   toCancel () {
     Popup.hide()
