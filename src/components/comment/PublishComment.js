@@ -8,6 +8,7 @@ import cx from 'classnames'
 import { publishComment } from '@/util/api'
 
 import store from '@/stores'
+import native from '@/util/native'
 const { dispatch } = store
 
 class PublishComment extends Component {
@@ -28,6 +29,9 @@ class PublishComment extends Component {
     })
     $('textarea').blur(() => {
       $(el).css({position: 'initial'})
+    })
+    native.ready((p) => {
+      console.log(p)
     })
   }
   toCancel () {
