@@ -41,8 +41,8 @@ class PublishComment extends Component {
         softinputMode: 'adjustResize'
       })
       setTimeout(() => {
-        this.refs.testautofocus.focus()
-        this.refs.testautofocus.scrollIntoView()
+        // this.refs.testautofocus.focus()
+        // this.refs.testautofocus.scrollIntoView()
       }, 10)
     })
   }
