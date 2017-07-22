@@ -7,6 +7,7 @@ import { topicAddRequest, imgUploadRequest, currentHost } from '@/util/api'
 import Navbar from '@/components/common/Navbar'
 import styles from '@/stylus/topic-add'
 
+import native from '@/util/native'
 const data = []
 
 class TopicAdd extends Component {
@@ -22,6 +23,19 @@ class TopicAdd extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
     this.wordChange = this.wordChange.bind(this)
+  }
+  componentWillMount () {
+    const { id } = this.props.match.params
+    this.setState({
+      typeid: id
+    })
+  }
+  componentDidMount () {
+    native.ready(() => {
+      plus.webview.currentWebview().setStyle({
+        softinputMode: 'adjustResize'
+      })
+    })
   }
   // 发布帖子
   handleSubmit () {
@@ -111,14 +125,6 @@ class TopicAdd extends Component {
         }
       })
     }, 0)
-  }
-  componentWillMount () {
-    const { id } = this.props.match.params
-    this.setState({
-      typeid: id
-    })
-  }
-  componentDidMount () {
   }
   navbarClick () {
     const {title, content, imgs} = this.state
