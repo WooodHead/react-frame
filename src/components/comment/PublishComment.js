@@ -38,12 +38,12 @@ class PublishComment extends Component {
         'setKeyboardDisplayRequiresUserAction': false
       })
       plus.webview.currentWebview().setStyle({
-        softinputMode: 'adjustPan'
+        softinputMode: 'adjustResize'
       })
       setTimeout(() => {
         this.refs.testautofocus.focus()
         this.refs.testautofocus.scrollIntoView()
-      }, 0)
+      }, 10)
     })
   }
   toCancel () {
