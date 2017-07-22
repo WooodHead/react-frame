@@ -37,10 +37,11 @@ class PublishComment extends Component {
       webView.plusCallMethod({
         'setKeyboardDisplayRequiresUserAction': false
       })
+      plus.webview.currentWebview().setStyle({
+        softinputMode: 'adjustResize'
+      })
       setTimeout(() => {
         this.refs.testautofocus.focus()
-        alert(plus.screen.resolutionHeight)
-        // console.log(this.refs.testautofocus)
       }, 0)
     })
   }
