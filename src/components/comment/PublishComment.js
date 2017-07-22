@@ -22,14 +22,14 @@ class PublishComment extends Component {
   }
   componentDidMount () {
     var el = this.refs['comment-text']
-    $('textarea').focus(() => {
-      setTimeout(() => {
-        $(el).css({position: 'fixed', bottom: 0, left: 0, right: 0})
-      }, 0)
-    })
-    $('textarea').blur(() => {
-      $(el).css({position: 'initial'})
-    })
+    // $('textarea').focus(() => {
+    //   setTimeout(() => {
+    //     $(el).css({position: 'fixed', bottom: 0, left: 0, right: 0})
+    //   }, 0)
+    // })
+    // $('textarea').blur(() => {
+    //   $(el).css({position: 'initial'})
+    // })
     native.ready((p, s) => {
       // alert(s)
       // softinputMode
@@ -42,6 +42,7 @@ class PublishComment extends Component {
       })
       setTimeout(() => {
         this.refs.testautofocus.focus()
+        this.refs.testautofocus.scrollIntoView()
       }, 0)
     })
   }
