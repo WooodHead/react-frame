@@ -1,12 +1,13 @@
 var native = {
-  ready (cb) {
+  ready ({app, other}) {
     if (window.plus) {
-      cb(window.plus, 1)
+      app && app(window.plus, 1)
     } else {
       document.addEventListener('plusready', function () {
-        cb(window.plus, 0)
+        app && app(window.plus, 0)
       })
     }
+    // other && other()
   }
 }
 export default native

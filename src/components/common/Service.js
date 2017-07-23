@@ -3,12 +3,17 @@
  */
 import React, { Component } from 'react'
 import wlb from '@/util/webview'
+import native from '@/util/native'
 export default class extends Component {
   toJumpService () {
-    wlb.ready({
-      app: function (mixins) {
-        mixins.jumpToOnLineAirlines()
-      }
+    // wlb.ready({
+    //   app: function (mixins) {
+    //     mixins.jumpToOnLineAirlines()
+    //   }
+    // })
+    native.ready(() => {
+      var camera = plus.getCamera()
+      alert(JSON.stringify(camera))
     })
   }
   render () {

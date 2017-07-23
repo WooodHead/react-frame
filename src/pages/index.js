@@ -68,7 +68,7 @@ class Index extends Component {
       }, 0)
     })
     native.ready(() => {
-      alert(document.body.innerHTML)
+      alert(document.documentElement.innerHTML)
     })
   }
   // 初始化导航选中位置
