@@ -19,6 +19,23 @@ export default class extends Component {
     native.ready(() => {
       var dtask = plus.downloader.createDownload('http://img.taopic.com/uploads/allimg/140322/235058-1403220K93993.jpg', {}, (download, status) => {
         alert('下载完成, ' + JSON.stringify(download) + ', status: ' + status)
+        if (download.status === 200) {
+          plus.gallery.save(download.filename, () => {
+            alert('保存到相册成功')
+            plus.io.resolveLocalFileSystemURL(download.filename, (entry) => {
+              alert('获取文件信息成功, ' + JSON.stringify(entry))
+              entry.remove((entry) => {
+                alert('删除文件成功, ' + JSON.stringify(entry))
+              }, (error) => {
+                alert('删除文件失败, ' + JSON.stringify(error))
+              })
+            }, (error) => {
+              alert('获取文件信息失败, ' + JSON.stringify(error))
+            })
+          }, (error) => {
+            console.log('保存到相册失败, ' + JSON.stringify(error))
+          })
+        }
       })
       dtask.start()
     })
