@@ -1,7 +1,8 @@
 var native = {
   ready (app) {
     if (window.plus) {
-      plus.navigator.setStatusBarBackground('#000000')
+      alert(JSON.stringify(plus))
+      // plus.navigator.setStatusBarBackground('#000000')
       app && app(window.plus, 1)
     } else {
       document.addEventListener('plusready', function () {

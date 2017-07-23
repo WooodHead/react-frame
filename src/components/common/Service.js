@@ -12,12 +12,24 @@ export default class extends Component {
     //   }
     // })
     native.ready(() => {
-      var camera = plus.camera.getCamera()
-      camera.captureImage((file) => {
-        alert(file)
-      }, () => {
-        alert('error')
+      var shareMessage = {
+        content: '分享的内容',
+        title: '分享的标题',
+        thumbs: '',
+        href: 'http://www.bao-ru.com:3001'
+      }
+      // 分享
+      plus.share.sendWithSystem(shareMessage, () => {
+        alert('分享成功')
       })
+      // 照相
+      // var camera = plus.camera.getCamera()
+      // camera.captureImage((file) => {
+      //   alert(file)
+      // }, () => {
+      //   alert('error')
+      // })
+
       // alert(JSON.stringify(camera))
     })
   }
