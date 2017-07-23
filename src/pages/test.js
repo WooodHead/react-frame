@@ -24,14 +24,16 @@ export default class extends Component {
           plus.gallery.save(download.filename, () => {
             alert('保存到相册成功')
             plus.io.resolveLocalFileSystemURL(download.filename, (entry) => {
-              alert('获取文件信息成功, ' + JSON.stringify(entry))
-              entry.remove((entry) => {
-                alert('删除文件成功, ' + JSON.stringify(entry))
-              }, (error) => {
-                alert('删除文件失败, ' + JSON.stringify(error))
-              })
-            }, (error) => {
-              alert('获取文件信息失败, ' + JSON.stringify(error))
+              alert('获取文件信息成功')
+              // alert('获取文件信息成功'+ JSON.stringify(entry))
+              // entry.remove((entry) => {
+              //   alert('删除文件成功, ' + JSON.stringify(entry))
+              // }, (error) => {
+              //   alert('删除文件失败, ' + JSON.stringify(error))
+              // })
+            }, () => {
+              alert('获取文件信息失败')
+              // alert('获取文件信息失败, ' + JSON.stringify(error))
             })
           }, (error) => {
             console.log('保存到相册失败, ' + JSON.stringify(error))
@@ -41,6 +43,20 @@ export default class extends Component {
       dtask.start()
     })
   }
+  ioTest () {
+    plus.io.requestFileSystem(plus.io.PRIVATE_WWW, (fs) => {
+      alert('获取文件信息成功, ' + JSON.stringify(fs))
+      // alert('获取文件信息成功'+ JSON.stringify(entry))
+      // entry.remove((entry) => {
+      //   alert('删除文件成功, ' + JSON.stringify(entry))
+      // }, (error) => {
+      //   alert('删除文件失败, ' + JSON.stringify(error))
+      // })
+    }, () => {
+      alert('获取文件信息失败')
+      // alert('获取文件信息失败, ' + JSON.stringify(error))
+    })
+  }
   render () {
     return (
       <div className="layout">
@@ -48,6 +64,7 @@ export default class extends Component {
         <div style={styles.wrap}>
           <button onClick={this.openWebView.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">打开一个webview</button>
           <button onClick={this.downloader.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">downloader</button>
+          <button onClick={this.ioTest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">IO test</button>
         </div>
       </div>
     )
