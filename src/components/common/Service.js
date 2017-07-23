@@ -13,7 +13,12 @@ export default class extends Component {
     // })
     native.ready(() => {
       var camera = plus.camera.getCamera()
-      alert(JSON.stringify(camera))
+      camera.captureImage((file) => {
+        alert(file)
+      }, () => {
+        alert('error')
+      })
+      // alert(JSON.stringify(camera))
     })
   }
   render () {
