@@ -1,5 +1,5 @@
 var native = {
-  ready ({app, other}) {
+  ready (app) {
     if (window.plus) {
       app && app(window.plus, 1)
     } else {
