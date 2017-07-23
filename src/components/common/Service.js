@@ -12,8 +12,8 @@ export default class extends Component {
     //   }
     // })
     native.ready(() => {
-      var camera = plus.getCamera()
-      alert(JSON.stringify(camera))
+      var camera = plus.camera.getCamera()
+      alert(camera)
     })
   }
   render () {
