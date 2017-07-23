@@ -67,9 +67,6 @@ class Index extends Component {
         that.resetNavScrollPosition(el)
       }, 0)
     })
-    native.ready(() => {
-      alert(document.documentElement.innerHTML)
-    })
   }
   // 初始化导航选中位置
   initNavScrollPosition () {
