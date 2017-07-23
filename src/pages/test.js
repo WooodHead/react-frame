@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from '@/components/common/Navbar'
+import native from '@/util/native'
 export default class extends Component {
   openWebView () {
     mui.init({
@@ -14,12 +15,20 @@ export default class extends Component {
       }]
     })
   }
+  downloader () {
+    native.ready(() => {
+      plus.downloader.createDownload('http://img.taopic.com/uploads/allimg/140322/235058-1403220K93993.jpg', null, (download, status) => {
+        alert('下载完成, ' + JSON.stringify(download) + ', status: ' + status)
+      })
+    })
+  }
   render () {
     return (
       <div className="layout">
         <Navbar titleContent="测试" />
         <div style={styles.wrap}>
           <button onClick={this.openWebView.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">打开一个webview</button>
+          <button onClick={this.downloader.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">downloader</button>
         </div>
       </div>
     )
@@ -34,6 +43,7 @@ const styles = {
     fontSize: '.3rem',
     height: '.8rem',
     marginTop: '.2rem',
+    marginRight: '.2rem',
     padding: '0 .2rem'
   }
 }
