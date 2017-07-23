@@ -20,13 +20,6 @@ import native from '@/util/native'
 import styles from '@/stylus/home'
 
 const TabPane = Tabs.TabPane
-// H5 plus事件处理
-function plusReady () {
-  alert('plus Ready')
-  // var webView = plus.webview.currentWebview().nativeInstanceObject()
-  // webView.plusCallMethod({'setKeyboardDisplayRequiresUserAction': false})
-  // document.getElementById('testautofocus').focus()
-}
 
 class Index extends Component {
   constructor () {
@@ -73,6 +66,9 @@ class Index extends Component {
       setTimeout(() => {
         that.resetNavScrollPosition(el)
       }, 0)
+    })
+    native.ready(() => {
+      alert(document.body.innerHTML)
     })
   }
   // 初始化导航选中位置
