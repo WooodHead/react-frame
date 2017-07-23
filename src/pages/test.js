@@ -17,9 +17,10 @@ export default class extends Component {
   }
   downloader () {
     native.ready(() => {
-      plus.downloader.createDownload('http://img.taopic.com/uploads/allimg/140322/235058-1403220K93993.jpg', null, (download, status) => {
+      var dtask = plus.downloader.createDownload('http://img.taopic.com/uploads/allimg/140322/235058-1403220K93993.jpg', {}, (download, status) => {
         alert('下载完成, ' + JSON.stringify(download) + ', status: ' + status)
       })
+      dtask.start()
     })
   }
   render () {
