@@ -44,17 +44,20 @@ export default class extends Component {
     })
   }
   ioTest () {
-    plus.io.requestFileSystem(plus.io.PRIVATE_WWW, (fs) => {
-      alert('获取文件信息成功, ' + JSON.stringify(fs))
-      // alert('获取文件信息成功'+ JSON.stringify(entry))
-      // entry.remove((entry) => {
-      //   alert('删除文件成功, ' + JSON.stringify(entry))
-      // }, (error) => {
-      //   alert('删除文件失败, ' + JSON.stringify(error))
-      // })
-    }, () => {
-      alert('获取文件信息失败')
-      // alert('获取文件信息失败, ' + JSON.stringify(error))
+    native.ready(() => {
+      plus.io.requestFileSystem(plus.io.PRIVATE_WWW, (fs) => {
+        alert('获取文件信息成功')
+        console.log(fs, 'fs')
+        // alert('获取文件信息成功'+ JSON.stringify(entry))
+        // entry.remove((entry) => {
+        //   alert('删除文件成功, ' + JSON.stringify(entry))
+        // }, (error) => {
+        //   alert('删除文件失败, ' + JSON.stringify(error))
+        // })
+      }, () => {
+        alert('获取文件信息失败')
+        // alert('获取文件信息失败, ' + JSON.stringify(error))
+      })
     })
   }
   render () {
