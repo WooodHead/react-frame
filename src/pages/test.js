@@ -122,6 +122,28 @@ export default class extends Component {
       })
     })
   }
+  nativeUITest () {
+    // 显示自动消失的提示消息
+    // plus.nativeUI.toast('系统提示', {})
+
+    // 弹出系统日期选择对话框
+    // plus.nativeUI.pickDate((event) => {
+    //   alert(event.date)
+    // }, (error) => {
+    //   alert(error.message)
+    // }, {title: '请选择日期'})
+
+    // 弹出系统时间选择对话框
+    plus.nativeUI.pickTime((event) => {
+      alert(event.date)
+    })
+  }
+  mapsTest () {
+    // 设置目标位置坐标点和其实位置坐标点
+    var dst = new plus.maps.Point(116.39131928, 39.90793074) // 天安门
+    var src = new plus.maps.Point(116.335, 39.966) // 大钟寺
+    plus.maps.openSysMap(dst, '天安门', src)
+  }
   render () {
     return (
       <div className="layout">
@@ -130,6 +152,8 @@ export default class extends Component {
           <button onClick={this.openWebView.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">打开一个webview</button>
           <button onClick={this.downloader.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">downloader</button>
           <button onClick={this.ioTest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">IO test</button>
+          <button onClick={this.nativeUITest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">nativeUI test</button>
+          <button onClick={this.mapsTest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">maps test</button>
           <div>
             {
               this.state.imgs.map((item) => {
