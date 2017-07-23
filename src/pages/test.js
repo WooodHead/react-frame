@@ -19,7 +19,7 @@ export default class extends Component {
     native.ready(() => {
       var dtask = plus.downloader.createDownload('http://img.taopic.com/uploads/allimg/140322/235058-1403220K93993.jpg', {}, (download, status) => {
         alert('下载完成, ' + JSON.stringify(download) + ', status: ' + status)
-        alert('statis ' + download.status === 200 + ' ' + download.filename)
+        alert(download.status + download.state + download.filename)
         if (download.status === 200) {
           plus.gallery.save(download.filename, () => {
             alert('保存到相册成功')
