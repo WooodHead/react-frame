@@ -22,12 +22,14 @@ export const imgUpload = host + '/yunying/upload/img'
 export const apiAccount = host + '/passport/service.php?c=account'
 
 axios.interceptors.request.use(function (config) {
+  console.log('request')
   store.dispatch({type: 'loading show'})
   return config
 }, function (error) {
   return Promise.reject(error)
 })
 axios.interceptors.response.use(function (response) {
+  console.log(response.config.data, 'response')
   store.dispatch({type: 'loading hidden'})
   // console.log(response.config.data, 'response config data', JSON.parse(response.config.data))
   if (typeof response.config.data === 'string' && typeof JSON.parse(response.config.data) === 'object') {

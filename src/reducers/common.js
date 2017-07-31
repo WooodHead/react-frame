@@ -4,15 +4,18 @@ export default handleActions({
   'loading show': (state) => {
     return {
       ...state,
-      loading: true
+      loading: true,
+      ajaxCount: state.ajaxCount + 1
     }
   },
   'loading hidden': (state) => {
     return {
       ...state,
-      loading: false
+      loading: false,
+      ajaxCount: state.ajaxCount - 1
     }
   }
 }, {
-  loading: false
+  loading: false,
+  ajaxCount: 0
 })

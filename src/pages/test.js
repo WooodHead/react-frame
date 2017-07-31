@@ -6,7 +6,8 @@ export default class extends Component {
   constructor () {
     super()
     this.state = {
-      imgs: []
+      imgs: [],
+      name: ''
     }
   }
   openWebView () {
@@ -144,6 +145,20 @@ export default class extends Component {
     var src = new plus.maps.Point(116.335, 39.966) // 大钟寺
     plus.maps.openSysMap(dst, '天安门', src)
   }
+  setStateTest () {
+    // this.setState(() => {
+    //   console.log(arguments)
+    //   return {
+    //     name: 'fangbao'
+    //   }
+    // }, () => {
+    //   console.log('callback')
+    // })
+    this.setState({
+      name: 'sss'
+    })
+    console.log(this.state)
+  }
   render () {
     return (
       <div className="layout">
@@ -154,6 +169,7 @@ export default class extends Component {
           <button onClick={this.ioTest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">IO test</button>
           <button onClick={this.nativeUITest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">nativeUI test</button>
           <button onClick={this.mapsTest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">maps test</button>
+          <button onClick={this.setStateTest.bind(this)} type="button" style={styles.btn} className="mui-btn mui-btn-primary">setState test</button>
           <div>
             {
               this.state.imgs.map((item) => {

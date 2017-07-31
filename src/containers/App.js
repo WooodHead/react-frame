@@ -33,14 +33,16 @@ class App extends Component {
     this.props.dispatch(actions.fetchLoginState())
   }
   render () {
-    const { loading } = this.props
+    const { loading, ajaxCount } = this.props
+    console.log(loading, 'loading', ajaxCount, 'ajaxCount')
+    // ajaxCount > 0
     return (
       <div className="app">
         {this.props.children}
         <ActivityIndicator
           toast
           text="加载中..."
-          animating={loading}
+          animating={ajaxCount > 0}
         />
       </div>
     )

@@ -1,7 +1,7 @@
 var native = {
   ready (app) {
     // alert(window.plus)
-    alert(navigator.userAgent)
+    // alert(navigator.userAgent)
     if (window.plus) {
       // plus.navigator.setStatusBarBackground('#000000')
       app && app(window.plus, 1)
