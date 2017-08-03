@@ -85,9 +85,9 @@ class TopicDetail extends Component {
               <div className={styles['topic-info-right']}>
                 <h2 className={styles['nickname']}>{detail.user ? detail.user['nickname'] : ''}</h2>
                 <div className={styles['topic-info-right-second-fl']}>
-                  <span>{detail.created_at}</span>
+                  <span>{detail.created_at ? detail.created_at : ''}</span>
                   <span className={styles['separated']}>·</span>
-                  <span>{detail.views + 1}人阅读</span>
+                  <span>{detail.views ? detail.views + 1 : 0}人阅读</span>
                 </div>
               </div>
             </div>

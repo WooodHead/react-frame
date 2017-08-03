@@ -50,10 +50,14 @@ class Index extends Component {
     var that = this
     // 监听滚动设置tab位置固定
     mui('.m-s-w-1').on('scroll', '.mui-scroll', function (event) {
-      var y = -event.detail.y
+      var y = -event.detail.lastY
       var tabbar = $(event.target).find('.am-tabs-bar')
+      console.log(event.detail.lastY)
       if (y > tabbar[0].offsetTop) {
-        // tabbar.css({transform: 'translate3d(0px, ' + (y - tabbar[0].offsetTop) + 'px, 0px)', zIndex: 999999})
+        tabbar.css({transform: 'translate3d(0px, ' + (y - tabbar[0].offsetTop) + 'px, 0px)', zIndex: 999999})
+      } else if (y === 0) {
+        console.log('y === 0')
+        tabbar.css({transform: 'translate3d(0px, 0px, 0px'})
       }
     })
     // 监听左右滑动事件进行导航选中位置重置
