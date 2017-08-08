@@ -8,6 +8,8 @@ class CommentDel extends Component {
       if (res.result) {
         commentList.splice(index, 1)
         this.props.dispatch({type: 'change topic detail comment list', refresh: true, commentTotal: commentTotal - 1, commentList: [...commentList]})
+      } else {
+        this.Toast.show(res.error.message)
       }
     })
   }

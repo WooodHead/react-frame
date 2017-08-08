@@ -101,6 +101,11 @@ class Index extends Component {
   }
   // 上拉下拉
   initPullRefresh (index) {
+    mui('.m-s-w-1').off()
+    mui('.m-s-w-1').on('tap', 'div', function (event) {
+      console.log('tap pullrefresh')
+      this.click()
+    })
     const { selectedNavbarIndex, topicList, topicTypes, selectedTabs } = this.props
     const id = topicTypes[index].id
     const currentId = topicTypes[selectedNavbarIndex].id
@@ -110,10 +115,11 @@ class Index extends Component {
       autoRefresh = true
     }
     var that = this
+    console.log(index, 'index')
     mui('#refreshContainer_' + index).pullRefresh({
       down: {
         indicators: false,
-        style: 'circle', // 必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+        // style: 'circle', // 必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
         color: '#2BD009', // 可选，默认“#2BD009” 下拉刷新控件颜色
         height: 100, // 可选,默认50.触发下拉刷新拖动距离,
         auto: autoRefresh, // 可选,默认false.首次加载自动上拉刷新一次
@@ -134,7 +140,7 @@ class Index extends Component {
       },
       up: {
         indicators: false,
-        style: 'circle',
+        // style: 'circle',
         height: 50, // 可选.默认50.触发上拉加载拖动距离
         auto: false, // 可选,默认false.自动上拉加载一次
         contentrefresh: '正在加载...', // 可选，正在加载状态时，上拉加载控件上显示的标题内容
