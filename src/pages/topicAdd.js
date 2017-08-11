@@ -97,12 +97,14 @@ class TopicAdd extends Component {
     imgUploadRequest({
       file: files[files.length - 1].file
     }).then((res) => {
-      console.log(res.data.picUrl, this.state.imgs)
-      if (res.data.picUrl) {
+      // console.log(res.data.picUrl, this.state.imgs)
+      if (res.data && res.data.picUrl) {
         this.setState({
           files: files,
           imgs: this.state.imgs.concat([res.data.picUrl])
         })
+      } else {
+        this.Toast.show(res.error_code.error.message)
       }
     })
   }

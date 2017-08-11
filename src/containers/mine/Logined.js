@@ -45,6 +45,7 @@ class Logined extends Component {
               text=""
               className='pure-button'
               crop='server'
+              extensions={['png', 'jpg', 'gif']}
               inputOfFile="img"
               cropBtn={{ok: '选取', 'cancel': '取消'}}
               url={imgUpload}

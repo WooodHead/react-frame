@@ -113,6 +113,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.tsx?$/,
+        loader: 'ts-loader'
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
@@ -198,12 +202,12 @@ module.exports = {
     // 启用gzip压缩一切服务:
     // compress: true,
     // host: '0.0.0.0',
-    host: '192.168.198.211',
+    // host: '192.168.198.211',
     port: '3001'
   },
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
-    extensions: ['.web.js', '.js', '.min.js', '.json', '.styl', '.css'],
+    extensions: ['.web.js', '.ts', '.tsx', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
       'lib': path.join(__dirname, 'lib'),
       '@': path.join(__dirname, 'src/')
