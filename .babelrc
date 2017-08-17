@@ -11,7 +11,7 @@
   ],
   "plugins": [
     ["import", {
-      "libraryName": "antd-mobile",
+      "libraryName": "antd",
       "style": "css"
     }],
     "syntax-dynamic-import",

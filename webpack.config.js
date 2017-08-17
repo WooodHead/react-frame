@@ -7,10 +7,6 @@ var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
 
-const svgDirs = [
-  require.resolve('antd-mobile').replace(/warn\.js$/, '')
-];
-
 var plugins = [
   new webpack.DefinePlugin({
     'process.env': {
@@ -38,8 +34,7 @@ var plugins = [
   new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',
-    "window.jQuery": 'jquery',
-    mui: 'lib/mui/js/mui'
+    "window.jQuery": 'jquery'
   }),
   // 将node_modules打入vendor
   new webpack.optimize.CommonsChunkPlugin({
@@ -93,7 +88,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: isPro ? 'js/[name].[chunkhash].bundle.js' : '[name].[hash:8].bundle.js',
     chunkFilename: isPro ? 'js/[name].[chunkhash].bundle.js' : '[name]-[id].[chunkhash:8].bundle.js',
-    publicPath: isPro ? '/bbs/' : ''
+    publicPath: isPro ? '/' : ''
   },
   module: {
     rules: [
@@ -105,6 +100,10 @@ module.exports = {
         use: 'eslint-loader',
       },
       {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+      },
+      {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
@@ -112,10 +111,10 @@ module.exports = {
           'babel-loader'
         ]
       },
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader'
-      },
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader'
+      // },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -170,12 +169,7 @@ module.exports = {
           limit: 10000,
           name: isPro ? 'fonts/[name].[hash:7].[ext]' : '[name].[hash:7].[ext]'
         }
-      },
-      {
-        test: /\.(svg)$/i,
-        loader: 'svg-sprite-loader',
-        include: svgDirs  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
-      },
+      }
     ]
   },
   plugins: plugins,
