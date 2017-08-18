@@ -97,7 +97,10 @@ module.exports = {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         exclude: [/node_modules/, path.resolve(__dirname, 'lib')],
-        use: 'eslint-loader',
+        use: [
+          'source-map-loader',
+          'eslint-loader'
+        ]
         // use: [
         //   'source-map-loader'
         // ]
@@ -107,31 +110,30 @@ module.exports = {
         test: /\.tsx$/,
         include: path.resolve(__dirname, 'src'),
         exclude: [/node_modules/, path.resolve(__dirname, 'lib')],
-        use: 'tslint-loader',
-        // use: [
-        //   'source-map-loader'
-        // ]
+        use: [
+          'tslint-loader'
+        ]
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: [
-          // 'babel-loader',
-          'awesome-typescript-loader'
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'awesome-typescript-loader'
+          }
         ]
       },
       {
         test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, 'src'),
+        // include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: [
           'babel-loader'
         ]
       },
-      // {
-      //   test: /\.tsx?$/,
-      //   loader: 'ts-loader'
-      // },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({

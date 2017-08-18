@@ -1,11 +1,9 @@
-import * as  React from "react";
+import * as  React from 'react'
 
-export interface HelloProps { compiler: string; framework: string; }
+export interface IProps { name: string }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the 'undefined' type.
-export class Hello extends React.Component<HelloProps, undefined> {
-    render() {
-      return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
+export default class Hello extends React.Component<IProps, undefined> {
+    public render() {
+      return <h1>Hello {this.props.name} !</h1>
     }
 }
