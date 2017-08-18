@@ -98,13 +98,30 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         exclude: [/node_modules/, path.resolve(__dirname, 'lib')],
         use: 'eslint-loader',
+        // use: [
+        //   'source-map-loader'
+        // ]
+      },
+      {
+        enforce: 'pre',
+        test: /\.tsx$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: [/node_modules/, path.resolve(__dirname, 'lib')],
+        use: 'tslint-loader',
+        // use: [
+        //   'source-map-loader'
+        // ]
       },
       {
         test: /\.tsx?$/,
-        loader: "awesome-typescript-loader"
+        exclude: /node_modules/,
+        use: [
+          // 'babel-loader',
+          'awesome-typescript-loader'
+        ]
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: [
@@ -201,7 +218,7 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
-    extensions: ['.web.js', '.ts', '.tsx', '.js', '.min.js', '.json', '.styl', '.css'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
       'lib': path.join(__dirname, 'lib'),
       '@': path.join(__dirname, 'src/')

@@ -20,6 +20,7 @@ const Index = (props) => (
     {(Index) => <Index {...props}/>}
   </Bundle>
 )
+// import Index from '@/pages/index'
 
 const isPro = process.env.NODE_ENV === 'production'
 

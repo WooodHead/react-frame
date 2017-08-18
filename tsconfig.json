@@ -6,7 +6,7 @@
         "module": "commonjs",
         "target": "es5",
         "moduleResolution": "node",
-        "jsx": "react",
+        "jsx": "preserve",
         "allowSyntheticDefaultImports": true
     },
     "include": [
