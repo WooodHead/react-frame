@@ -1,29 +1,15 @@
 import React from 'react'
-
-// import styles from '../stylus/app'
+declare const require: {
+   <T>(path: string): T;
+   (paths: string[], callback: (...modules: any[]) => void): void;
+   ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void;
+}
+const styles = require<any>('../stylus/index')
 import Hello from '../components/Hello'
 export interface IMyProps {
   className?: any
 }
-interface IMyClassName {
-  container: any
-}
-const style: IMyClassName = {
-  container: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    bottom: 0,
-    left: 0,
-    margin: 0,
-    padding: 0,
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
-  }
-}
+
 import { Button, Modal } from 'antd'
 export default class extends React.Component<IMyProps, any> {
   public state = { visible: false }
@@ -42,7 +28,7 @@ export default class extends React.Component<IMyProps, any> {
   }
   public render() {
     return (
-      <div style={style.container}>
+      <div className={styles.container}>
         <h1>Hello man</h1>
         <Button onClick={this.HandleClick.bind(this)} type='primary'>打开</Button>
         <Modal
