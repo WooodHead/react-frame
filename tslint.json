@@ -5,6 +5,7 @@
       "quotemark": [true, "single"],
       "object-literal-sort-keys": false,
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-      "no-var-requires": false
+      "no-var-requires": false,
+      "no-console": false
     }
 }
