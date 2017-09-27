@@ -2,11 +2,17 @@
 一个react+redux+stylus+webpack+antd+mui的框架
 
 # 安装
-npm install
+npm install or yarn install(推荐)
 如果安装失败  那么推荐使用淘宝的注册源 直接运行 npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 # 启动
-npm start
+npm start 或者 pm2 start build/ecosystem.config.js (npm install pm2 -g)
+```
+重启 pm2 restart [app-name|id]
+关闭 pm2 stop [app-name|id]
+删除 pm2 delete [app-name|id]
+日志 pm2 logs [app-name|id]
+```
 
 # 打包部署
 npm run build
@@ -24,6 +30,9 @@ npm run build
 * stylus stylus存储目录
 * app.js 入口js
 * index.html 入口html页面
+
+# babel
+* babel-preset-env(推荐) 替代了 babel-preset-es2015
 
 # 其他
 * react 中文官网 [http://www.react-cn.com/](http://www.react-cn.com/)
