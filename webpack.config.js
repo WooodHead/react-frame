@@ -182,7 +182,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -226,7 +226,7 @@ module.exports = {
       '@': path.join(__dirname, 'src/')
     }
   },
-  devtool: !isPro ? 'source-map' : ''
+  devtool: !isPro ? 'cheap-eval-source-map' : ''
   // eval： 生成代码 每个模块都被eval执行，并且存在@sourceURL
   //
   // cheap-eval-source-map： 转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl

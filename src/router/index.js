@@ -14,10 +14,15 @@ import Bundle from '@/components/common/Bundle'
 import App from '@/containers/App'
 
 import loadIndex from 'bundle-loader?lazy&name=[name]!@/pages/index'
-
+import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
 const Index = (props) => (
   <Bundle load={loadIndex}>
     {(Index) => <Index {...props}/>}
+  </Bundle>
+)
+const Login = (props) => (
+  <Bundle load={loadLogin}>
+    {(Login) => <Login {...props}/>}
   </Bundle>
 )
 // import Index from '@/pages/index'
@@ -35,6 +40,7 @@ const router = () => (
       <App>
         <Switch>
           <Route path="/" exact={true} component={Index}/>
+          <Route path="/login" component={Login}/>
         </Switch>
       </App>
     </Router>
