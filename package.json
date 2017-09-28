@@ -88,10 +88,6 @@
   "optionalDependencies": {
     "fsevents": "*"
   },
-  "watchOptions": {
-    "aggregateTimeout": 300,
-    "poll": 1000
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
