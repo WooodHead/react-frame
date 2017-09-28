@@ -15,6 +15,10 @@
   "keywords": [
     "react"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fangbao-0418/react-frame.git"
+  },
   "author": "fangbao",
   "license": "ISC",
   "dependencies": {
