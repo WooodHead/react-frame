@@ -2,11 +2,10 @@
 一个react+redux+stylus+webpack+antd+mui的框架
 
 # 安装
-npm install or yarn install(推荐)
-如果安装失败  那么推荐使用淘宝的注册源 直接运行 npm install -g cnpm --registry=https://registry.npm.taobao.org
+yarn install(没有yarn请前去安装[yarn](https://yarn.bootcss.com/docs/install.html))
 
 # 启动
-npm start 或者 pm2 start build/ecosystem.config.js (npm install pm2 -g)
+pm2 start build/ecosystem.config.js
 ```
 重启 pm2 restart [app-name|id]
 关闭 pm2 stop [app-name|id]
