@@ -85,6 +85,13 @@
     "webpack-hot-middleware": "^2.18.0",
     "yargs": "^8.0.2"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
+  "watchOptions": {
+    "aggregateTimeout": 300,
+    "poll": 1000
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
