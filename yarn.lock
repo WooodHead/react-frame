@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/jquery@^3.2.13":
+  version "3.2.13"
+  resolved "https://registry.npmjs.org/@types/jquery/-/jquery-3.2.13.tgz#1600dac44c79d52dab2b4361551bc6554f525972"
+
 "@types/react-dom@^15.5.3":
   version "15.5.4"
   resolved "http://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-15.5.4.tgz#3f75ba86a2ce9a7d1d9e7d1ee3f186f3a9652d8f"
