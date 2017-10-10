@@ -94,7 +94,11 @@
     "yargs": "^8.0.2"
   },
   "optionalDependencies": {
-    "fsevents": "*"
+    "fsevents": ""
+  },
+  "peerDependencies": {
+    "ajv-keywords": "^1.5.1",
+    "ajv": ">=4.10.0"
   },
   "browserslist": [
     "> 1%",
