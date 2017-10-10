@@ -2,7 +2,6 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html模板插入代码。
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 优化css
 var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
@@ -64,11 +63,6 @@ var plugins = [
 ];
 if (env === 'production') {
   plugins = Array.prototype.concat.call(plugins, [
-    // new OptimizeCssAssetsPlugin({
-    //   cssProcessorOptions: {
-    //     safe: true
-    //   }
-    // }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
