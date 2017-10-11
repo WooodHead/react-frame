@@ -2,15 +2,16 @@
 一个react+redux+stylus+webpack+antd+mui的框架
 
 # 安装
-yarn install(没有yarn请前去安装[yarn](https://yarn.bootcss.com/docs/install.html))
+- yarn install(没有yarn请前去安装[yarn](https://yarn.bootcss.com/docs/install.html))
+- 如果安装失败 yarn install --no-lockfile
 
 # 启动
 pm2 start build/ecosystem.config.js
 ```
-重启 pm2 restart [app-name|id]
-关闭 pm2 stop [app-name|id]
-删除 pm2 delete [app-name|id]
-日志 pm2 logs [app-name|id]
+重启 pm2 restart agent  // ([app-name|id])
+关闭 pm2 stop agent
+删除 pm2 delete agetnt
+日志 pm2 logs agent
 ```
 
 # 打包部署
