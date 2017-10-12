@@ -1,12 +1,11 @@
 import React from 'react'
-declare const require: {
-   <T>(path: string): T;
-   (paths: string[], callback: (...modules: any[]) => void): void;
-   ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void;
+declare function require(path: string): {
+  container: string;
 }
-const styles = require<any>('../stylus/index')
+const styles = require('../stylus/index')
+console.log(styles, 'styles')
 import Hello from '../components/Hello'
-export interface IMyProps {
+export interface MyProps {
   className?: any
 }
 const ss: any = 'this is a string'
@@ -34,7 +33,7 @@ function identity<T>(arg: T[]): T[] {
 const output = identity(['swws'])
 console.log(output)
 import { Button, Modal } from 'antd'
-export default class extends React.Component<IMyProps, any> {
+export default class extends React.Component<MyProps, any> {
   public state = { visible: false }
   public handleOk() {
     this.setState({
