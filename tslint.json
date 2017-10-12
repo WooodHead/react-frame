@@ -6,6 +6,7 @@
       "object-literal-sort-keys": false,
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
       "no-var-requires": false,
-      "no-console": false
+      "no-console": false,
+      "interface-name": [true, "never-prefix"]
     }
 }

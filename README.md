@@ -48,6 +48,7 @@ npm run build
 * [antd mobile 0.8 以上版本「高清」方案设置](https://github.com/ant-design/ant-design-mobile/wiki/antd-mobile-0.8-%E4%BB%A5%E4%B8%8A%E7%89%88%E6%9C%AC%E3%80%8C%E9%AB%98%E6%B8%85%E3%80%8D%E6%96%B9%E6%A1%88%E8%AE%BE%E7%BD%AE)
 * mui 文档 [http://dev.dcloud.net.cn/mui/](http://dev.dcloud.net.cn/mui/)
 * h5+ native.js文档 [http://ask.dcloud.net.cn/docs/](http://ask.dcloud.net.cn/docs/)
+* tslint文档 [https://palantir.github.io/tslint/](https://palantir.github.io/tslint/)
 
 # issue
 * [typescript]  <font color="red">Cannot find name 'PropertyKey'</font>
