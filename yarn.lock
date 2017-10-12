@@ -2,24 +2,23 @@
 # yarn lockfile v1
 
 
+"@types/echarts@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/@types/echarts/-/echarts-0.0.8.tgz#f2d876b37b1dfd87e53031f6a2784833bfcec2cc"
+
 "@types/jquery@^3.2.13":
   version "3.2.13"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.2.13.tgz#1600dac44c79d52dab2b4361551bc6554f525972"
 
-"@types/node@*":
-  version "8.0.33"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.33.tgz#1126e94374014e54478092830704f6ea89df04cd"
-
-"@types/react-dom@^16.0.1":
-  version "16.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.1.tgz#de159d00dd70050000f462e8bcff0c08ef803dee"
+"@types/react-dom@^15.4.2":
+  version "15.5.6"
+  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-15.5.6.tgz#7794ff7822882b59b899c30294e1b1e62e97757e"
   dependencies:
-    "@types/node" "*"
-    "@types/react" "*"
+    "@types/react" "^15"
 
-"@types/react@*", "@types/react@^16.0.10":
-  version "16.0.10"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.10.tgz#a24b630f5f1f170866a148a147d4fc8636ea88e0"
+"@types/react@^15", "@types/react@^15.4.2":
+  version "15.6.4"
+  resolved "https://registry.npmjs.org/@types/react/-/react-15.6.4.tgz#3bb57bd43183a05919ceb025a264287348f47e9d"
 
 abbrev@1:
   version "1.1.1"
@@ -2128,6 +2127,12 @@ ecc-jsbn@~0.1.1:
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
   dependencies:
     jsbn "~0.1.0"
+
+echarts@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.npmjs.org/echarts/-/echarts-3.7.2.tgz#3b37764d8bc0c8ab49cbea16bc0b55726451caaa"
+  dependencies:
+    zrender "^3.6.2"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -6810,3 +6815,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+zrender@^3.6.2:
+  version "3.6.3"
+  resolved "https://registry.npmjs.org/zrender/-/zrender-3.6.3.tgz#e3a06ba105cc45eb36492a818e7b7ae879a7b15b"

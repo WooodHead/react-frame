@@ -6,7 +6,7 @@
 - 如果安装失败 yarn install --no-lockfile
 
 # 启动
-pm2 start build/ecosystem.config.js
+pm2 start build/ecosystem.config.js || npm start
 ```
 重启 pm2 restart agent  // ([app-name|id])
 关闭 pm2 stop agent
