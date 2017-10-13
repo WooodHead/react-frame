@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames/bind'
-import styles from '@/plugins/stylus/alert'
+import styles from './css'
 import Alert from '@/plugins/alert'
 const cx = classNames.bind(styles)
 

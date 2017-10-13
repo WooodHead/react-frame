@@ -2,12 +2,12 @@
  * 弹框
  */
 
-import Alert from '@/components/common/Alert'
+import Alert from './Component'
 import React from 'react'
 import { render } from 'react-dom'
-import { modal } from '@/plugins/stylus/alert'
+import { modal } from './css'
 
-var alert = {
+export default {
   el: document.createElement('div'),
   show (options) {
     this.el.setAttribute('id', modal)
@@ -24,5 +24,3 @@ var alert = {
     }, 0)
   }
 }
-
-export default alert

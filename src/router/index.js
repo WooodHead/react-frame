@@ -10,22 +10,10 @@ import {
 // import 'es6-promise/dist/es6-promise'
 import { Provider } from 'react-redux'
 import store from '@/stores'
-import Bundle from '@/components/common/Bundle'
 import App from '@/containers/App'
+import * as modules from './modules'
 
-import loadIndex from 'bundle-loader?lazy&name=[name]!@/pages/index'
-import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
-const Index = (props) => (
-  <Bundle load={loadIndex}>
-    {(Index) => <Index {...props}/>}
-  </Bundle>
-)
-const Login = (props) => (
-  <Bundle load={loadLogin}>
-    {(Login) => <Login {...props}/>}
-  </Bundle>
-)
-// import Index from '@/pages/index'
+console.log(modules)
 
 const isPro = process.env.NODE_ENV === 'production'
 
@@ -39,8 +27,10 @@ const router = () => (
     <Router basename={basename}>
       <App>
         <Switch>
-          <Route path="/" exact={true} component={Index}/>
-          <Route path="/login" component={Login}/>
+          <Route path="/" exact={true} component={modules.Index}/>
+          <Route path="/demo1" component={modules.Demo1}/>
+          <Route path="/demo2" component={modules.Demo2}/>
+          <Route path="/login" component={modules.Login}/>
         </Switch>
       </App>
     </Router>

@@ -2,7 +2,7 @@ import React from 'react'
 declare function require(path: string): {
   container: string;
 }
-const styles = require('../stylus/index')
+const styles = require('../stylus/login')
 console.log(styles, 'styles')
 import Hello from '../components/Hello'
 export interface MyProps {
@@ -33,7 +33,7 @@ function identity<T>(arg: T[]): T[] {
 const output = identity(['swws'])
 console.log(output)
 import { Button, Modal } from 'antd'
-export default class extends React.Component<MyProps, any> {
+export default class extends React.Component<MyProps, {}> {
   public state = { visible: false }
   public handleOk() {
     this.setState({

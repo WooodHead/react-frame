@@ -2,4 +2,3 @@
 // import echarts from 'libs/echarts/dist/echarts'
 import 'libs/font-awesome/css/font-awesome'
 import 'libs/bootstrap/dist/css/bootstrap.css'
-// window.echarts = echarts
