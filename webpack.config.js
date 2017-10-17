@@ -218,7 +218,8 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
       'libs': path.join(__dirname, 'libs'),
-      '@': path.join(__dirname, 'src/')
+      '@': path.join(__dirname, 'src/'),
+      '$root': path.join(__dirname, 'src/'),
     }
   },
   devtool: !isPro ? 'cheap-eval-source-map' : ''

@@ -1,7 +1,7 @@
 import { Button } from 'antd'
 import echarts from 'echarts'
 import React from 'react'
-import P from '../plugins/alert/index'
+import P from '../plugins/alert'
 
 declare module 'react' {
   interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
