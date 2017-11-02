@@ -49,6 +49,7 @@ npm run build
 * mui 文档 [http://dev.dcloud.net.cn/mui/](http://dev.dcloud.net.cn/mui/)
 * h5+ native.js文档 [http://ask.dcloud.net.cn/docs/](http://ask.dcloud.net.cn/docs/)
 * tslint文档 [https://palantir.github.io/tslint/](https://palantir.github.io/tslint/)
+* jest单元测试 [http://facebook.github.io/jest/](http://facebook.github.io/jest/)
 
 # issue
 * [typescript]  <font color="red">Cannot find name 'PropertyKey'</font>

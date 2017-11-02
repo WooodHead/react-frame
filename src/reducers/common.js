@@ -16,6 +16,6 @@ export default handleActions({
     }
   }
 }, {
-  loading: false,
+  loading: undefined,
   ajaxCount: 0
 })

@@ -5,10 +5,28 @@ import P from '../plugins/alert'
 
 declare module 'react' {
   interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
-      s?: string
+      s?: string,
+      x?: number
   }
 }
 
+interface Prop {
+  x?: number
+}
+
+// declare module 'antd' {
+//   interface Button.ButtonProps {
+//
+//   }
+// }
+
+// declare global {
+//   namespace JSX {
+//     interface IntrinsicElements {
+//       CustomButton: { cb: () => void }
+//     }
+//   }
+// }
 export interface MyProps {
   className?: any,
   history: object
@@ -25,8 +43,23 @@ function identity<T>(arg: T[]): T[] {
 identity([1, 2])
 // 指定类型
 // identity<string>('s' + 2)
-
 // let i = identity
+
+interface CustomButtonProp {
+  cb?: (s: string) => void
+  onClick?: React.FormEventHandler<any>
+}
+
+const CustomButton = (p: CustomButtonProp) => {
+  const toClick = () => {
+    if (p.cb) {
+      p.cb('x')
+    }
+  }
+  return (
+    <button onClick={toClick}>点我</button>
+  )
+}
 
 export default class Login extends React.Component<MyProps, MyState> {
   constructor() {
@@ -79,6 +112,13 @@ export default class Login extends React.Component<MyProps, MyState> {
       content: 'xxx'
     })
   }
+  public cb(x: string) {
+    alert(x)
+    console.log(this, 'this')
+  }
+  public toClick() {
+    console.log(this)
+  }
   public render() {
     return (
       <div>
@@ -93,6 +133,8 @@ export default class Login extends React.Component<MyProps, MyState> {
         <button type='button' className='btn btn-default' onClick={this.handleClick2.bind(this)}>
           Alert
         </button>
+        <hr />
+        <CustomButton cb={this.cb.bind(this)}/>
         <div className='modal fade' id='myModal' role='dialog' aria-labelledby='myModalLabel'>
           <div className='modal-dialog' role='document'>
             <div className='modal-content'>
