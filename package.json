@@ -57,8 +57,8 @@
   "devDependencies": {
     "@types/echarts": "^0.0.8",
     "@types/jquery": "^3.2.16",
-    "@types/react": "15.4.2",
-    "@types/react-dom": "15.4.2",
+    "@types/react": "15.6.5",
+    "@types/react-dom": "15.5.6",
     "autoprefixer": "^7.1.5",
     "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.26.0",

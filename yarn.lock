@@ -10,15 +10,15 @@
   version "3.2.16"
   resolved "https://registry.npmjs.org/@types/jquery/-/jquery-3.2.16.tgz#04419c404a3194350e7d3f339a90e72c88db3111"
 
-"@types/react-dom@15.4.2":
-  version "15.5.4"
-  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-15.5.4.tgz#3f75ba86a2ce9a7d1d9e7d1ee3f186f3a9652d8f"
+"@types/react-dom@15.5.6":
+  version "15.5.6"
+  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-15.5.6.tgz#7794ff7822882b59b899c30294e1b1e62e97757e"
   dependencies:
-    "@types/react" "*"
+    "@types/react" "^15"
 
-"@types/react@*", "@types/react@15.4.2":
-  version "16.0.15"
-  resolved "https://registry.npmjs.org/@types/react/-/react-16.0.15.tgz#1b1eba408fc75735b3e53a83333c346eeeb0022b"
+"@types/react@15.6.5", "@types/react@^15":
+  version "15.6.5"
+  resolved "https://registry.npmjs.org/@types/react/-/react-15.6.5.tgz#fb23b8d8b7226313b645b6e84fb178976bbfe587"
 
 abab@^1.0.3:
   version "1.0.4"
