@@ -30,6 +30,7 @@ const router = () => (
           <Route path="/" exact={true} component={modules.Index}/>
           <Route path="/demo1" component={modules.Demo1}/>
           <Route path="/demo2" component={modules.Demo2}/>
+          <Route path="/demo3" component={modules.Demo3}/>
           <Route path="/login" component={modules.Login}/>
         </Switch>
       </App>

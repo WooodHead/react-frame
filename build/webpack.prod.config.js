@@ -2,13 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html模板插入代码。
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 优化css
 var env = 'production';
-var isPro = true;
-
-const svgDirs = [
-  require.resolve('antd-mobile').replace(/warn\.js$/, '')
-];
 
 var plugins = [
   new webpack.DefinePlugin({
@@ -37,69 +31,75 @@ var plugins = [
   new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',
-    "window.jQuery": 'jquery',
-    mui: 'lib/mui/js/mui'
+    "window.jQuery": 'jquery'
   }),
   // 将node_modules打入vendor
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
+    // filename: "commons.js",
     minChunks: function (module, count) {
       // this assumes your vendor imports exist in the node_modules directory
       // any required modules inside node_modules are extracted to vendor
+      console.log(module.resource);
         return (
           module.resource &&
           /\.js$/.test(module.resource) &&
           module.resource.indexOf(
-            path.join(__dirname, 'node_modules')
+            path.join(__dirname, '../node_modules')
           ) !== -1
         )
     }
   }),
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: 'echarts',
+  //   minChunks: Infinity
+  // }),
   // To extract the webpack bootstrap logic into a separate file
   // 其他打入清单 比如webpack runtime代码
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest'
+    name: 'manifest',
+    minChunks: Infinity
   }),
   new ExtractTextPlugin({
-    filename: isPro ? 'css/[name].[contenthash].css' : '[name].css',
+    filename: 'css/[name].[contenthash].css',
     //disable: false,
     allChunks: true
-  })
+  }),
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      drop_console: true,
+      drop_debugger: true,
+    },
+    //sourceMap: true
+  }),
+  new webpack.NoEmitOnErrorsPlugin()
 ];
-if (env === 'production') {
-  plugins = Array.prototype.concat.call(plugins, [
-    // new OptimizeCssAssetsPlugin({
-    //   cssProcessorOptions: {
-    //     safe: true
-    //   }
-    // }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_console: isPro,
-        drop_debugger: isPro,
-      },
-      //sourceMap: true
-    }),
-    new webpack.NoEmitOnErrorsPlugin()
-  ])
-}
+
 module.exports = {
-  entry: path.resolve(__dirname, '../src/app'),
+  entry: {
+    app: path.resolve(__dirname, '../src/app'),
+    echarts: ['jquery']
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: isPro ? 'js/[name].[chunkhash].js' : '[name].[hash:8].bundle.js',
-    chunkFilename: isPro ? 'js/[id].[chunkhash].js' : '[name]-[id].[chunkhash:8].bundle.js',
-    publicPath: isPro ? '/bbs/' : ''
+    filename: 'js/[name].[chunkhash].js',
+    chunkFilename: 'js/[name].[chunkhash].js',
+    publicPath: '/'
   },
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        include: path.resolve(__dirname, '../src'),
-        exclude: [/node_modules/, path.resolve(__dirname, '../lib')],
-        use: 'eslint-loader',
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'awesome-typescript-loader'
+          }
+        ]
       },
       {
         test: /\.js$/,
@@ -153,60 +153,34 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 1000,
-          name: isPro? 'images/[name].[hash:7].[ext]' : '[name].[hash:7].[ext]'
+          name: 'images/[name].[hash:7].[ext]'
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: isPro ? 'fonts/[name].[hash:7].[ext]' : '[name].[hash:7].[ext]'
+          name: 'fonts/[name].[hash:7].[ext]'
         }
       },
-      {
-        test: /\.(svg)$/i,
-        loader: 'svg-sprite-loader',
-        include: svgDirs  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
-      },
+      // {
+      //   test: /\.(svg)$/i,
+      //   loader: 'svg-sprite-loader'
+      // },
     ]
   },
   plugins: plugins,
-  devServer: {
-    contentBase: 'dist',
-    // 热替换的区别就在于，当前端代码变动时，无需刷新整个页面，只把变化的部分替换掉。
-    // 自动刷新整个页面刷新
-    inline: true,
-    // stats(string or object) errors-only|minimal|none|normal|verbose(输出所有)
-    stats:{
-      // context: './src/',
-      // assets: true,
-      colors: true,
-      errors: true
-    },
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://192.168.11.218/',
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //     }
-    //   }
-    // }
-    // 启用gzip压缩一切服务:
-    // compress: true,
-    // host: '0.0.0.0',
-    // host: '192.168.11.232',
-    port: '3001'
-  },
   resolve: {
     modules: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../src')],
-    extensions: ['.web.js', '.js', '.min.js', '.json', '.styl', '.css'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.min.js', '.json', '.styl', '.css'],
     alias: {
-      'lib': path.join(__dirname, '../lib'),
-      '@': path.join(__dirname, '../src/')
+      'libs': path.join(__dirname, '../libs'),
+      '@': path.join(__dirname, '../src/'),
+      '$root': path.join(__dirname, '../src/'),
     }
   },
-  devtool: !isPro ? 'source-map' : ''
+  devtool: ''
   // eval： 生成代码 每个模块都被eval执行，并且存在@sourceURL
   //
   // cheap-eval-source-map： 转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl

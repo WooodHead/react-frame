@@ -5,8 +5,7 @@ var webpackConfig = require('./webpack.prod.config');
 var ora = require('ora');
 var spinner = ora('building for production...');
 spinner.start();
-// console.log(webpack, 'webpack');
-// return;
+
 rm('dist/*', function(err){
   if (err) throw err;
   webpack(webpackConfig, function(err, stats){

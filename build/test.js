@@ -5,4 +5,4 @@ var argv = require('yargs').argv;
 //SET NODE_ENV = 'development'
 var path = require('path')
 console.log(__dirname)
-console.log(path.join(__dirname, 'src'))
+console.log(path.join(__dirname, '../src'))
