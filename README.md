@@ -14,7 +14,7 @@ pm2 start build/ecosystem.config.js || npm start
 日志 pm2 logs agent
 ```
 
-# 打包部署
+# 打包
 npm run build
 打包之后会再当目录生成一个dist文件夹  index.html就是入口文件
 

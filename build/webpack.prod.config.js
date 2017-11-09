@@ -28,38 +28,19 @@ var plugins = [
     // chunksSortMode: 'dependency'
     // hash:true
   }),
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    "window.jQuery": 'jquery'
-  }),
-  // 将node_modules打入vendor
+  new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery', "window.jQuery": 'jquery'}),
+  // Explicit vendor chunk
+  // 单独将echarts提取出来
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    // filename: "commons.js",
-    minChunks: function (module, count) {
-      // this assumes your vendor imports exist in the node_modules directory
-      // any required modules inside node_modules are extracted to vendor
-      console.log(module.resource);
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) !== -1
-        )
+    names: [
+      'echarts', 'vendor'
+    ],
+    minChunks: function(module) {
+      return module.context && module.context.indexOf("node_modules") !== -1 && /node_modules\/(echarts|zrender)/.test(module.context) === false;
     }
   }),
-  // new webpack.optimize.CommonsChunkPlugin({
-  //   name: 'echarts',
-  //   minChunks: Infinity
-  // }),
-  // To extract the webpack bootstrap logic into a separate file
-  // 其他打入清单 比如webpack runtime代码
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    minChunks: Infinity
-  }),
+  // 引导
+  new webpack.optimize.CommonsChunkPlugin({name: 'manifest', minChunks: Infinity}),
   new ExtractTextPlugin({
     filename: 'css/[name].[contenthash].css',
     //disable: false,
@@ -69,9 +50,9 @@ var plugins = [
     compress: {
       warnings: false,
       drop_console: true,
-      drop_debugger: true,
+      drop_debugger: true
     },
-    //sourceMap: true
+    sourceMap: true
   }),
   new webpack.NoEmitOnErrorsPlugin()
 ];
@@ -79,7 +60,7 @@ var plugins = [
 module.exports = {
   entry: {
     app: path.resolve(__dirname, '../src/app'),
-    echarts: ['jquery']
+    echarts: ['echarts']
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -95,31 +76,22 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader'
-          },
-          {
+          }, {
             loader: 'awesome-typescript-loader'
           }
         ]
-      },
-      {
+      }, {
         test: /\.js$/,
         include: path.resolve(__dirname, '../src'),
         exclude: /node_modules/,
-        use: [
-          'babel-loader'
-        ]
-      },
-      {
+        use: ['babel-loader']
+      }, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
-          use: [
-            'css-loader?sourceMap=true',
-            'postcss-loader'
-          ]
+          use: ['css-loader?sourceMap=true', 'postcss-loader']
         })
-      },
-      {
+      }, {
         test: /\.styl$/,
         include: path.resolve(__dirname, '../src'),
         use: ExtractTextPlugin.extract({
@@ -132,31 +104,27 @@ module.exports = {
                 localIdentName: '[local]-[hash:base64:5]',
                 sourceMap: true
               }
-            },
-            {
+            }, {
               loader: 'postcss-loader',
               options: {
-                sourceMap: true,
+                sourceMap: true
               }
-            },
-            {
+            }, {
               loader: 'stylus-loader',
               options: {
-                sourceMap: true,
+                sourceMap: true
               }
             }
           ]
         })
-      },
-      {
+      }, {
         test: /\.(png|jpe?g|git)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 1000,
           name: 'images/[name].[hash:7].[ext]'
         }
-      },
-      {
+      }, {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
@@ -172,12 +140,24 @@ module.exports = {
   },
   plugins: plugins,
   resolve: {
-    modules: [path.resolve(__dirname, '../node_modules'), path.resolve(__dirname, '../src')],
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.min.js', '.json', '.styl', '.css'],
+    modules: [
+      path.resolve(__dirname, '../node_modules'),
+      path.resolve(__dirname, '../src')
+    ],
+    extensions: [
+      '.tsx',
+      '.ts',
+      '.jsx',
+      '.js',
+      '.min.js',
+      '.json',
+      '.styl',
+      '.css'
+    ],
     alias: {
       'libs': path.join(__dirname, '../libs'),
       '@': path.join(__dirname, '../src/'),
-      '$root': path.join(__dirname, '../src/'),
+      '$root': path.join(__dirname, '../src/')
     }
   },
   devtool: ''

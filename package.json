@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'development'",
-    "build": "rimraf dist &&webpack --progress --colors --env production",
+    "build": "node build/build.js",
     "clear": "rimraf dist",
     "watch": "webpack --progress --colors --watch --env development",
     "test": "jest test/**",
