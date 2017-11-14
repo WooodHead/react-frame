@@ -59,7 +59,7 @@ var plugins = [
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, '../src/app'),
+    app: ['babel-polyfill', path.resolve(__dirname, '../src/app')],
     echarts: ['echarts']
   },
   output: {

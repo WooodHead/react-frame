@@ -76,8 +76,7 @@ if (env === 'production') {
 }
 module.exports = {
   entry: {
-    bootstrap: './libs/bootstrap/dist/js/bootstrap',
-    app: './src/app'
+    app: ['babel-polyfill', './src/app']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
