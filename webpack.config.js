@@ -17,18 +17,6 @@ var plugins = [
     // 要把<script>标签插入到页面哪个标签里(body|true|head|false)
     inject: 'true',
     filename: path.resolve(__dirname, 'dist/index.html'),
-    // hash如果为true，将添加hash到所有包含的脚本和css文件，对于解除cache很有用
-    // minify用于压缩html文件，其中的removeComments:true用于移除html中的注释，collapseWhitespace:true用于删除空白符与换行符
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeAttributeQuotes: true
-      // more options:
-      // https://github.com/kangax/html-minifier#options-quick-reference
-    }
-    // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-    // chunksSortMode: 'dependency'
-    // hash:true
   }),
   new webpack.ProvidePlugin({
     $: 'jquery',
@@ -39,8 +27,6 @@ var plugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     minChunks: function (module, count) {
-      // this assumes your vendor imports exist in the node_modules directory
-      // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
           /\.js$/.test(module.resource) &&
@@ -50,8 +36,6 @@ var plugins = [
         )
     }
   }),
-  // To extract the webpack bootstrap logic into a separate file
-  // 其他打入清单 比如webpack runtime代码
   new webpack.optimize.CommonsChunkPlugin({
     name: 'manifest'
   }),
@@ -61,19 +45,6 @@ var plugins = [
     allChunks: true
   })
 ];
-if (env === 'production') {
-  plugins = Array.prototype.concat.call(plugins, [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_console: isPro,
-        drop_debugger: isPro,
-      },
-      //sourceMap: true
-    }),
-    new webpack.NoEmitOnErrorsPlugin()
-  ])
-}
 module.exports = {
   entry: {
     app: ['babel-polyfill', './src/app']
@@ -95,9 +66,6 @@ module.exports = {
           'source-map-loader',
           'eslint-loader'
         ]
-        // use: [
-        //   'source-map-loader'
-        // ]
       },
       {
         enforce: 'pre',
@@ -218,7 +186,6 @@ module.exports = {
     alias: {
       'libs': path.join(__dirname, 'libs'),
       '@': path.join(__dirname, 'src/'),
-      '$root': path.join(__dirname, 'src/'),
     }
   },
   devtool: !isPro ? 'cheap-eval-source-map' : ''

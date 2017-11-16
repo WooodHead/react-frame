@@ -1,9 +1,4 @@
 import React from 'react'
-declare function require(path: string): {
-  container: string;
-}
-const styles = require('../stylus/login')
-console.log(styles, 'styles')
 import Hello from '../components/Hello'
 export interface MyProps {
   className?: any
@@ -50,7 +45,7 @@ export default class extends React.Component<MyProps, {}> {
   }
   public render() {
     return (
-      <div className={styles.container}>
+      <div>
         <h1>Hello man</h1>
         <Button onClick={this.HandleClick.bind(this)} type='primary'>打开</Button>
         <Modal

@@ -7,6 +7,7 @@ import loadDemo1 from 'bundle-loader?lazy&name=[name]!@/pages/demo1'
 import loadDemo2 from 'bundle-loader?lazy&name=[name]!@/pages/demo2'
 import loadDemo3 from 'bundle-loader?lazy&name=[name]!@/pages/demo3'
 import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
+import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -31,5 +32,10 @@ export const Demo3 = (props) => (
 export const Login = (props) => (
   <Bundle load={loadLogin}>
     {(Login) => <Login {...props}/>}
+  </Bundle>
+)
+export const DashBoard = (props) => (
+  <Bundle load={loadDashBoard}>
+    {(DashBoard) => <DashBoard {...props}/>}
   </Bundle>
 )
