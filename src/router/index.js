@@ -10,7 +10,9 @@ import {
 // import 'es6-promise/dist/es6-promise'
 import { Provider } from 'react-redux'
 import store from '@/stores'
+
 import App from '@/containers/App'
+import Main from '@/containers/Main'
 import * as modules from './modules'
 
 console.log(modules)
@@ -32,7 +34,9 @@ const router = () => (
           <Route path="/demo2" component={modules.Demo2}/>
           <Route path="/demo3" component={modules.Demo3}/>
           <Route path="/login" component={modules.Login}/>
-          <Route path="/dashboard" component={modules.DashBoard}/>
+          <Main>
+            <Route path="/dashboard" component={modules.DashBoard}/>
+          </Main>
         </Switch>
       </App>
     </Router>
