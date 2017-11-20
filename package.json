@@ -35,6 +35,8 @@
     "iOS 7"
   ],
   "dependencies": {
+    "@types/react-router": "^4.0.17",
+    "animate.css": "^3.5.2",
     "antd": "^2.13.4",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
@@ -42,6 +44,7 @@
     "bundle-loader": "^0.5.5",
     "classnames": "^2.2.5",
     "echarts": "^3.7.2",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "js-cookie": "^2.1.4",
     "rc-form": "^1.4.8",

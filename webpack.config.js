@@ -40,7 +40,7 @@ var plugins = [
     name: 'manifest'
   }),
   new ExtractTextPlugin({
-    filename: isPro ? 'css/[name].[contenthash].css' : '[name].css',
+    filename: '[name].css',
     //disable: false,
     allChunks: true
   })
@@ -188,7 +188,7 @@ module.exports = {
       '@': path.join(__dirname, 'src/'),
     }
   },
-  devtool: !isPro ? 'cheap-eval-source-map' : ''
+  devtool: 'source-map'
   // eval： 生成代码 每个模块都被eval执行，并且存在@sourceURL
   //
   // cheap-eval-source-map： 转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl

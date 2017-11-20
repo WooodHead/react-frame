@@ -17,7 +17,6 @@ const styles = {
 }
 export default class extends React.Component {
   render () {
-    console.log(this.props, 'main')
     return (
       <div style={styles.container}>
         <Top />

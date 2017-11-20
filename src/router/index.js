@@ -15,8 +15,6 @@ import App from '@/containers/App'
 import Main from '@/containers/Main'
 import * as modules from './modules'
 
-console.log(modules)
-
 const isPro = process.env.NODE_ENV === 'production'
 
 // const Router = isPro ? BrowserRouter : HashRouter
