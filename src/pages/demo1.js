@@ -1,11 +1,14 @@
 import React from 'react'
 import { Alert } from 'antd'
 import P from '@/plugins/alert/index'
+import { fetchAllClientele } from '@/utils/api'
 import { connect } from 'react-redux'
 class Demo1 extends React.Component {
   constructor (props) {
     super(props)
-    console.log('constructor')
+    fetchAllClientele().then((res) => {
+      console.log(res, 'fetchAllClientele')
+    })
   }
   handleClick () {
     const { dispatch } = this.props

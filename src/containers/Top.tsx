@@ -1,6 +1,7 @@
 import React from 'react'
 import { APP } from '../utils/global.conf'
 const styles = require('@/stylus/top')
+import SearchCompany from '../components/SearchCompany'
 class Top extends React.Component<any, {}> {
   public componentDidMount() {
     $('#profile').hover(() => {
@@ -14,11 +15,7 @@ class Top extends React.Component<any, {}> {
       <div className={styles.container}>
         <div className={styles.logo}></div>
         <div className={styles.version}>{APP.Version}</div>
-        <div className='u-search'>
-          <i className='i-remove' id='companyClear'></i>
-          <i className='i-search'></i>
-          <input type='text' id='companyInput' placeholder='搜索公司' className='form-control' />
-        </div>
+        <SearchCompany className='u-search' />
         <ul className='pull-right list-inline u-user'>
             <li>
                 <a href='#message' className='i-message animated zoomIn' title='消息'

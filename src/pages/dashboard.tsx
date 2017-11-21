@@ -1,8 +1,13 @@
 import React from 'react'
+
+import DropDown from '../components/common/DropDown'
+
 class DashBoard extends React.Component<any, {}> {
   public render() {
     return (
-      <div>dashboard</div>
+      <div>
+        <DropDown />
+      </div>
     )
   }
 }

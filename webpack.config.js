@@ -155,7 +155,7 @@ module.exports = {
   },
   plugins: plugins,
   devServer: {
-    contentBase: 'dist',
+    contentBase: 'src',
     // 热替换的区别就在于，当前端代码变动时，无需刷新整个页面，只把变化的部分替换掉。
     // 自动刷新整个页面刷新
     inline: true,
@@ -166,14 +166,14 @@ module.exports = {
       colors: true,
       errors: true
     },
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://192.168.11.218/',
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //     }
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        target: 'https://x-agent-nexus.i-counting.cn/',
+        changeOrigin: true
+        // pathRewrite: {
+        // }
+      }
+    },
     // 启用gzip压缩一切服务:
     // compress: true,
     // host: '0.0.0.0',
