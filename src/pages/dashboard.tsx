@@ -6,7 +6,7 @@ class DashBoard extends React.Component<any, {}> {
   public render() {
     return (
       <div>
-        <DropDown ></DropDown>
+        <DropDown className='mt-20'></DropDown>
       </div>
     )
   }

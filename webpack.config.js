@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html模板插入代码。
-var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
+// var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
 var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
@@ -38,12 +38,12 @@ var plugins = [
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'manifest'
-  }),
-  new ExtractTextPlugin({
-    filename: '[name].css',
-    //disable: false,
-    allChunks: true
   })
+  // new ExtractTextPlugin({
+  //   filename: '[name].css',
+  //   //disable: false,
+  //   allChunks: true
+  // })
 ];
 module.exports = {
   entry: {
@@ -98,42 +98,40 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
-          use: [
-            'css-loader?sourceMap=true',
-            'postcss-loader'
-          ]
-        })
+        use: [
+          'style-loader',
+          'css-loader?sourceMap=true',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.styl$/,
         include: path.resolve(__dirname, 'src'),
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[local]-[hash:base64:5]',
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true,
-              }
-            },
-            {
-              loader: 'stylus-loader',
-              options: {
-                sourceMap: true,
-              }
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[local]-[hash:base64:5]',
+              sourceMap: true
             }
-          ]
-        })
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'stylus-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|git)(\?.*)?$/,
