@@ -4,7 +4,7 @@
   "description": "react-frame",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --watch --colors --env 'development'",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --progress --colors --env 'development'",
     "build": "node build/build.js",
     "clear": "rimraf dist",
     "watch": "webpack --progress --colors --watch --env development",

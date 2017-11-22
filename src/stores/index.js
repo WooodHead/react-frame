@@ -6,5 +6,6 @@ import mySaga from '@/actions/demo1'
 const sagaMiddleware = createSagaMiddleware()
 let middleware = [thunkMiddleware, sagaMiddleware]
 let store = createStore(reducers, applyMiddleware(...middleware))
+console.log(store.getState(), 'store')
 sagaMiddleware.run(mySaga)
 export default store

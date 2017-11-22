@@ -1,29 +1,40 @@
+import { Button, Dropdown, Icon, Input, Menu, message } from 'antd'
 import React from 'react'
-import { Menu, Dropdown, Button, Icon, message } from 'antd'
-function handleButtonClick(e: any) {
-  message.info('Click on left button.');
-  console.log('click left button', e);
+
+const styles = require('../../stylus/dropdown')
+
+interface MyState {
+  visible: boolean
 }
 
-function handleMenuClick(e: any) {
-  message.info('Click on menu item.');
-  console.log('click', e);
-}
-
-export default class extends React.Component {
+export default class extends React.Component<any, MyState> {
+  constructor() {
+    super()
+    this.state = {
+      visible: false
+    }
+  }
+  public handleMenuClick(e: any) {
+    // message.info('Click on menu item.')
+    // console.log('click', e)
+  }
+  public componentDidMount() {
+    $(this.refs.dropdown).hover(() => {
+      this.setState({
+        visible: true
+      })
+    })
+  }
   public render() {
-    const menu = (
-      <Menu onClick={handleMenuClick}>
-        <Menu.Item key='1'>1st menu item</Menu.Item>
-        <Menu.Item key='2'>2nd menu item</Menu.Item>
-        <Menu.Item key='3'>3rd item</Menu.Item>
-      </Menu>
-    );
+    const { visible } = this.state
     return (
-      <div>
-        <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
-          --做账状态--
-        </Dropdown.Button>
+      <div className={styles.container}>
+        <div className='costom-btn-group'>
+          <div className='btn-left'><span>测试</span></div>
+          <div className='btn-right'>
+            <i className='fa fa-chevron-down' aria-hidden='true'></i>
+          </div>
+        </div>
       </div>
     )
   }
