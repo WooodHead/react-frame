@@ -1,13 +1,10 @@
 import React from 'react'
-
 import DropDown from '../components/common/DropDown'
-
 import { fetchAllCompany } from '../utils/api'
 interface T {
   title: string
   key: number
 }
-
 interface MyStates {
   data: T[]
 }
@@ -27,7 +24,7 @@ class DashBoard extends React.Component<any, MyStates> {
         })
       }
       this.setState({
-        data: data.slice(0, 20)
+        data
       })
     })
   }

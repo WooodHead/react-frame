@@ -56,11 +56,15 @@
         border-color: #49a9ee
       &:hover
         border-color: #49a9ee
-    ul
+    .items
       max-height: 240px
-      overflow: scroll
+      overflow-y: scroll
       margin: 0
       padding: 0
+      &::-webkit-scrollbar
+        width: 0
+    ul
+      margin: 0
       li
         padding: 5px 10px
         cursor: pointer

@@ -18,20 +18,21 @@ interface MyProps {
 interface MyStates {
   visible: boolean
   data?: T[]
+  dataTmp?: T[]
   title?: string
+  page: number
 }
 let t: number = 0
 export default class extends React.Component<MyProps, MyStates> {
-  constructor() {
-    super()
+  public pageNum = 20
+  constructor(props: MyProps) {
+    super(props)
     this.state = {
-      visible: false
+      page: 1,
+      visible: false,
+      title: '',
+      data: []
     }
-  }
-  public componentWillMount() {
-    this.setState({
-      data: this.props.data
-    })
   }
   public componentDidMount() {
     const { button } = this.refs
@@ -43,7 +44,8 @@ export default class extends React.Component<MyProps, MyStates> {
   }
   public componentWillReceiveProps(props: MyProps) {
     this.setState({
-      data: props.data
+      data: props.data.slice(0, this.pageNum),
+      dataTmp: props.data
     })
   }
   public handleEnter() {
@@ -75,10 +77,20 @@ export default class extends React.Component<MyProps, MyStates> {
       $(results).one('mouseleave', () => {
         this.handleLeave()
       })
+      $(results).children('.' + styles.items).scroll((e) => {
+        const scrollTop = e.target.scrollTop
+        const h = $(results).find('ul').height()
+        const ch = e.target.clientHeight
+        if (scrollTop + ch > h - 10) {
+          if (this.state.page < Math.ceil(this.state.dataTmp.length / this.pageNum)) {
+            this.setState({
+               page: this.state.page + 1,
+               data: this.state.dataTmp.slice(0, this.pageNum * (this.state.page + 1))
+            })
+          }
+        }
+      })
     })
-  }
-  public test() {
-    alert('test')
   }
   public handleLeave() {
     clearTimeout(t)
@@ -90,7 +102,9 @@ export default class extends React.Component<MyProps, MyStates> {
         $(results).addClass(styles.hidden)
         this.setState({
           visible: false,
-          data: this.props.data
+          page: 1,
+          data: this.props.data.slice(0, this.pageNum),
+          dataTmp: this.props.data
         })
       }, 300)
     }, 100)
@@ -115,7 +129,8 @@ export default class extends React.Component<MyProps, MyStates> {
       }
     })
     this.setState({
-      data: res
+      data: res.slice(0, this.pageNum),
+      dataTmp: res
     })
   }
   public render() {
@@ -134,11 +149,13 @@ export default class extends React.Component<MyProps, MyStates> {
         {visible && <div className={ClassNames(styles.results)} ref='results'>
           {filter && <input className={styles.input} onChange={this.handleChange.bind(this)} ref='input'/>}
           {data.length === 0 && <p>未搜到结果</p>}
-          <ul>
-            {data.length > 0 && data.map((item: T, key: number) => {
-              return (<li key={key} title={item.title} onClick={this.handleClick.bind(this, item)}>{item.title}</li>)
-            })}
-          </ul>
+          <div className={styles.items}>
+            <ul>
+              {data.length > 0 && data.map((item: T, key: number) => {
+                return (<li key={key} title={item.title} onClick={this.handleClick.bind(this, item)}>{item.title}</li>)
+              })}
+            </ul>
+          </div>
         </div>}
       </div>
     )
