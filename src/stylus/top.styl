@@ -1,0 +1,120 @@
+.container
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 60px
+  background-color: #fff
+  box-shadow: 0 0 5px #888
+  border-bottom: 1px solid #888\9
+  z-index: 1041
+  .logo
+    position: absolute
+    left: 0
+    top: 0
+    width: 110px
+    height: 100%
+    background: url('@/imgs/logo1.png') center center no-repeat
+  .version
+    font-size: 12px
+    color: #fff
+    position: absolute
+    left: 120px
+    top: 28px
+    padding: 0 10px
+    height: 20px
+    line-height: 20px
+    text-align: center
+    border-radius: 4px
+    background-color: #ff5608
+  :global
+    .u-search
+      position: absolute;
+      top: 15px;
+      right: 360px;
+      width: 280px;
+      height: 30px;
+      z-index: 2;
+    .u-user
+      padding: 0
+      position: absolute
+      right: 0
+      .dropdown
+        display: none
+        position: absolute
+        left: 12px
+        top: 50px
+        width: 110px
+        padding: 0 6px
+        margin-left: -55px
+        border-radius: 4px
+        background-color: #303740
+        .dropdown-arrow
+          position: absolute
+          left: 50%
+          top: -10px
+          margin-left: -5px
+          width: 0
+          height: 0
+          border: solid 5px transparent
+          border-bottom: solid 5px #303740
+        .dropwdown-item
+          border-bottom: solid 1px #445264
+          text-align: center
+          line-height: 40px
+          position: relative
+          .groupMem
+            display: block;
+            width: 100%;
+          .i-logout
+            margin: 0 0 0 24px
+            letter-spacing: 24px
+          a
+            display: inline
+          span, a
+            text-align: center
+            font-size: 12px
+            color: #fff
+            white-space: nowrap
+            cursor: pointer
+            position: relative
+          .i-select
+            position: absolute
+            top: 18px
+            right: 0
+            width: 8px
+            height: 5px
+            background: url('../imgs/icon_select.png') center center no-repeat
+            font-size: 0
+            overflow: hidden
+            margin: 0 0 0 10px
+            vertical-align: middle
+      .glyphicon:hover, .dropwdown-item span:hover, .dropwdown-item a:hover
+        color: #ff5608
+      .badge
+        position: absolute
+        top: 2px
+        right: -2px
+        background-color: #f00
+        min-width: 0
+        width: 8px
+        height: 8px
+        border-radius: 50%
+        overflow: hidden
+        font-size: 0
+        padding: 0
+      .glyphicon
+        font-size: 20px
+        color: #2f373f
+      li
+        height: 50px
+        padding: 18px 0 0
+        position: relative
+        margin-right: 30px
+        vertical-align: middle
+      a
+        display: inline-block
+        position: relative
+        width: 25px
+        height: 23px
+        text-align: center
