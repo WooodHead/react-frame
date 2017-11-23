@@ -27,7 +27,7 @@ class DashBoard extends React.Component<any, MyStates> {
         })
       }
       this.setState({
-        data
+        data: data.slice(0, 20)
       })
     })
   }
