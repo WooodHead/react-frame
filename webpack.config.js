@@ -38,12 +38,14 @@ var plugins = [
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'manifest'
-  })
+  }),
   // new ExtractTextPlugin({
   //   filename: '[name].css',
   //   //disable: false,
   //   allChunks: true
-  // })
+  // }),
+  // new webpack.NamedModulesPlugin(),
+  new webpack.HotModuleReplacementPlugin()
 ];
 module.exports = {
   entry: {
@@ -157,6 +159,8 @@ module.exports = {
     // 热替换的区别就在于，当前端代码变动时，无需刷新整个页面，只把变化的部分替换掉。
     // 自动刷新整个页面刷新
     inline: true,
+    hot: true,
+    overlay: true,
     // stats(string or object) errors-only|minimal|none|normal|verbose(输出所有)
     stats:{
       // context: './src/',

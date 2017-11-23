@@ -10,3 +10,7 @@ interface SearchCompanys {
 export const searchCompanys = (params: SearchCompanys) => {
   return http('/api/v1/shareing/company', params)
 }
+
+export const fetchAllCompany = () => {
+  return http('/api/v1/shareing/company/all2')
+}

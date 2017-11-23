@@ -3,79 +3,143 @@ import ClassNames from 'classnames'
 import React from 'react'
 
 const styles = require('../../stylus/dropdown')
-
-interface MyState {
-  visible: boolean
+interface T {
+  title: string
+  key: number
+}
+interface MyProps {
+  data: T[]
+  className: string
+  style: any
+  filter?: boolean
+  callBack?: (item: T) => void
 }
 
-export default class extends React.Component<any, MyState> {
+interface MyStates {
+  visible: boolean
+  data?: T[]
+  title?: string
+}
+let t: number = 0
+export default class extends React.Component<MyProps, MyStates> {
   constructor() {
     super()
     this.state = {
       visible: false
     }
   }
-  public handleMenuClick(e: any) {
-    console.log('x')
+  public componentWillMount() {
+    this.setState({
+      data: this.props.data
+    })
   }
   public componentDidMount() {
-    var t: number = 0
-    const { button, results } = this.refs
+    const { button } = this.refs
     $(button).hover(() => {
-      console.log('button hover')
-      clearTimeout(t)
-      $(results).removeClass(styles.hidden)
+      this.handleEnter()
+    }, (e) => {
+      this.handleLeave()
+    })
+  }
+  public componentWillReceiveProps(props: MyProps) {
+    this.setState({
+      data: props.data
+    })
+  }
+  public handleEnter() {
+    clearTimeout(t)
+    let { results } = this.refs
+
+    if (results) {
+      $(results).removeClass(styles['custom-slide-up-leave'])
+      $(results).one('mouseover', () => {
+        clearTimeout(t)
+      })
+      $(results).one('mouseleave', () => {
+        this.handleLeave()
+      })
+      return
+    }
+    this.setState({
+      visible: true
+    }, () => {
+      results = this.refs.results
+      $(results).removeClass(styles['custom-slide-up-leave'])
       $(results).addClass(styles['custom-slide-up-enter'])
       t = setTimeout(() => {
         $(results).removeClass(styles['custom-slide-up-enter'])
-      }, 300)
-    }, (e) => {
-      $(results).off('hover')
-      $(results).hover(() => {
-        console.log('result hover')
+      }, 100)
+      $(results).one('mouseover', () => {
         clearTimeout(t)
-      }, () => {
-        t = setTimeout(() => {
-          console.log('result setTimout')
-          $(results).addClass(ClassNames(styles['custom-slide-up-leave']))
-          $(results).removeClass(styles['custom-slide-up-leave'])
-          $(results).addClass(styles.hidden)
-        }, 500)
       })
-      // $(results).addClass(ClassNames(styles['custom-slide-up-leave']))
+      $(results).one('mouseleave', () => {
+        this.handleLeave()
+      })
+    })
+  }
+  public test() {
+    alert('test')
+  }
+  public handleLeave() {
+    clearTimeout(t)
+    const { button, results } = this.refs
+    t = setTimeout(() => {
+      $(results).addClass(styles['custom-slide-up-leave'])
       t = setTimeout(() => {
-        console.log('button setTimout')
         $(results).removeClass(styles['custom-slide-up-leave'])
         $(results).addClass(styles.hidden)
-      }, 500)
-      // $(results).addClass(ClassNames(styles['custom-slide-up-leave']))
-      // setTimeout(() => {
-      //   $(results).removeClass(styles['custom-slide-up-leave'])
-      //   $(results).addClass(styles.hidden)
-      // }, 100)
+        this.setState({
+          visible: false,
+          data: this.props.data
+        })
+      }, 300)
+    }, 100)
+  }
+  public handleClick(item: {key: number, title: string}) {
+    const { callBack } = this.props
+    this.setState({
+      title:  item.title
+    })
+    if (callBack) {
+      callBack(item)
+    }
+    this.handleLeave()
+  }
+  public handleChange() {
+    const { data } = this.props
+    const value: string = $(this.refs.input).val().toString()
+    const pattern = new RegExp(value)
+    const res = data.filter((item: T): boolean => {
+      if (pattern.test(item.title)) {
+        return true
+      }
+    })
+    this.setState({
+      data: res
     })
   }
   public render() {
-    const { className } = this.props
-    const { visible } = this.state
+    const { className, style, filter } = this.props
+    const { visible, data } = this.state
+    let { title } = this.state
+    title = title || this.props.data.length && this.props.data[0].title || ''
     return (
-      <div className={ClassNames(styles.container, className)}>
+      <div className={ClassNames(styles.container, className)} style={style}>
         <div className='costom-btn-group' ref='button'>
-          <div className='btn-left'><span>测试</span></div>
+          <div className='btn-left'><span>{title}</span></div>
           <div className='btn-right'>
             <i className='fa fa-chevron-down' aria-hidden='true'></i>
           </div>
         </div>
-        <div className={ClassNames(styles.results, styles.hidden)} ref='results'>
+        {visible && <div className={ClassNames(styles.results)} ref='results'>
+          {filter && <input className={styles.input} onChange={this.handleChange.bind(this)} ref='input'/>}
+          {data.length === 0 && <p>未搜到结果</p>}
           <ul>
-            <li>22222</li>
-            <li>22222</li>
-            <li>22222</li>
-            <li>22222</li>
-            <li>22222</li>
-            <li>22222</li>
+            {data.length > 0 && data.map((item: T, key: number) => {
+              return (<li key={key} title={item.title} onClick={this.handleClick.bind(this, item)}>{item.title}</li>)
+            })}
           </ul>
-        </div>
+        </div>}
       </div>
     )
   }
