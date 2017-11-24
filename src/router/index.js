@@ -32,6 +32,7 @@ const router = () => (
           <Route path="/demo2" component={modules.Demo2}/>
           <Route path="/demo3" component={modules.Demo3}/>
           <Route path="/login" component={modules.Login}/>
+          <Route path="/forgetpwd" component={modules.Forgetpwd}/>
           <Main>
             <Route path="/dashboard" component={modules.DashBoard}/>
           </Main>
