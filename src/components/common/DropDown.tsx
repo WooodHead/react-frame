@@ -1,11 +1,12 @@
 import { Button, Dropdown, Icon, Input, Menu, message } from 'antd'
 import ClassNames from 'classnames'
 import React from 'react'
-
+import { getCaptial } from '../../utils/global.func'
 const styles = require('../../stylus/dropdown')
 interface T {
   title: string
   key: number
+  capital?: string[]
 }
 interface MyProps {
   data: T[]
@@ -42,16 +43,22 @@ export default class extends React.Component<MyProps, MyStates> {
       this.handleLeave()
     })
   }
-  public componentWillReceiveProps(props: MyProps) {
-    this.setState({
-      data: props.data.slice(0, this.pageNum),
-      dataTmp: props.data
-    })
+  public componentWillReceiveProps(props: MyProps, oldProps: MyProps) {
+    const data: T[] = []
+    if (!oldProps.data) {
+      props.data.map((item) => {
+        item.capital = getCaptial(item.title) || ['']
+        data.push(item)
+      })
+      this.setState({
+        data: data.slice(0, this.pageNum),
+        dataTmp: data
+      })
+    }
   }
   public handleEnter() {
     clearTimeout(t)
     let { results } = this.refs
-
     if (results) {
       $(results).removeClass(styles['custom-slide-up-leave'])
       $(results).one('mouseover', () => {
@@ -122,9 +129,9 @@ export default class extends React.Component<MyProps, MyStates> {
   public handleChange() {
     const { data } = this.props
     const value: string = $(this.refs.input).val().toString()
-    const pattern = new RegExp(value)
+    const pattern = new RegExp(value.toUpperCase())
     const res = data.filter((item: T): boolean => {
-      if (pattern.test(item.title)) {
+      if (pattern.test(item.title) || pattern.test(item.capital.join(','))) {
         return true
       }
     })
