@@ -16,9 +16,9 @@ export default class extends React.Component<any, MyState> {
     this.state = {
       dataSource: []
     }
-    searchCompanys({ userid: 217 }).then((res) => {
-      this.dataSource = res.data
-    })
+    // searchCompanys({ userid: 217 }).then((res) => {
+    //   this.dataSource = res.data
+    // })
   }
   public handleSearch(value: string) {
     if (value === '') {

@@ -3,8 +3,7 @@ import { FormComponentProps } from 'antd/lib/form/Form'
 import React from 'react'
 import { loginApi } from '../utils/api'
 
-interface MyProps extends FormComponentProps {
-}
+type MyProps = FormComponentProps
 
 interface MyStates {
   submit?: boolean
@@ -15,23 +14,28 @@ const FormItem = Form.Item
 class Login extends React.Component<MyProps, MyStates> {
   constructor (props: MyProps) {
     super(props)
-  }
-  public componentWillMount () {
-    console.log(this.props)
+    this.state = {
+      submit: false
+    }
   }
   public handleSubmit (e: any) {
+    this.setState({
+      submit: true
+    })
     e.preventDefault()
     this.props.form.validateFields((err: any, values: any) => {
-      console.log(values)
       if (!err) {
-       console.log('Received values of form: ', values)
+        delete(values.remember)
+        loginApi(values).then((res: any) => {
+          console.log(res)
+        })
       }
     })
   }
   public render () {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
-    const userNameError = isFieldTouched('userName') && getFieldError('userName')
-    const passwdError = isFieldTouched('password') && getFieldError('password')
+    const userNameError = (isFieldTouched('UserName') || this.state.submit) && getFieldError('UserName')
+    const passwdError = (isFieldTouched('UserPassWord') || this.state.submit) && getFieldError('UserPassWord')
     return (
       <div className={styles.container}>
         <div className={styles.radial}></div>
@@ -42,7 +46,7 @@ class Login extends React.Component<MyProps, MyStates> {
             <FormItem
              validateStatus={userNameError ? 'error' : 'success'}
             >
-             {getFieldDecorator('userName', {
+             {getFieldDecorator('UserName', {
                rules: [{
                  required: true, message: '请输入用户名'
                }]
@@ -53,12 +57,12 @@ class Login extends React.Component<MyProps, MyStates> {
             <FormItem
              validateStatus={passwdError ? 'error' : 'success'}
             >
-             {getFieldDecorator('password', {
+             {getFieldDecorator('UserPassWord', {
                rules: [{
                  required: true, message: '请输入密码'
                }]
              })(
-               <Input prefix={<Icon type='lock'/>}  />
+               <Input prefix={<Icon type='lock'/>} type='password' />
              )}
             </FormItem>
             <FormItem>

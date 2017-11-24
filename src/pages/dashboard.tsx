@@ -9,13 +9,13 @@ interface MyStates {
   data: T[]
 }
 class DashBoard extends React.Component<any, MyStates> {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       data: []
     }
   }
-  public componentWillMount() {
+  public componentWillMount () {
     fetchAllCompany().then((res) => {
       const data: T[] = []
       if (res.status && res.data.length) {
@@ -28,13 +28,13 @@ class DashBoard extends React.Component<any, MyStates> {
       })
     })
   }
-  public handleCallBack(item: any) {
+  public handleCallBack (item: any) {
     console.log(item, 'callback')
   }
-  public test() {
+  public test () {
     console.log(this.props, 'didMount')
   }
-  public render() {
+  public render () {
     const { data } = this.state
     return (
       <div>

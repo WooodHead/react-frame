@@ -3,14 +3,14 @@ import { APP } from '../utils/global.conf'
 const styles = require('@/stylus/top')
 import SearchCompany from './SearchCompany'
 class Top extends React.Component<any, {}> {
-  public componentDidMount() {
+  public componentDidMount () {
     $('#profile').hover(() => {
       $('#profile .dropdown').show()
     }, () => {
       $('#profile .dropdown').hide()
     })
   }
-  public render() {
+  public render () {
     return (
       <div className={styles.container}>
         <div className={styles.logo}></div>

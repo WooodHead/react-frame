@@ -2,7 +2,8 @@ import http from './http'
 
 // 登录
 export const loginApi = (params: {userName: string, UserPassWord: string}) => {
-  return http('/api/v1/security/login')
+  console.log(params, 'params')
+  return http('/api/v1/security/login', {type: 'POST', data: params})
 }
 //
 export const fetchAllClientele = (params: {}) => {
