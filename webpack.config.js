@@ -6,8 +6,14 @@ var argv = require('yargs').argv;
 var env = argv.env.trim();
 var isPro = env === 'production';
 
-const extractCommon = new ExtractTextPlugin('common.css');
-const extractApp = new ExtractTextPlugin('app.css'); // [name][contenthash]
+const extractCommon = new ExtractTextPlugin({
+  filename: 'common.css',
+  allChunks: true
+});
+const extractApp = new ExtractTextPlugin({
+  filename: 'app.css', // [name][contenthash]
+  allChunks: true
+});
 
 var plugins = [
   new webpack.DefinePlugin({
