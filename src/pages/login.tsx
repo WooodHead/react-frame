@@ -1,12 +1,34 @@
 import { Button, Checkbox, Form, Icon, Input } from 'antd'
+import { FormComponentProps } from 'antd/lib/form/Form'
 import React from 'react'
+import { loginApi } from '../utils/api'
+
+interface MyProps extends FormComponentProps {
+}
+
+interface MyStates {
+  submit?: boolean
+}
+
 const styles = require('@/stylus/login')
 const FormItem = Form.Item
-class Login extends React.Component<any, {}> {
-  public handleSubmit() {
-    console.log(2)
+class Login extends React.Component<MyProps, MyStates> {
+  constructor (props: MyProps) {
+    super(props)
   }
-  public render() {
+  public componentWillMount () {
+    console.log(this.props)
+  }
+  public handleSubmit (e: any) {
+    e.preventDefault()
+    this.props.form.validateFields((err: any, values: any) => {
+      console.log(values)
+      if (!err) {
+       console.log('Received values of form: ', values)
+      }
+    })
+  }
+  public render () {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
     const userNameError = isFieldTouched('userName') && getFieldError('userName')
     const passwdError = isFieldTouched('password') && getFieldError('password')
@@ -16,7 +38,7 @@ class Login extends React.Component<any, {}> {
         <div className={styles.erv}></div>
         <div className={styles.loginForm}>
           <div className={styles.icon}></div>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit.bind(this)}>
             <FormItem
              validateStatus={userNameError ? 'error' : 'success'}
             >

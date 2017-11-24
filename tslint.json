@@ -7,6 +7,7 @@
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
       "no-var-requires": false,
       "no-console": false,
-      "interface-name": [true, "never-prefix"]
+      "interface-name": [true, "never-prefix"],
+      "space-before-function-paren": true
     }
 }

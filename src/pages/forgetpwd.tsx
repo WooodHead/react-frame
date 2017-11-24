@@ -5,22 +5,20 @@ const styles = require('@/stylus/forgetpwd')
 const FormItem = Form.Item
 
 class Forgetpwd extends React.Component<any, {}> {
-  T = 0
+  public T = 0
   public state = {
       sendTxt:'发送验证码',
       name:'dingliang',
       isSend:false,
       sendSec:60
   }
-  
-  public handleSubmit() {
+  public handleSubmit () {
     console.log(1)
   }
-  public sendMsg() {
-    if(!this.T){
-      
-      this.T = setInterval(()=>{
-        var time = this.state.sendSec
+  public sendMsg () {
+    if (!this.T) {
+      this.T = setInterval(() => {
+        let time = this.state.sendSec
         if(time === 0){
           this.setState({sendTxt:'发送验证码',isSend : false,sendSec:60})
           clearInterval(this.T)
@@ -38,7 +36,7 @@ class Forgetpwd extends React.Component<any, {}> {
     
     console.log(event)
   }
-  public render() {
+  public render () {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
     const userNameError = isFieldTouched('userName') && getFieldError('userName')
     const passwdError = isFieldTouched('password') && getFieldError('password')
@@ -59,7 +57,12 @@ class Forgetpwd extends React.Component<any, {}> {
              })(
                <Input style={{paddingRight:'85px'}}/>
              )}
-             <a className={this.state.isSend?styles.sendedMsg:styles.sendMsg}  onClick={this.sendMsg.bind(this)} >{this.state.sendTxt}</a>
+             <a 
+              className={this.state.isSend?styles.sendedMsg:styles.sendMsg}  
+              onClick={this.sendMsg.bind(this)}
+             >
+              {this.state.sendTxt}
+             </a>
             </FormItem>
             <FormItem
              validateStatus={passwdError ? 'error' : 'success'}

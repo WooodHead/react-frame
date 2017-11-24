@@ -15,6 +15,8 @@ import App from '@/containers/App'
 import Main from '@/containers/Main'
 import * as modules from './modules'
 
+const { Login } = modules
+
 const isPro = process.env.NODE_ENV === 'production'
 
 // const Router = isPro ? BrowserRouter : HashRouter
@@ -31,8 +33,8 @@ const router = () => (
           <Route path="/demo1" component={modules.Demo1}/>
           <Route path="/demo2" component={modules.Demo2}/>
           <Route path="/demo3" component={modules.Demo3}/>
-          <Route path="/login" component={modules.Login}/>
           <Route path="/forgetpwd" component={modules.Forgetpwd}/>
+          <Route path="/login" render={() => <Login />}/>
           <Main>
             <Route path="/dashboard" component={modules.DashBoard}/>
           </Main>
