@@ -38,7 +38,6 @@ class DashBoard extends React.Component<any, MyStates> {
     const { data } = this.state
     return (
       <div>
-        <button onClick={this.test.bind(this)}>2323</button>
         <DropDown
           ref='dropdown'
           data={data}

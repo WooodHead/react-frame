@@ -1,7 +1,7 @@
 import React from 'react'
 import { APP } from '../utils/global.conf'
 const styles = require('@/stylus/top')
-import SearchCompany from '../components/SearchCompany'
+import SearchCompany from './SearchCompany'
 class Top extends React.Component<any, {}> {
   public componentDidMount() {
     $('#profile').hover(() => {
