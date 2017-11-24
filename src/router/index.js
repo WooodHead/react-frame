@@ -29,11 +29,12 @@ const router = () => (
     <Router basename={basename}>
       <App>
         <Switch>
-          <Route path='/' exact={true} component={modules.Index}/>
-          <Route path='/demo1' component={modules.Demo1}/>
-          <Route path='/demo2' component={modules.Demo2}/>
-          <Route path='/demo3' component={modules.Demo3}/>
-          <Route path='/login' render={() => <Login />}/>
+          <Route path="/" exact={true} component={modules.Index}/>
+          <Route path="/demo1" component={modules.Demo1}/>
+          <Route path="/demo2" component={modules.Demo2}/>
+          <Route path="/demo3" component={modules.Demo3}/>
+          <Route path="/login" render={() => <Login />}/>
+          <Route path="/forgetpwd" component={modules.Forgetpwd}/>
           <Main>
             <Route path='/dashboard' component={modules.DashBoard}/>
             <Route path='/declearTax' component={modules.DeclearTax}/>
