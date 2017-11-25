@@ -2,6 +2,15 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // html模板插入代码。
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中提取文本到一个新的文件中
+
+const extractCommon = new ExtractTextPlugin({
+  filename: 'css/common.[contenthash:8].css',
+  allChunks: true
+})
+const extractApp = new ExtractTextPlugin({
+  filename: 'css/app.[contenthash:8].css',
+  allChunks: true
+})
 var env = 'production';
 
 var plugins = [
@@ -29,15 +38,15 @@ var plugins = [
     // hash:true
   }),
   new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery', "window.jQuery": 'jquery'}),
+  extractCommon,
+  extractApp,
   // Explicit vendor chunk
   // 单独将echarts提取出来
   new webpack.optimize.CommonsChunkPlugin({
-    names: [
-      'echarts', 'vendor'
-    ],
+    names: ['echarts', 'vendor'],
     minChunks: function(module) {
-      return module.context && module.context.indexOf("node_modules") !== -1 && /node_modules\/(echarts|zrender)/.test(module.context) === false;
-    }
+      return module.context && module.context.indexOf("node_modules") !== -1 && /(echarts|zrender)/.test(module.context) == false;
+   }
   }),
   // 引导
   new webpack.optimize.CommonsChunkPlugin({name: 'manifest', minChunks: Infinity}),
@@ -59,13 +68,13 @@ var plugins = [
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', path.resolve(__dirname, '../src/app')],
-    echarts: ['echarts']
+    echarts: ['echarts', 'zrender'],
+    app: [path.resolve(__dirname, '../src/app')]
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'js/[name].[chunkhash].js',
-    chunkFilename: 'js/[name].[chunkhash].js',
+    filename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].js',
     publicPath: '/'
   },
   module: {
@@ -87,14 +96,14 @@ module.exports = {
         use: ['babel-loader']
       }, {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
+        use: extractCommon.extract({
           fallback: 'style-loader', // 应用于当 CSS 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
           use: ['css-loader?sourceMap=true', 'postcss-loader']
         })
       }, {
         test: /\.styl$/,
         include: path.resolve(__dirname, '../src'),
-        use: ExtractTextPlugin.extract({
+        use: extractApp.extract({
           fallback: 'style-loader',
           use: [
             {
@@ -131,11 +140,7 @@ module.exports = {
           limit: 10000,
           name: 'fonts/[name].[hash:7].[ext]'
         }
-      },
-      // {
-      //   test: /\.(svg)$/i,
-      //   loader: 'svg-sprite-loader'
-      // },
+      }
     ]
   },
   plugins: plugins,
@@ -156,22 +161,8 @@ module.exports = {
     ],
     alias: {
       'libs': path.join(__dirname, '../libs'),
-      '@': path.join(__dirname, '../src/'),
-      '$root': path.join(__dirname, '../src/')
+      '@': path.join(__dirname, '../src/')
     }
   },
   devtool: ''
-  // eval： 生成代码 每个模块都被eval执行，并且存在@sourceURL
-  //
-  // cheap-eval-source-map： 转换代码（行内） 每个模块被eval执行，并且sourcemap作为eval的一个dataurl
-  //
-  // cheap-module-eval-source-map： 原始代码（只有行内） 同样道理，但是更高的质量和更低的性能
-  //
-  // eval-source-map： 原始代码 同样道理，但是最高的质量和最低的性能
-  //
-  // cheap-source-map： 转换代码（行内） 生成的sourcemap没有列映射，从loaders生成的sourcemap没有被使用
-  //
-  // cheap-module-source-map： 原始代码（只有行内） 与上面一样除了每行特点的从loader中进行映射
-  //
-  // source-map： 原始代码 最好的sourcemap质量有完整的结果，但是会很慢
 }
