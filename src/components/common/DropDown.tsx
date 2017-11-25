@@ -26,7 +26,7 @@ interface MyStates {
 let t: number = 0
 export default class extends React.Component<MyProps, MyStates> {
   public pageNum = 20
-  constructor(props: MyProps) {
+  constructor (props: MyProps) {
     super(props)
     this.state = {
       page: 1,
@@ -35,7 +35,7 @@ export default class extends React.Component<MyProps, MyStates> {
       data: []
     }
   }
-  public componentDidMount() {
+  public componentDidMount () {
     const { button } = this.refs
     $(button).hover(() => {
       this.handleEnter()
@@ -43,7 +43,7 @@ export default class extends React.Component<MyProps, MyStates> {
       this.handleLeave()
     })
   }
-  public componentWillReceiveProps(props: MyProps, oldProps: MyProps) {
+  public componentWillReceiveProps (props: MyProps, oldProps: MyProps) {
     const data: T[] = []
     if (!oldProps.data) {
       props.data.map((item) => {
@@ -56,7 +56,7 @@ export default class extends React.Component<MyProps, MyStates> {
       })
     }
   }
-  public handleEnter() {
+  public handleEnter () {
     clearTimeout(t)
     let { results } = this.refs
     if (results) {
@@ -99,7 +99,7 @@ export default class extends React.Component<MyProps, MyStates> {
       })
     })
   }
-  public handleLeave() {
+  public handleLeave () {
     clearTimeout(t)
     const { button, results } = this.refs
     t = setTimeout(() => {
@@ -116,7 +116,7 @@ export default class extends React.Component<MyProps, MyStates> {
       }, 300)
     }, 100)
   }
-  public handleClick(item: {key: number, title: string}) {
+  public handleClick (item: {key: number, title: string}) {
     const { callBack } = this.props
     this.setState({
       title:  item.title
@@ -126,7 +126,7 @@ export default class extends React.Component<MyProps, MyStates> {
     }
     this.handleLeave()
   }
-  public handleChange() {
+  public handleChange () {
     const { data } = this.props
     const value: string = $(this.refs.input).val().toString()
     const pattern = new RegExp(value.toUpperCase())
@@ -140,7 +140,7 @@ export default class extends React.Component<MyProps, MyStates> {
       dataTmp: res
     })
   }
-  public render() {
+  public render () {
     const { className, style, filter } = this.props
     const { visible, data } = this.state
     let { title } = this.state

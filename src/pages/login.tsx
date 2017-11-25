@@ -1,12 +1,15 @@
 import { Button, Checkbox, Form, Icon, Input } from 'antd'
 import { FormComponentProps } from 'antd/lib/form/Form'
 import React from 'react'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { loginApi } from '../utils/api'
 
-type MyProps = FormComponentProps
+interface  MyProps extends FormComponentProps, RouteComponentProps<any> {}
 
 interface MyStates {
   submit?: boolean
+  result?: any
+  validate: 1 | 2
 }
 
 const styles = require('@/stylus/login')
@@ -15,27 +18,69 @@ class Login extends React.Component<MyProps, MyStates> {
   constructor (props: MyProps) {
     super(props)
     this.state = {
-      submit: false
+      submit: false,
+      validate: 1
     }
   }
   public handleSubmit (e: any) {
-    this.setState({
-      submit: true
-    })
     e.preventDefault()
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
         delete(values.remember)
+        this.setState({
+          submit: true
+        })
         loginApi(values).then((res: any) => {
-          console.log(res)
+          this.setState({
+            submit: false,
+            result: res,
+            validate: 2
+          })
+          if (res.status) {
+            this.props.history.push('/dashboard')
+          } else {
+            const { message } = res
+            if (/not found user/.test(message)) {
+              this.props.form.validateFields(['UserName'], {force: true}, () => {
+                console.log('nothing')
+              })
+            } else {
+              this.props.form.validateFields(['UserPassWord'], {force: true}, () => {})
+            }
+          }
         })
       }
     })
   }
+  public validator (rule: any, value: any, cb: any) {
+    console.log(this.state, rule, value, '333')
+    if (this.state.validate === 2) {
+      const { message } = this.state.result
+      if (/not found user/.test(message)) {
+        cb('此用户名不存在')
+      } else {
+        cb(message)
+      }
+      this.setState({
+        validate: 1
+      })
+    } else {
+      if (value === '' || value === undefined) {
+        switch (rule.field) {
+          case 'UserName':
+            cb('用户名不能为空')
+            break
+          case 'UserPassWord':
+            cb('密码不能为空')
+            break
+        }
+      }
+    }
+    cb()
+  }
   public render () {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
-    const userNameError = (isFieldTouched('UserName') || this.state.submit) && getFieldError('UserName')
-    const passwdError = (isFieldTouched('UserPassWord') || this.state.submit) && getFieldError('UserPassWord')
+    console.log(this.props)
+    const { getFieldDecorator } = this.props.form
     return (
       <div className={styles.container}>
         <div className={styles.radial}></div>
@@ -43,30 +88,32 @@ class Login extends React.Component<MyProps, MyStates> {
         <div className={styles.loginForm}>
           <div className={styles.icon}></div>
           <Form onSubmit={this.handleSubmit.bind(this)}>
-            <FormItem
-             validateStatus={userNameError ? 'error' : 'success'}
-            >
+            <FormItem>
              {getFieldDecorator('UserName', {
                rules: [{
-                 required: true, message: '请输入用户名'
+                  validator: this.validator.bind(this)
                }]
              })(
-               <Input prefix={<Icon type='user'/>}  />
-             )}
-            </FormItem>
-            <FormItem
-             validateStatus={passwdError ? 'error' : 'success'}
-            >
-             {getFieldDecorator('UserPassWord', {
-               rules: [{
-                 required: true, message: '请输入密码'
-               }]
-             })(
-               <Input prefix={<Icon type='lock'/>} type='password' />
+                <Input prefix={<Icon type='user'/>}  />
              )}
             </FormItem>
             <FormItem>
-              <Button type='primary' style={{width: '100%'}} htmlType='submit' className='login-form-button'>
+             {getFieldDecorator('UserPassWord', {
+               rules: [{
+                  validator: this.validator.bind(this)
+               }]
+             })(
+              <Input prefix={<Icon type='lock'/>} type='password' />
+             )}
+            </FormItem>
+            <FormItem>
+              <Button
+                loading={this.state.submit}
+                type='primary'
+                style={{width: '100%'}}
+                htmlType='submit'
+                className='login-form-button'
+              >
                 登录
               </Button>
               {getFieldDecorator('remember', {
@@ -84,4 +131,4 @@ class Login extends React.Component<MyProps, MyStates> {
   }
 }
 
-export default Form.create()(Login)
+export default Form.create()(withRouter(Login))
