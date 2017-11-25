@@ -14,6 +14,14 @@ interface Prop {
   x?: number
 }
 
+enum A {
+  Up = 1,
+  Down,
+  Red = 100,
+  Green,
+  Yy
+}
+console.log(A, A[3], 'enum')
 // declare module 'antd' {
 //   interface Button.ButtonProps {
 //

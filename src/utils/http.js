@@ -20,22 +20,23 @@ const http = (url, type, config = {}) => {
   if (typeof type === 'object') {
     config = type
     type = config.type || 'GET'
+    delete (config.type)
   } else {
     type = type || 'GET'
-    type = type.toUpperCase()
   }
+  type = type.toUpperCase()
   const data = config.data || config || {}
   const headers = config.headers || undefined
   let ajaxConfig = {
     url: url,
     method: type,
     headers: headers,
+    contentType: 'application/json',
     data: data
   }
   switch (type) {
   case 'POST':
     ajaxConfig.processData = false
-    ajaxConfig.contentType = 'application/json'
     ajaxConfig.data = JSON.stringify(data)
     break
   }

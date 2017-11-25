@@ -2,6 +2,7 @@ import React from 'react'
 import { APP } from '../utils/global.conf'
 const styles = require('@/stylus/top')
 import { withRouter } from 'react-router'
+import { loginOutApi } from '../utils/api'
 import SearchCompany from './SearchCompany'
 class Top extends React.Component<any, {}> {
   public componentDidMount () {
@@ -12,7 +13,9 @@ class Top extends React.Component<any, {}> {
     })
   }
   public toLoginOut () {
-    this.props.history.push('/login')
+    loginOutApi().then(() => {
+      this.props.history.push('/login')
+    })
   }
   public render () {
     return (
