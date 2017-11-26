@@ -41,12 +41,12 @@ var plugins = [
   extractCommon,
   extractApp,
   // Explicit vendor chunk
-  // 单独将echarts提取出来
+  // 单独将echarts jquery提取出来
   new webpack.optimize.CommonsChunkPlugin({
-    names: ['echarts', 'vendor'],
+    names: ['jquery', 'echarts', 'vendor'],
     minChunks: function(module) {
-      return module.context && module.context.indexOf("node_modules") !== -1 && /(echarts|zrender)/.test(module.context) == false;
-   }
+      return module.context && module.context.indexOf("node_modules") !== -1 && /(echarts|zrender|jquery)/.test(module.context) === false;
+    }
   }),
   // 引导
   new webpack.optimize.CommonsChunkPlugin({name: 'manifest', minChunks: Infinity}),
@@ -68,6 +68,7 @@ var plugins = [
 
 module.exports = {
   entry: {
+    jquery: ['jquery'],
     echarts: ['echarts', 'zrender'],
     app: [path.resolve(__dirname, '../src/app')]
   },
