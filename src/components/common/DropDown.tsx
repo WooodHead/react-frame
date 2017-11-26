@@ -77,7 +77,7 @@ export default class extends React.Component<MyProps, MyStates> {
       $(results).addClass(styles['custom-slide-up-enter'])
       t = setTimeout(() => {
         $(results).removeClass(styles['custom-slide-up-enter'])
-      }, 100)
+      }, 300)
       $(results).one('mouseover', () => {
         clearTimeout(t)
       })

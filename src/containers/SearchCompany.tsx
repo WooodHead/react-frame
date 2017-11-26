@@ -5,7 +5,6 @@ import { searchCompanys } from '../utils/api'
 
 const styles = require('../stylus/search.company')
 const Option = AutoComplete.Option
-
 function onSelect (value: {}): void {
   console.log(value, 'onSelect')
 }

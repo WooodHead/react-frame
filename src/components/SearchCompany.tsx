@@ -1,7 +1,7 @@
 import { AutoComplete } from 'antd'
 import classNames from 'classnames'
 import React from 'react'
-import { searchCompanys } from '../utils/api'
+// import { searchCompanys } from '../utils/api'
 
 const styles = require('../stylus/search.company')
 const Option = AutoComplete.Option
