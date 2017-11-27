@@ -2,7 +2,6 @@ import http from './http'
 
 // 登录
 export const loginApi = (params: {userName: string, UserPassWord: string}) => {
-  console.log(params, 'params')
   return http('/api/v1/security/login', {type: 'POST', data: params})
 }
 // 退出
@@ -16,6 +15,10 @@ export const fetchCurrentInfo = () => {
 // 获取我的小组
 export const fetchRangInfo = () => {
   return http('/api/v1/security/range')
+}
+// 修改密码
+export const changePasswd = (params: {OldPassword: string, NewPassword: string, NewPassword2: string}) => {
+  return http('/api/v1/security/password/change', 'PUT', params)
 }
 //
 export const fetchAllClientele = (params: {}) => {

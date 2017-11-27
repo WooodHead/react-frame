@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { fetchCurrent } from '@/utils/api'
 import Loading from '@/components/common/Loading'
 import Top from '@/containers/Top'
@@ -20,10 +21,13 @@ const styles = {
   }
 }
 class Main extends React.Component {
-  constructor (props) {
-    super()
-    props.dispatch(actions.fetchCurrentInfoAction())
-    props.dispatch(actions.fetchRangInfoAction())
+  componentWillMount () {
+    this.props.dispatch(actions.fetchCurrentInfoAction((err) => {
+      if (err) {
+        this.props.history.push('/login')
+      }
+    }))
+    this.props.dispatch(actions.fetchRangInfoAction())
   }
   render () {
     const { ajaxCount } = this.props
@@ -38,4 +42,4 @@ class Main extends React.Component {
     )
   }
 }
-export default connect(({common}) => common)(Main)
+export default withRouter(connect(({common}) => common)(Main))

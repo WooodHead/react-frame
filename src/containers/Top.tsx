@@ -1,21 +1,24 @@
+import { Modal } from 'antd'
 import classNmaes from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
 import { APP } from '../utils/global.conf'
+import EditPasswd from './EditPasswd'
 const styles = require('@/stylus/top')
 import { withRouter } from 'react-router'
-import { loginOutApi } from '../utils/api'
+import { changePasswd, loginOutApi } from '../utils/api'
 import SearchCompany from './SearchCompany'
-
 interface MyStates {
   arrowStatus?: string
+  visible: boolean
 }
 
 class Top extends React.Component<any, MyStates> {
   constructor () {
     super()
     this.state = {
-      arrowStatus: 'up'
+      arrowStatus: 'up',
+      visible: false
     }
   }
   public componentDidMount () {
@@ -40,11 +43,41 @@ class Top extends React.Component<any, MyStates> {
       arrowStatus: this.state.arrowStatus === 'up' ? 'down' : 'up'
     })
   }
+  public editPasswd () {
+    this.setState({
+      visible: true
+    })
+  }
+  public handleOk () {
+    const ref: any = this.refs.editpasswd
+    ref.validateFields({force: true}, (err: any, values: any) => {
+      if (!err) {
+        changePasswd(values).then(() => {
+          this.setState({
+            visible: false
+          })
+        })
+      }
+    })
+  }
+  public handleCancel () {
+    this.setState({
+      visible: false
+    })
+  }
   public render () {
-    const { arrowStatus } = this.state
+    const { arrowStatus, visible } = this.state
     const { currentInfo, rangInfo } = this.props
     return (
       <div className={styles.container}>
+        <Modal
+          title='修改密码'
+          visible={visible}
+          onOk={this.handleOk.bind(this)}
+          onCancel={this.handleCancel.bind(this)}
+        >
+          <EditPasswd ref='editpasswd'/>
+        </Modal>
         <div className={styles.logo}></div>
         <div className={styles.version}>{APP.Version}</div>
         <SearchCompany className='u-search' />
@@ -110,7 +143,7 @@ class Top extends React.Component<any, MyStates> {
                         </div>
                     </div>
                     <div className='dropwdown-item modifyPassword'>
-                        <span id='modifyPassword' data-toggle='modal' data-target='#myModal'>修改密码</span>
+                        <span id='modifyPassword' onClick={this.editPasswd.bind(this)}>修改密码</span>
                     </div>
                     <div className='dropwdown-item'>
                         <a href='#download' className='i-download' title='帮助中心'>

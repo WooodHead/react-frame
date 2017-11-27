@@ -46,6 +46,10 @@ const http = (url, type, config = {}) => {
     ajaxConfig.processData = false
     ajaxConfig.data = JSON.stringify(data)
     break
+  case 'PUT':
+    ajaxConfig.processData = false
+    ajaxConfig.data = JSON.stringify(data)
+    break
   }
   return $.ajax(ajaxConfig).then((res) => {
     var result = {}

@@ -14,11 +14,13 @@ interface T {
   key: number
 }
 export default class extends React.Component<any, MyState> {
-  constructor () {
+  public constructor () {
     super()
     this.state = {
       dataSource: []
     }
+  }
+  public componentWillMount () {
     searchCompanys({ userid: 217 }).then((res: any) => {
       if (res.status) {
         const data: T[] = []
