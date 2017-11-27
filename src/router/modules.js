@@ -11,6 +11,7 @@ import loadForgetpwd from 'bundle-loader?lazy&name=[name]!@/pages/forgetpwd'
 import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
 import loadDeclearTax from 'bundle-loader?lazy&name=[name]!@/pages/declearTax' // 申报列表
 import loadDeclearResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/result' // 申报列表
+import loadSetRejected from 'bundle-loader?lazy&name=[name]!@/pages/setRejected'
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -55,5 +56,10 @@ export const DeclearTax = (props) => (
 export const DeclearResult = (props) => (
   <Bundle load={loadDeclearResult}>
     {(DeclearResult) => <DeclearResult {...props}/>}
+  </Bundle>
+)
+export const SetRejected = (props) => (
+  <Bundle load={loadSetRejected}>
+    {(SetRejected) => <SetRejected {...props}/>}
   </Bundle>
 )

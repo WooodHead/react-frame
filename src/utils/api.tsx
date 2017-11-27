@@ -47,3 +47,7 @@ export const searchCompanys = (params: {userid: number}) => {
 export const fetchAllCompany = () => {
   return http('/api/v1/shareing/company/all2')
 }
+
+export const fetchAllRejected = () => {
+  return http('/api/v1/ReceiptOperation/rejectimage?order=asc&limit=10&offset=0')
+}
