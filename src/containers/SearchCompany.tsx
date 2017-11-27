@@ -5,22 +5,21 @@ import { searchCompanys } from '../utils/api'
 
 const styles = require('../stylus/search.company')
 const Option = AutoComplete.Option
-
-function onSelect(value: {}): void {
+function onSelect (value: {}): void {
   console.log(value, 'onSelect')
 }
 export default class extends React.Component<any, MyState> {
   public dataSource: any[]
-  constructor() {
+  constructor () {
     super()
     this.state = {
       dataSource: []
     }
-    searchCompanys({ userid: 217 }).then((res) => {
+    searchCompanys({ userid: 217 }).then((res: any) => {
       this.dataSource = res.data
     })
   }
-  public handleSearch(value: string) {
+  public handleSearch (value: string) {
     if (value === '') {
       this.setState({
         dataSource: []
@@ -37,12 +36,12 @@ export default class extends React.Component<any, MyState> {
       dataSource: res
     })
   }
-  public removeSearch() {
+  public removeSearch () {
     this.setState({
       dataSource: []
     })
   }
-  public render() {
+  public render () {
     const { dataSource } = this.state
     const { className } = this.props
     const children = dataSource.map((item) => {

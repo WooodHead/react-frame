@@ -1,7 +1,7 @@
 import { AutoComplete } from 'antd'
 import classNames from 'classnames'
 import React from 'react'
-import { searchCompanys } from '../utils/api'
+// import { searchCompanys } from '../utils/api'
 
 const styles = require('../stylus/search.company')
 const Option = AutoComplete.Option
@@ -16,9 +16,9 @@ export default class extends React.Component<any, MyState> {
     this.state = {
       dataSource: []
     }
-    searchCompanys({ userid: 217 }).then((res) => {
-      this.dataSource = res.data
-    })
+    // searchCompanys({ userid: 217 }).then((res) => {
+    //   this.dataSource = res.data
+    // })
   }
   public handleSearch(value: string) {
     if (value === '') {

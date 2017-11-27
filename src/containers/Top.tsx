@@ -1,16 +1,23 @@
 import React from 'react'
 import { APP } from '../utils/global.conf'
 const styles = require('@/stylus/top')
+import { withRouter } from 'react-router'
+import { loginOutApi } from '../utils/api'
 import SearchCompany from './SearchCompany'
 class Top extends React.Component<any, {}> {
-  public componentDidMount() {
+  public componentDidMount () {
     $('#profile').hover(() => {
       $('#profile .dropdown').show()
     }, () => {
       $('#profile .dropdown').hide()
     })
   }
-  public render() {
+  public toLoginOut () {
+    loginOutApi().then(() => {
+      this.props.history.push('/login')
+    })
+  }
+  public render () {
     return (
       <div className={styles.container}>
         <div className={styles.logo}></div>
@@ -74,9 +81,9 @@ class Top extends React.Component<any, {}> {
                         </a>
                     </div>
                     <div className='dropwdown-item'>
-                        <a href='#logout' className='i-logout' title='退出'>
+                        <span onClick={this.toLoginOut.bind(this)} className='i-logout' title='退出'>
                             退出
-                        </a>
+                        </span>
                     </div>
                 </div>
             </li>
@@ -85,4 +92,4 @@ class Top extends React.Component<any, {}> {
     )
   }
 }
-export default Top
+export default withRouter(Top)

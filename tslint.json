@@ -8,6 +8,7 @@
       "no-var-requires": false,
       "no-console": false,
       "interface-name": [true, "never-prefix"],
-      "space-before-function-paren": true
+      "space-before-function-paren": true,
+      "no-empty": false
     }
 }

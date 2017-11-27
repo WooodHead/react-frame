@@ -2,7 +2,12 @@ import http from './http'
 
 // 登录
 export const loginApi = (params: {userName: string, UserPassWord: string}) => {
-  return http('/api/v1/security/login')
+  console.log(params, 'params')
+  return http('/api/v1/security/login', {type: 'POST', data: params})
+}
+// 退出
+export const loginOutApi = () => {
+  return http('/api/v1/security/logout', {type: 'DELETE'})
 }
 //
 export const fetchAllClientele = (params: {}) => {

@@ -21,7 +21,7 @@ console.log(ss, num)
  * 基于值的元素会简单的在它所在的作用域里按标识符查找。
  * TypeScript使用与React相同的规范 来区别它们。 固有元素总是以一个小写字母开头，基于值的元素总是以一个大写字母开头。
  */
-function identity<T>(arg: T[]): T[] {
+function identity<T> (arg: T[]): T[] {
   console.log(arg.length)
   return arg
 }
@@ -30,20 +30,20 @@ console.log(output)
 import { Button, Modal } from 'antd'
 export default class extends React.Component<MyProps, {}> {
   public state = { visible: false }
-  public handleOk() {
+  public handleOk () {
     this.setState({
      visible: true
    })
   }
-  public handleCancel() {
+  public handleCancel () {
     this.setState({
       visible: false
     })
   }
-  public HandleClick(): void {
+  public HandleClick (): void {
     this.handleOk()
   }
-  public render() {
+  public render () {
     return (
       <div>
         <h1>Hello man</h1>

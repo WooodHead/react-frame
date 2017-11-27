@@ -35,7 +35,7 @@ export interface MyState {
   loading: boolean
 }
 
-function identity<T>(arg: T[]): T[] {
+function identity<T> (arg: T[]): T[] {
   console.log(arg.length)
   return arg
 }
@@ -62,16 +62,16 @@ const CustomButton = (p: CustomButtonProp) => {
 }
 
 export default class Login extends React.Component<MyProps, MyState> {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       loading: false
     }
   }
-  public componentWillMount() {
+  public componentWillMount () {
     console.log(this.props.history)
   }
-  public componentDidMount() {
+  public componentDidMount () {
     const el: any = document.getElementById('test')
     const myChart = echarts.init(el)
 
@@ -96,7 +96,7 @@ export default class Login extends React.Component<MyProps, MyState> {
     }
     myChart.setOption(option)
   }
-  public handleClick() {
+  public handleClick () {
     this.setState({
       loading: !this.state.loading
     })
@@ -106,20 +106,20 @@ export default class Login extends React.Component<MyProps, MyState> {
       })
     }, 1000)
   }
-  public handleClick2() {
+  public handleClick2 () {
     P.show({
       title: '2',
       content: 'xxx'
     })
   }
-  public cb(x: string) {
+  public cb (x: string) {
     alert(x)
     console.log(this, 'this')
   }
-  public toClick() {
+  public toClick () {
     console.log(this)
   }
-  public render() {
+  public render () {
     return (
       <div>
         <div id='main' ref='main'></div>

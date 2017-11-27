@@ -16,14 +16,31 @@
 //     alert('401')
 //   }
 // }
-const http = (url, config = {}) => {
-  const type = config.type || 'GET'
+const http = (url, type, config = {}) => {
+  if (typeof type === 'object') {
+    config = type
+    type = config.type || 'GET'
+    delete (config.type)
+  } else {
+    type = type || 'GET'
+  }
+  type = type.toUpperCase()
   const data = config.data || config || {}
-  return $.ajax({
+  const headers = config.headers || undefined
+  let ajaxConfig = {
     url: url,
-    type: type,
+    method: type,
+    headers: headers,
+    contentType: 'application/json',
     data: data
-  }).then((res) => {
+  }
+  switch (type) {
+  case 'POST':
+    ajaxConfig.processData = false
+    ajaxConfig.data = JSON.stringify(data)
+    break
+  }
+  return $.ajax(ajaxConfig).then((res) => {
     var result = {}
     if (typeof res === 'string') {
       try {

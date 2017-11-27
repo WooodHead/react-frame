@@ -1,5 +1,6 @@
 import React from 'react'
 import { Alert } from 'antd'
+import echarts from 'echarts'
 import P from '@/plugins/alert/index'
 import { fetchAllClientele } from '@/utils/api'
 import { connect } from 'react-redux'
