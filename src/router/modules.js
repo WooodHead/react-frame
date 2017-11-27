@@ -9,6 +9,7 @@ import loadDemo3 from 'bundle-loader?lazy&name=[name]!@/pages/demo3'
 import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
 import loadForgetpwd from 'bundle-loader?lazy&name=[name]!@/pages/forgetpwd'
 import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
+import loadSetRejected from 'bundle-loader?lazy&name=[name]!@/pages/setRejected'
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -43,5 +44,10 @@ export const Forgetpwd = (props) => (
 export const DashBoard = (props) => (
   <Bundle load={loadDashBoard}>
     {(DashBoard) => <DashBoard {...props}/>}
+  </Bundle>
+)
+export const SetRejected = (props) => (
+  <Bundle load={loadSetRejected}>
+    {(SetRejected) => <SetRejected {...props}/>}
   </Bundle>
 )
