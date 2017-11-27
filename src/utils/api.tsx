@@ -9,6 +9,14 @@ export const loginApi = (params: {userName: string, UserPassWord: string}) => {
 export const loginOutApi = () => {
   return http('/api/v1/security/logout', {type: 'DELETE'})
 }
+// 获取当前角色信息
+export const fetchCurrentInfo = () => {
+  return http('/api/v1/security/current')
+}
+// 获取我的小组
+export const fetchRangInfo = () => {
+  return http('/api/v1/security/range')
+}
 //
 export const fetchAllClientele = (params: {}) => {
   return http('/api/v1/companies/manage', params)

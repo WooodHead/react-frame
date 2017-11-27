@@ -1,5 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { fetchCurrent } from '@/utils/api'
+import Loading from '@/components/common/Loading'
 import Top from '@/containers/Top'
+import * as actions from '@/actions/common'
 const styles = {
   container: {
     width: '100%',
@@ -15,10 +19,17 @@ const styles = {
     overflow: 'scroll'
   }
 }
-export default class extends React.Component {
+class Main extends React.Component {
+  constructor (props) {
+    super()
+    props.dispatch(actions.fetchCurrentInfoAction())
+    props.dispatch(actions.fetchRangInfoAction())
+  }
   render () {
+    const { ajaxCount } = this.props
     return (
       <div style={styles.container}>
+        {ajaxCount && <Loading />}
         <Top />
         <div style={styles.main}>
           {this.props.children}
@@ -27,3 +38,4 @@ export default class extends React.Component {
     )
   }
 }
+export default connect(({common}) => common)(Main)

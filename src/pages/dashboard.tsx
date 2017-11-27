@@ -1,6 +1,6 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
-import AutoComplete, { Option } from '../components/common/AutoComplete'
+import AutoComplete from '../components/common/AutoComplete'
 import DropDown from '../components/common/DropDown'
 import { fetchAllCompany, searchCompanys } from '../utils/api'
 interface T {
@@ -32,28 +32,27 @@ class DashBoard extends React.Component<any, MyStates> {
       })
     })
     searchCompanys({ userid: 217 }).then((res: any) => {
+      const data: T[] = []
+      if (res.status && res.data.length) {
+        res.data.map((item: {CompanyId: number, CompanyName: string}) => {
+          data.push({key: item.CompanyId, title: item.CompanyName})
+        })
+      }
       this.setState({
-        dataSource: res.data
+        dataSource: data
       })
     })
   }
   public handleCallBack (item: any) {
     console.log(item, 'callback')
   }
-  public test () {
-    console.log(findDOMNode(this.refs.autoComplete), this.refs.autoComplete, 'autoComplete')
-  }
-  public select () {
-    console.log(arguments, 'select')
+  public select (item: any) {
+    console.log(item, 'select')
   }
   public render () {
     const { data, dataSource } = this.state
-    const children = dataSource.map((item: any) => {
-      return (<Option key={item.CompanyId} >{item.CompanyName}</Option>)
-    })
     return (
       <div>
-        <input onFocus={this.test.bind(this)}/>
         <DropDown
           ref='dropdown'
           data={data}
@@ -66,8 +65,7 @@ class DashBoard extends React.Component<any, MyStates> {
         <AutoComplete
           onSelect={this.select.bind(this)}
           data={this.state.dataSource}
-          ref='autoComplete'>
-          {children}
+          >
         </AutoComplete>
 
       </div>

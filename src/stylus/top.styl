@@ -29,16 +29,31 @@
     background-color: #ff5608
   :global
     .u-search
-      position: absolute;
-      top: 15px;
-      right: 360px;
-      width: 280px;
-      height: 30px;
-      z-index: 2;
+      position: absolute
+      top: 15px
+      right: 360px
+      width: 280px
+      height: 30px
+      z-index: 2
     .u-user
       padding: 0
       position: absolute
       right: 0
+      cursor: pointer
+      user-select: none
+      #currentUser
+        margin-left: 6px
+        &:hover
+          color: #ff5608
+      .u-group
+        display: none
+        max-height: 200px
+        height: auto
+        overflow-y: scroll
+      .group-item
+        color: #fff
+        font-size: 12px
+        cursor: pointer
       .dropdown
         display: none
         position: absolute
@@ -64,8 +79,8 @@
           line-height: 40px
           position: relative
           .groupMem
-            display: block;
-            width: 100%;
+            display: block
+            width: 100%
           .i-logout
             margin: 0 0 0 24px
             letter-spacing: 24px
@@ -89,6 +104,8 @@
             overflow: hidden
             margin: 0 0 0 10px
             vertical-align: middle
+            &.up
+              background: url('../imgs/icon_select_up.png') no-repeat
       .glyphicon:hover, .dropwdown-item span:hover, .dropwdown-item a:hover
         color: #ff5608
       .badge

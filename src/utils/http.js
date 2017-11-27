@@ -1,12 +1,19 @@
-// $(document).ajaxStart((event, request, settings) => {
-//   console.log(event, request, settings, 'ajaxStart')
-// })
-// $(document).ajaxSend((event, request, settings) => {
-//   console.log('ajaxSend')
-// })
-// $(document).ajaxStop(() => {
-//   console.log(arguments, 'ajaxStop')
-// })
+import store from '@/stores'
+
+$(document).ajaxStart((event, request, settings) => {
+  // console.log('ajaxStart', event, request, settings, 'ajaxStart')
+})
+$(document).ajaxSend((event, request, settings) => {
+  store.dispatch({type: 'loading show'})
+  // console.log('ajaxSend', event, request, settings)
+})
+$(document).ajaxStop((a, b, c) => {
+  // console.log('ajaxStop', a, b, c)
+})
+$(document).ajaxComplete((a, b, c) => {
+  store.dispatch({type: 'loading hidden'})
+  // console.log('ajaxComplete', a, b, c)
+})
 // $(document).ajaxError((event, request, settings) => {
 //   console.log(settings, 'ajaxError')
 // })

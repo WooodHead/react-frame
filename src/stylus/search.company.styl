@@ -18,24 +18,27 @@
       width: 14px;
       height: 16px;
       background: url('../imgs/icon_search.png') no-repeat;
+      z-index: 1
+      cursor: pointer
     .form-control
       margin: 0;
       padding: 0;
       height: 30px
-      .ant-select
-        width: 280px;
-        position: absolute;
-        padding: 0 29px 0 29px
-        .ant-select-selection
+      .auto-complete
+        width: 100%
+        input
+          width: 278px;
+          position: absolute;
+          padding: 0 29px 0 29px
+          border: none
+          outline: none
           height: 28px
-          ul
-            margin: 0
-            input
-              border: none
-              outline: none
-              &:hover
-                outline: none
-                border-color: none
-                border: none
-              &:focus
-                box-shadow: none;
+          border-radius: 4px;
+          &:hover
+            outline: none
+            border-color: none
+            border: none
+          &:focus
+            box-shadow: none;
+        .results
+          top: 32px

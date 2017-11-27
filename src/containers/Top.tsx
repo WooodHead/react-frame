@@ -1,15 +1,33 @@
+import classNmaes from 'classnames'
 import React from 'react'
+import { connect } from 'react-redux'
 import { APP } from '../utils/global.conf'
 const styles = require('@/stylus/top')
 import { withRouter } from 'react-router'
 import { loginOutApi } from '../utils/api'
 import SearchCompany from './SearchCompany'
-class Top extends React.Component<any, {}> {
+
+interface MyStates {
+  arrowStatus?: string
+}
+
+class Top extends React.Component<any, MyStates> {
+  constructor () {
+    super()
+    this.state = {
+      arrowStatus: 'up'
+    }
+  }
   public componentDidMount () {
     $('#profile').hover(() => {
       $('#profile .dropdown').show()
     }, () => {
       $('#profile .dropdown').hide()
+    })
+    $('#system').hover(() => {
+      $('#system .dropdown').show()
+    }, () => {
+      $('#system .dropdown').hide()
     })
   }
   public toLoginOut () {
@@ -17,7 +35,14 @@ class Top extends React.Component<any, {}> {
       this.props.history.push('/login')
     })
   }
+  public showMyGroup () {
+    this.setState({
+      arrowStatus: this.state.arrowStatus === 'up' ? 'down' : 'up'
+    })
+  }
   public render () {
+    const { arrowStatus } = this.state
+    const { currentInfo, rangInfo } = this.props
     return (
       <div className={styles.container}>
         <div className={styles.logo}></div>
@@ -61,15 +86,27 @@ class Top extends React.Component<any, {}> {
                 <a href='javascript:;' className='i-user' id='user-icon' title='我的'>
                     <span className='glyphicon glyphicon-user'></span>
                 </a>
-                <span id='currentUser' className='current-user'>张璐</span>
+                <span id='currentUser' className='current-user'>{currentInfo.EmployeeName}</span>
                 <div className='dropdown' id='user-dropdown'>
                     <div className='dropdown-arrow'></div>
                     <div className='dropwdown-item'>
                         <span id='username' className='groupMem'></span>
                     </div>
-                    <div className='dropwdown-item' id='dropdownGroup'>
-                        <span className='groupMem' id='toggleGroup'>我的小组 <i className='i-select'></i></span>
-                        <div className='u-group' id='groupMemContainer'>
+                    <div className='dropwdown-item' onClick={this.showMyGroup.bind(this)}>
+                        <span className='groupMem' id='toggleGroup'>
+                          我的小组
+                          <i className={classNmaes('i-select', arrowStatus)}></i>
+                        </span>
+                        <div
+                          className='u-group'
+                          id='groupMemContainer'
+                          style={{display: arrowStatus === 'up' ? 'none' : 'block'}}
+                          >
+                          {
+                            rangInfo && rangInfo.map((item: any, index: number) => {
+                              return (<div key={'rang-' + index} className='group-item'>{item.EmployeeName}</div>)
+                            })
+                          }
                         </div>
                     </div>
                     <div className='dropwdown-item modifyPassword'>
@@ -92,4 +129,4 @@ class Top extends React.Component<any, {}> {
     )
   }
 }
-export default withRouter(Top)
+export default withRouter(connect(({common}: any) => common)(Top))
