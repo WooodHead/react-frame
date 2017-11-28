@@ -5,15 +5,14 @@ const styles = require('@/stylus/forgetpwd')
 const FormItem = Form.Item
 
 class Forgetpwd extends React.Component<any, {}> {
-  T = 0
+  public T = 0
   public state = {
       sendTxt: '发送验证码',
       name: 'dingliang',
       isSend: false,
       sendSec: 60
   }
-  
-  public handleSubmit() {
+  public handleSubmit () {
     console.log(1)
   }
   public sendMsg () {
@@ -36,7 +35,7 @@ class Forgetpwd extends React.Component<any, {}> {
     }
     console.log(event)
   }
-  public render() {
+  public render () {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
     const userNameError = isFieldTouched('userName') && getFieldError('userName')
     const passwdError = isFieldTouched('password') && getFieldError('password')
@@ -57,16 +56,12 @@ class Forgetpwd extends React.Component<any, {}> {
              })(
                <Input style={{paddingRight: '85px'}}/>
              )}
-<<<<<<< HEAD
-             <a className={this.state.isSend?styles.sendedMsg:styles.sendMsg}  onClick={this.sendMsg.bind(this)} >{this.state.sendTxt}</a>
-=======
              <a
               className={this.state.isSend ? styles.sendedMsg : styles.sendMsg}
               onClick={this.sendMsg.bind(this)}
              >
               {this.state.sendTxt}
              </a>
->>>>>>> nomsg
             </FormItem>
             <FormItem
              validateStatus={passwdError ? 'error' : 'success'}
@@ -91,5 +86,4 @@ class Forgetpwd extends React.Component<any, {}> {
     )
   }
 }
-
 export default Form.create()(Forgetpwd)

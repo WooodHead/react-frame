@@ -1,6 +1,6 @@
 import { Table, Input, Row, Col, Icon, Popover } from 'antd'
 import { TableColumnConfig } from 'antd/lib/table/Table'
-import { fetchAllRejected } from '../utils/api'
+import { fetchAllRejected, fetchRejectedCommunicate } from '../utils/api'
 import React from 'react'
 
 interface ColumnsConfig extends TableColumnConfig<any> {}
@@ -15,43 +15,58 @@ interface D {
   RelateDate: string
 }
 interface MyStates {
-  data: D[]
-  visible: boolean
+  data: D[] | any
 }
-class ChatBox extends React.Component<any,{}>{
+class ChatsIcon extends React.Component <any, MyStates> {
+  constructor () {
+    super()
+    this.state = {
+      data: []
+    }
+  }
   public render () {
     return (
-      <div>
-        <p style={{fontSize:'20px'}}> asdasd </p>
-      </div>
+      <Popover
+        placement='top'
+        title={'驳回记录'}
+        content={
+          this.state.data.map((item: any)=>
+            <p>{item.RealName}</p>
+          )
+        }
+        trigger='click'
+      >
+        <Icon type='menu-unfold' style={{cursor: 'pointer'}} onClick={this.iconClick.bind(this, this.props.receiptId)}/>
+      </Popover>
     )
+  }
+  
+  public iconClick (ReceiptId: number) {
+    if (this.state.data.length == 0) {
+      fetchRejectedCommunicate({receiptId: ReceiptId,tars: 12345}).then((res: any)=>{
+        this.setState({data: res.data})
+      })
+    }
+    console.log(ReceiptId)
   }
 }
 export default class SetRejected extends React.Component <any, MyStates> {
   constructor () {
     super()
     this.state = {
-      data: [],
-      visible: false
+      data: []
     }
   }
   public columns: ColumnsConfig[] = [
     { title: '公司名称', width: 200, dataIndex: 'CompanyName', key: 'name', fixed: 'left', className: 'companyName' },
-    { title: '票据名称', dataIndex: 'ImgName', key: '1' ,
+    { title: '票据名称', width: 400,dataIndex: 'ImgName', key: '1' ,
       render: (text, record) => (
         <Row gutter={8}>
-          <Col className='gutter-row' span={20} >
+          <Col className='gutter-row' span={22} >
             <a href='#' className='operation'>{record.ImgName}</a>
           </Col>
-          <Col className='gutter-row' span={4} >
-          <Popover
-            placement="top"
-            title={'驳回记录'}
-            content={<ChatBox data={record.record}  />}
-            trigger="click"
-          >
-            <Icon type='menu-unfold' style={{cursor: 'pointer'}} onClick={this.iconClick.bind(this, record)}/>
-          </Popover>
+          <Col className='gutter-row' span={2} >
+          <ChatsIcon receiptId={record.ReceiptId}/>
           </Col>
         </Row>
       )
@@ -81,12 +96,6 @@ export default class SetRejected extends React.Component <any, MyStates> {
   ]
   public onChange () {
     console.log(1)
-  }
-  public iconClick (record: {}) {
-    if(!record){
-      
-    }
-    console.log(record)
   }
   public componentWillMount () {
     fetchAllRejected().then((res) => {
