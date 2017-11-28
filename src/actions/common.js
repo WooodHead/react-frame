@@ -4,8 +4,8 @@ import { fetchCurrentInfo, fetchRangInfo } from '@/utils/api'
 export const fetchCurrentInfoAction = (cb) => (dispatch) => {
   fetchCurrentInfo().then(res => {
     if (res.status) {
-      console.log(res)
       dispatch(createAction('fetch current info')({currentInfo: res.data}))
+      cb(null, res)
     }
   }, err => {
     if (cb) {
@@ -17,7 +17,6 @@ export const fetchCurrentInfoAction = (cb) => (dispatch) => {
 export const fetchRangInfoAction = (payload) => (dispatch) => {
   fetchRangInfo().then(res => {
     if (res.status) {
-      console.log(res)
       dispatch(createAction('fetch rang info')({rangInfo: res.data}))
     }
   })

@@ -1,11 +1,14 @@
 import classNames from 'classnames'
 import React from 'react'
 import { findDOMNode } from 'react-dom'
+import { connect } from 'react-redux'
 import AutoComplete from '../components/common/AutoComplete'
 import { searchCompanys } from '../utils/api'
 
 const styles = require('../stylus/search.company')
-
+interface MyProps {
+  className?: string
+}
 interface MyState {
   dataSource: any
 }
@@ -13,7 +16,7 @@ interface T {
   title: string
   key: number
 }
-export default class extends React.Component<any, MyState> {
+class SearchCompany extends React.Component<MyProps, MyState> {
   public constructor () {
     super()
     this.state = {
@@ -65,3 +68,5 @@ export default class extends React.Component<any, MyState> {
     )
   }
 }
+
+export default connect(({current}: any) => current)(SearchCompany)

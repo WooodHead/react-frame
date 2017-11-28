@@ -39,7 +39,8 @@ const http = (url, type, config = {}) => {
     method: type,
     headers: headers,
     contentType: 'application/json',
-    data: data
+    data: data,
+    timeout: 10000
   }
   switch (type) {
   case 'POST':

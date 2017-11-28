@@ -1,3 +1,6 @@
-export const APP = {
-  Version: '1.8.0'
-}
+import { notification } from 'antd'
+notification.config({
+  placement: 'topRight',
+  top: 120,
+  duration: 3
+})

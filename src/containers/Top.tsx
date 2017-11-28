@@ -1,8 +1,8 @@
-import { Modal } from 'antd'
+import { Modal, notification } from 'antd'
 import classNmaes from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
-import { APP } from '../utils/global.conf'
+import { APP } from '../utils/app'
 import EditPasswd from './EditPasswd'
 const styles = require('@/stylus/top')
 import { withRouter } from 'react-router'
@@ -52,10 +52,21 @@ class Top extends React.Component<any, MyStates> {
     const ref: any = this.refs.editpasswd
     ref.validateFields({force: true}, (err: any, values: any) => {
       if (!err) {
-        changePasswd(values).then(() => {
-          this.setState({
-            visible: false
-          })
+        changePasswd(values).then((res) => {
+          if (res.status) {
+            this.setState({
+              visible: false
+            })
+            notification.success({
+              message: '密码修改',
+              description: '恭喜您，修改密码成功！'
+            })
+          } else {
+            notification.error({
+              message: '密码修改',
+              description: res.message
+            })
+          }
         })
       }
     })

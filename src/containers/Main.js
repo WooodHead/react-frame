@@ -22,22 +22,26 @@ const styles = {
 }
 class Main extends React.Component {
   componentWillMount () {
-    this.props.dispatch(actions.fetchCurrentInfoAction((err) => {
+    this.props.dispatch(actions.fetchCurrentInfoAction((err, res) => {
       if (err) {
         this.props.history.push('/login')
       }
+      if (res) {
+        this.props.dispatch(actions.fetchRangInfoAction())
+      }
     }))
-    this.props.dispatch(actions.fetchRangInfoAction())
   }
   render () {
-    const { ajaxCount } = this.props
+    const { ajaxCount, online } = this.props
     return (
       <div style={styles.container}>
         {ajaxCount && <Loading />}
-        <Top />
-        <div style={styles.main}>
-          {this.props.children}
-        </div>
+        { online && <div>
+          <Top />
+          <div style={styles.main}>
+            {this.props.children}
+          </div>
+        </div> }
       </div>
     )
   }

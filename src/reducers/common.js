@@ -16,7 +16,8 @@ export default handleActions({
   'fetch current info': (state, { payload }) => {
     return {
       ...state,
-      currentInfo: payload.currentInfo
+      currentInfo: payload.currentInfo,
+      online: true
     }
   },
   'fetch rang info': (state, { payload }) => {
@@ -28,5 +29,6 @@ export default handleActions({
 }, {
   ajaxCount: 0,
   currentInfo: {},
+  online: false,
   rangInfo: []
 })
