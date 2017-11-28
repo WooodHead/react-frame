@@ -23,9 +23,9 @@ interface MyStates {
   title?: string
   page: number
 }
-let t: number = 0
 export default class extends React.Component<MyProps, MyStates> {
   public pageNum = 20
+  public t = 0
   constructor (props: MyProps) {
     super(props)
     this.state = {
@@ -57,12 +57,14 @@ export default class extends React.Component<MyProps, MyStates> {
     }
   }
   public handleEnter () {
-    clearTimeout(t)
+    if (this.t) {
+      clearTimeout(this.t)
+    }
     let { results } = this.refs
     if (results) {
       $(results).removeClass(styles['custom-slide-up-leave'])
       $(results).one('mouseover', () => {
-        clearTimeout(t)
+        clearTimeout(this.t)
       })
       $(results).one('mouseleave', () => {
         this.handleLeave()
@@ -75,11 +77,11 @@ export default class extends React.Component<MyProps, MyStates> {
       results = this.refs.results
       $(results).removeClass(styles['custom-slide-up-leave'])
       $(results).addClass(styles['custom-slide-up-enter'])
-      t = setTimeout(() => {
+      this.t = setTimeout(() => {
         $(results).removeClass(styles['custom-slide-up-enter'])
       }, 300)
       $(results).one('mouseover', () => {
-        clearTimeout(t)
+        clearTimeout(this.t)
       })
       $(results).one('mouseleave', () => {
         this.handleLeave()
@@ -100,11 +102,13 @@ export default class extends React.Component<MyProps, MyStates> {
     })
   }
   public handleLeave () {
-    clearTimeout(t)
+    if (this.t) {
+      clearTimeout(this.t)
+    }
     const { button, results } = this.refs
-    t = setTimeout(() => {
+    this.t = setTimeout(() => {
       $(results).addClass(styles['custom-slide-up-leave'])
-      t = setTimeout(() => {
+      this.t = setTimeout(() => {
         $(results).removeClass(styles['custom-slide-up-leave'])
         $(results).addClass(styles.hidden)
         this.setState({
