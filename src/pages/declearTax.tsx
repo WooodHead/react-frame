@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as actions from '../actions/common'
 import { fetchDeclareListAction } from '../actions/declearTax'
 import DropDown from '../components/common/DropDown'
+import stores from '../stores'
 const styles = require('../stylus/declear.tax')
 interface Conditions {
   userid: number
@@ -73,6 +74,9 @@ class DeclearTax extends React.Component<any, MyStates> {
     const { conditions } = this.state
     this.props.dispatch(actions.fetchAccountantsAction())
     this.props.dispatch(fetchDeclareListAction(conditions))
+    stores.subscribe(() => {
+      console.log('change')
+    })
   }
   public processAccountant () {
     const { accountantList } = this.props
@@ -95,7 +99,7 @@ class DeclearTax extends React.Component<any, MyStates> {
         <tr key={'declear-tax-item-' + index}>
           <td><input type='checkbox' /></td>
           <td>
-            <i className='fa updown fa-angle-down' aria-hidden='true'></i>
+            <i className='fold fa updown fa-angle-down' aria-hidden='true'></i>
           </td>
           <td colSpan={2}>{items.CompanyName}</td>
           <td></td>
@@ -111,7 +115,7 @@ class DeclearTax extends React.Component<any, MyStates> {
       if (items.TaxList && items.TaxList.length > 0) {
         items.TaxList.map((item: any, sindex: number) => {
           node.push(
-            <tr key={'declear-tax-item-son-' + sindex}>
+            <tr key={'declear-tax-item-' + index + '-' + sindex}>
               <td><input type='checkbox' /></td>
               <td>{item.ItemNo}</td>
               <td>
@@ -138,6 +142,11 @@ class DeclearTax extends React.Component<any, MyStates> {
       }
     })
     return node
+  }
+  public handleSelect (field: string, item: CustomOption) {
+    let { conditions } = this.state
+    conditions = Object.assign({}, conditions, {[field]: item.key})
+    this.props.dispatch(fetchDeclareListAction(conditions))
   }
   public render () {
     const accountantList = this.processAccountant()
@@ -177,28 +186,28 @@ class DeclearTax extends React.Component<any, MyStates> {
                 key='declear-tax-drop-down-1'
                 className={styles.options}
                 data={accountantList}
-                style={{width: '150px', height: '32px', display: 'inline-block', marginLeft: '20px', float: 'left'}}
+                callBack={this.handleSelect.bind(this, 'account')}
                 >
               </DropDown>
               <DropDown
                 key='declear-tax-drop-down-2'
                 className={styles.options}
                 data={this.payTaxesType}
-                style={{width: '150px', height: '32px', display: 'inline-block', marginLeft: '20px', float: 'left'}}
+                callBack={this.handleSelect.bind(this, 'taxplayercategory')}
                 >
               </DropDown>
               <DropDown
                 key='declear-tax-drop-down-3'
                 className={styles.options}
                 data={this.taxesType}
-                style={{width: '150px', height: '32px', display: 'inline-block', marginLeft: '20px', float: 'left'}}
+                callBack={this.handleSelect.bind(this, 'status')}
                 >
               </DropDown>
               <DropDown
                 key='declear-tax-drop-down-4'
                 className={styles.options}
                 data={this.declareStatus}
-                style={{width: '150px', height: '32px', display: 'inline-block', marginLeft: '20px', float: 'left'}}
+                callBack={this.handleSelect.bind(this, 'status')}
                 >
               </DropDown>
               <div className='pull-right'>

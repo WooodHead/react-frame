@@ -42,7 +42,7 @@ class Main extends React.Component {
     const { ajaxCount, online } = this.props
     return (
       <div style={styles.container}>
-        {ajaxCount && <Loading />}
+        {ajaxCount > 0 && <Loading />}
         { online && <div>
           <Top />
           <div style={styles.main}>

@@ -106,6 +106,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: path.resolve(__dirname, 'src'),
         use: extractCommon.extract({
           fallback: 'style-loader',
           use: [

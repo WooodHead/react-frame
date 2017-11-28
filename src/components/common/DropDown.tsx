@@ -11,7 +11,7 @@ interface T {
 interface MyProps {
   data: T[]
   className?: string
-  style: any
+  style?: React.CSSProperties
   filter?: boolean
   callBack?: (item: T) => void
 }

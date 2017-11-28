@@ -5,11 +5,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中�
 
 const extractCommon = new ExtractTextPlugin({
   filename: 'css/common.[contenthash:8].css',
-  allChunks: true
+  // allChunks: true
 })
 const extractApp = new ExtractTextPlugin({
   filename: 'css/app.[contenthash:8].css',
-  allChunks: true
+  // allChunks: true
 })
 var env = 'production';
 
@@ -38,8 +38,6 @@ var plugins = [
     // hash:true
   }),
   new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery', "window.jQuery": 'jquery'}),
-  extractCommon,
-  extractApp,
   // Explicit vendor chunk
   // 单独将echarts jquery提取出来
   new webpack.optimize.CommonsChunkPlugin({
@@ -58,7 +56,9 @@ var plugins = [
     },
     sourceMap: true
   }),
-  new webpack.NoEmitOnErrorsPlugin()
+  new webpack.NoEmitOnErrorsPlugin(),
+  extractCommon,
+  extractApp
 ];
 
 module.exports = {

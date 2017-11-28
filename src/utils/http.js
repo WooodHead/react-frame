@@ -1,3 +1,4 @@
+import { notification } from 'antd'
 import store from '@/stores'
 
 $(document).ajaxStart((event, request, settings) => {
@@ -14,9 +15,12 @@ $(document).ajaxComplete((a, b, c) => {
   store.dispatch({type: 'loading hidden'})
   // console.log('ajaxComplete', a, b, c)
 })
-// $(document).ajaxError((event, request, settings) => {
-//   console.log(settings, 'ajaxError')
-// })
+$(document).ajaxError((event, request, settings) => {
+  notification.error({
+    message: '请求出错',
+    description: '网络请求出错，请检查网络是否正常！'
+  })
+})
 // $.ajaxSettings.statusCode = {
 //   401: () => {
 //     console.log('401')
@@ -66,7 +70,12 @@ const http = (url, type, config = {}) => {
     // console.log(result)
     return result
   }, (err) => {
-    console.log(err, 'err')
+    // if (err.statusText === 'timeout') {
+    //   notification.error({
+    //     message: '请求超时',
+    //     description: '网络请求超时，请检查网络是否正常！'
+    //   })
+    // }
     return err
   })
 }
