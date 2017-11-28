@@ -16,6 +16,21 @@ export const fetchCurrentInfo = () => {
 export const fetchRangInfo = () => {
   return http('/api/v1/security/range')
 }
+// 获取消息数
+export const fetchMessageNum = () => {
+  return http('/api/v1/messages/unreads/count')
+}
+
+/* 申报列表页面相关接口 */
+// 获取申报列表会计列表
+export const fetchAccountants = () => {
+  return http('/api/v1/Accountants/')
+}
+// 获取申报列表
+export const fetchDeclareList = (params: any) => {
+  return http('/api/v1/declaration/autolist', params)
+}
+
 // 修改密码
 export const changePasswd = (params: {OldPassword: string, NewPassword: string, NewPassword2: string}) => {
   return http('/api/v1/security/password/change', 'PUT', params)

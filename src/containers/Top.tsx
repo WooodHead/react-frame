@@ -1,5 +1,5 @@
 import { Modal, notification } from 'antd'
-import classNmaes from 'classnames'
+import classNames from 'classnames'
 import React from 'react'
 import { connect } from 'react-redux'
 import { APP } from '../utils/app'
@@ -76,9 +76,20 @@ class Top extends React.Component<any, MyStates> {
       visible: false
     })
   }
+  // 切换角色
+  public switchUser (item: any) {
+    $('#profile .dropdown').hide()
+    const payload: any = {
+      userInfo: {
+        user: item.EmployeeName,
+        id: item.UserId
+      }
+    }
+    this.props.dispatch({type: 'change user', payload})
+  }
   public render () {
     const { arrowStatus, visible } = this.state
-    const { currentInfo, rangInfo } = this.props
+    const { currentInfo, rangInfo, selectUserInfo, messageNum } = this.props
     return (
       <div className={styles.container}>
         <Modal
@@ -94,10 +105,16 @@ class Top extends React.Component<any, MyStates> {
         <SearchCompany className='u-search' />
         <ul className='pull-right list-inline u-user'>
             <li>
-                <a href='#message' className='i-message animated zoomIn' title='消息'
-                  style={{animationIterationCount: 'infinite'}}>
+                <a
+                  href='#message'
+                  className={classNames('i-message', { animated: messageNum.Msg }, 'zoomIn')}
+                  title='消息'
+                  style={{animationIterationCount: 'infinite'}}
+                  >
                     <span className='glyphicon glyphicon-bell'></span>
-                    <span className='badge' id='messageBadge'>14</span>
+                    {messageNum.Msg > 0 && <span className='badge' id='messageBadge'>
+                      {messageNum.Msg}
+                    </span>}
                 </a>
                 <div className='dropdown'>
                     <div className='dropdown-arrow'></div>
@@ -107,9 +124,16 @@ class Top extends React.Component<any, MyStates> {
                 </div>
             </li>
             <li>
-                <a href='#workorder' className='i-workorder' title='账务沟通'>
+                <a href='#workorder'
+                  className={classNames('i-workorder', { animated: messageNum.Communicate }, 'zoomIn')}
+                  title='账务沟通'
+                  style={{animationIterationCount: 'infinite'}}
+                  >
                     <span className='glyphicon' style={{top: '-2px'}}>
                       <i className='fa fa-comments' aria-hidden='true'></i>
+                      {messageNum.Communicate > 0 && <span className='badge' id='messageBadge'>
+                        {messageNum.Communicate}
+                      </span>}
                     </span>
                     <span className='badge animated' id='workorderBadge' style={{display: 'none'}}></span>
                 </a>
@@ -130,7 +154,7 @@ class Top extends React.Component<any, MyStates> {
                 <a href='javascript:;' className='i-user' id='user-icon' title='我的'>
                     <span className='glyphicon glyphicon-user'></span>
                 </a>
-                <span id='currentUser' className='current-user'>{currentInfo.EmployeeName}</span>
+                <span id='currentUser' className='current-user'>{selectUserInfo.user}</span>
                 <div className='dropdown' id='user-dropdown'>
                     <div className='dropdown-arrow'></div>
                     <div className='dropwdown-item'>
@@ -139,7 +163,7 @@ class Top extends React.Component<any, MyStates> {
                     <div className='dropwdown-item' onClick={this.showMyGroup.bind(this)}>
                         <span className='groupMem' id='toggleGroup'>
                           我的小组
-                          <i className={classNmaes('i-select', arrowStatus)}></i>
+                          <i className={classNames('i-select', arrowStatus)}></i>
                         </span>
                         <div
                           className='u-group'
@@ -148,7 +172,15 @@ class Top extends React.Component<any, MyStates> {
                           >
                           {
                             rangInfo && rangInfo.map((item: any, index: number) => {
-                              return (<div key={'rang-' + index} className='group-item'>{item.EmployeeName}</div>)
+                              return (
+                                <div
+                                  onClick={this.switchUser.bind(this, item)}
+                                  key={'rang-' + index}
+                                  className='group-item'
+                                  >
+                                  {item.EmployeeName}
+                                </div>
+                              )
                             })
                           }
                         </div>

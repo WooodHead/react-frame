@@ -1,0 +1,76 @@
+.container
+  color: #838383
+  width: 1200px
+  margin: 30px auto
+  .title
+    font-family: "微软雅黑"
+    font-size: 22px
+    line-height: 30px
+    text-align: center
+    margin: 40px auto
+  .box
+    background: white
+    .header
+      padding: 0 15px
+      border-bottom: 1px #ccc solid
+      height: 50px
+      overflow: hidden
+      line-height: 50px
+      .box-title
+        display: inline-block
+        height: 24px
+        line-height: 24px
+        border-left: 3px solid rgba(25, 158, 216, 1)
+        span
+          padding-left: 6px
+          font-size: 20px
+          color: #6B6B6B
+      .statistics
+        float: right
+        label, span
+          font-family: 'Arial Negreta', 'Arial'
+          font-weight: 700
+          font-style: normal
+          font-size: 14px
+        label
+          color:#A1A1A1
+          margin: 0 10px 0px 15px
+        span
+          color:#434343
+        .mark
+          color:#FF8000
+    .body
+      padding: 20px
+      overflow: hidden
+      .conditions
+        &:after
+          content: ''
+          clear: both
+          display: block
+        .options
+          width: 150px
+          height: 32px
+          display: inline-block
+          margin-left: 20px
+          float: left
+          :global .results
+            top: 34px
+      .table
+        width: 100%
+        overflow: hidden
+        margin-top: 20px
+        table
+          width: 100%
+          tr
+            th
+              background-color: #596472;
+              color: #fff;
+            td
+              color: #4b5564;
+            th, td
+              border: 1px solid #ddd;
+              vertical-align: middle;
+              font-weight: 400;
+              text-align: center;
+              padding: 0 8px;
+              height: 30px;

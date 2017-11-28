@@ -63,9 +63,10 @@ const http = (url, type, config = {}) => {
     } else {
       result = res
     }
-    console.log(result)
+    // console.log(result)
     return result
   }, (err) => {
+    console.log(err, 'err')
     return err
   })
 }

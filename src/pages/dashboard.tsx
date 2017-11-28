@@ -22,7 +22,7 @@ class DashBoard extends React.Component<any, MyStates> {
   public componentWillMount () {
     fetchAllCompany().then((res) => {
       const data: T[] = []
-      if (res.status && res.data.length) {
+      if (res.status && res.data && res.data.length) {
         res.data.map((item: {CompanyId: number, CompanyName: string}) => {
           data.push({key: item.CompanyId, title: item.CompanyName})
         })

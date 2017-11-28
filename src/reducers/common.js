@@ -13,22 +13,52 @@ export default handleActions({
       ajaxCount: state.ajaxCount - 1
     }
   },
-  'fetch current info': (state, { payload }) => {
+  'update current info': (state, { payload }) => {
     return {
       ...state,
       currentInfo: payload.currentInfo,
+      selectUserInfo: { user: payload.currentInfo.EmployeeName, id: payload.currentInfo.UserId },
       online: true
     }
   },
-  'fetch rang info': (state, { payload }) => {
+  'change user': (state, { payload }) => {
+    console.log(payload, 'chnage user')
+    return {
+      ...state,
+      selectUserInfo: payload.userInfo
+    }
+  },
+  'update rang info': (state, { payload }) => {
     return {
       ...state,
       rangInfo: payload.rangInfo
+    }
+  },
+  'update message num': (state, { payload }) => {
+    return {
+      ...state,
+      messageNum: {
+        Msg: payload.Msg,
+        Communicate: payload.Communicate
+      }
+    }
+  },
+  'update accountants list': (state, { payload }) => {
+    console.log(payload)
+    return {
+      ...state,
+      accountantList: payload
     }
   }
 }, {
   ajaxCount: 0,
   currentInfo: {},
   online: false,
-  rangInfo: []
+  rangInfo: [],
+  selectUserInfo: '',
+  messageNum: {
+    Msg: 0,
+    Communicate: 0
+  },
+  accountantList: []
 })

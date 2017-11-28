@@ -27,7 +27,7 @@ class SearchCompany extends React.Component<MyProps, MyState> {
     searchCompanys({ userid: 217 }).then((res: any) => {
       if (res.status) {
         const data: T[] = []
-        if (res.status && res.data.length) {
+        if (res.status && res.data && res.data.length) {
           res.data.map((item: {CompanyId: number, CompanyName: string}) => {
             data.push({key: item.CompanyId, title: item.CompanyName})
           })

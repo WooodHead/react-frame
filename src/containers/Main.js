@@ -28,8 +28,15 @@ class Main extends React.Component {
       }
       if (res) {
         this.props.dispatch(actions.fetchRangInfoAction())
+        this.props.dispatch(actions.fetchMessageNumAction())
+        this.setTimeFetchMessage()
       }
     }))
+  }
+  setTimeFetchMessage () {
+    setInterval(() => {
+      this.props.dispatch(actions.fetchMessageNumAction())
+    }, 60000)
   }
   render () {
     const { ajaxCount, online } = this.props

@@ -22,7 +22,7 @@ const isPro = process.env.NODE_ENV === 'production'
 // const Router = isPro ? BrowserRouter : HashRouter
 const Router = HashRouter
 
-const basename = isPro ? '/' : '/'
+const basename = isPro ? '/v2/' : '/'
 
 const router = () => (
   <Provider store={store}>
@@ -36,6 +36,7 @@ const router = () => (
           <Route path="/login" render={() => <Login />}/>
           <Main>
             <Route path="/dashboard" component={modules.DashBoard}/>
+            <Route path="/declearTax" component={modules.DeclearTax}/>
           </Main>
         </Switch>
       </App>

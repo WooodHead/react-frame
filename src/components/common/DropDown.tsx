@@ -10,7 +10,7 @@ interface T {
 }
 interface MyProps {
   data: T[]
-  className: string
+  className?: string
   style: any
   filter?: boolean
   callBack?: (item: T) => void
@@ -153,7 +153,7 @@ export default class extends React.Component<MyProps, MyStates> {
             <i className='fa fa-chevron-down' aria-hidden='true'></i>
           </div>
         </div>
-        {visible && <div className={ClassNames(styles.results)} ref='results'>
+        {visible && <div className='results' ref='results'>
           {filter && <input className={styles.input} onChange={this.handleChange.bind(this)} ref='input'/>}
           {data.length === 0 && <p>未搜到结果</p>}
           <div className={styles.items}>

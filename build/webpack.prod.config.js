@@ -50,11 +50,6 @@ var plugins = [
   }),
   // 引导
   new webpack.optimize.CommonsChunkPlugin({name: 'manifest', minChunks: Infinity}),
-  new ExtractTextPlugin({
-    filename: 'css/[name].[contenthash].css',
-    //disable: false,
-    allChunks: true
-  }),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false,
@@ -76,7 +71,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].js',
-    publicPath: '/'
+    publicPath: '/v2/'
   },
   module: {
     rules: [
