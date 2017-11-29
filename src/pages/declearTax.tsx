@@ -1,6 +1,7 @@
 import { Input } from 'antd'
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
+import { withRouter } from 'react-router'
 import * as actions from '../actions/common'
 import { fetchDeclareListAction } from '../actions/declearTax'
 import DropDown from '../components/common/DropDown'
@@ -18,13 +19,14 @@ interface Conditions {
 interface MyStates {
   conditions: Conditions
 }
+
 class DeclearTax extends React.Component<any, MyStates> {
   public declareStatus = [{
     title: '--申报状态--',
     key: -1
   }, {
     title: '全部申报完成',
-    key: 2
+    key: 1
   }, {
     title: '部分申报完成',
     key: 2
@@ -89,34 +91,74 @@ class DeclearTax extends React.Component<any, MyStates> {
     })
     return data
   }
+  public toCheck (items: any, item: any) {
+    console.log(items, item)
+  }
+  public toFold (items: any) {
+    if ($('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').hasClass('fa-angle-down')) {
+      $('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').removeClass('fa-angle-down')
+      $('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').addClass('fa-angle-up')
+      $('.company-' + items.CompanyId + ':gt(0)').hide()
+    } else {
+      $('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').removeClass('fa-angle-up')
+      $('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').addClass('fa-angle-down')
+      $('.company-' + items.CompanyId + ':gt(0)').show()
+    }
+  }
   public setTbodyContent () {
     const { declearData } = this.props
     const { CompanyList } = declearData
-    console.log(CompanyList)
     const node: JSX.Element[] = []
     CompanyList.map((items: any, index: number) => {
       node.push(
-        <tr key={'declear-tax-item-' + index}>
-          <td><input type='checkbox' /></td>
+        <tr
+          className={'company-' + items.CompanyId + ' company'}
+          key={'declear-tax-item-' + index}
+          >
+          <td><input onClick={this.toCheck.bind(this, items)} type='checkbox' /></td>
           <td>
-            <i className='fold fa updown fa-angle-down' aria-hidden='true'></i>
+            <i onClick={this.toFold.bind(this, items)} className='fold fa updown fa-angle-down' aria-hidden='true'></i>
           </td>
-          <td colSpan={2}>{items.CompanyName}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td colSpan={10}>
+            <span className='clickable'>{items.CompanyName}</span>
+            <span>
+              纳税人类别：小规模纳税人
+            </span>
+            <span>
+              税号：123456789012345678
+            </span>
+            <span>
+              会计：王五
+            </span>
+            <span>
+              确认时间：2017/11/29 12:04:17
+            </span>
+            <span className='clickable' onClick={() => this.props.history.push('declearResult')}>
+              查看申报结果
+            </span>
+            <span className='clickable'>
+              查看缴款结果
+            </span>
+            <span className='clickable'>
+              税款缴纳
+            </span>
+            <span className='clickable'>
+              查看完税凭证
+            </span>
+            <span className='clickable'>
+              查看往期申报结果
+            </span>
+          </td>
         </tr>
       )
       if (items.TaxList && items.TaxList.length > 0) {
         items.TaxList.map((item: any, sindex: number) => {
           node.push(
-            <tr key={'declear-tax-item-' + index + '-' + sindex}>
-              <td><input type='checkbox' /></td>
+            <tr
+              className={'company-' + items.CompanyId}
+              key={'declear-tax-item-' + index + '-' + sindex}
+              >
+              <td><input onClick={this.toCheck.bind(this, items, item)} type='checkbox' /></td>
               <td>{item.ItemNo}</td>
               <td>
                 <span
@@ -210,6 +252,9 @@ class DeclearTax extends React.Component<any, MyStates> {
                 callBack={this.handleSelect.bind(this, 'status')}
                 >
               </DropDown>
+              <div className={styles.refresh}>
+                <i className='fa fa-refresh' aria-hidden='true'></i>
+              </div>
               <div className='pull-right'>
                 <button type='button' className='btn btn-sm btn-warning' style={{marginRight: '5px'}}>批量人工申报</button>
                 <button type='button' className='btn btn-sm btn-warning'>批量一键报税</button>
@@ -251,4 +296,4 @@ export default connect(
       ...declearTax
     }
   }
-)(DeclearTax)
+)(withRouter(DeclearTax))

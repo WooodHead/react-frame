@@ -2,6 +2,13 @@
   color: #838383
   width: 1200px
   margin: 30px auto
+  :global
+    a
+      cursor: pointer
+    .clickable
+      color: #337ab7
+      text-decoration: none;
+      cursor: pointer;
   .title
     font-family: "微软雅黑"
     font-size: 22px
@@ -53,27 +60,50 @@
         .options
           width: 150px
           height: 32px
-          display: inline-block
           margin-left: 20px
           float: left
           :global .results
             top: 34px
+        .refresh
+          float: left
+          font-size: 20px
+          color: orange
+          cursor: pointer
+          margin: 3px 0px 0px 20px;
       .table
         width: 100%
-        overflow: hidden
+        overflow-x: scroll
         margin-top: 20px
         min-height: 400px
         table
-          width: 100%
+          width: 1500px
+          :global .company
+            border-left: 1px solid #ddd
+            border-right: 1px solid #ddd
+            background-color: rgba(242, 242, 242, 1);
+            td
+              border: none
+              span
+                padding: 0 10px
           tr
+            background-color: #FFF
             th
               background-color: #596472;
               color: #fff;
             td
               color: #4b5564;
+              text-align: center
+              &:nth-child(3)
+                margin: auto 5px
+                span:nth-child(1)
+                  float: left
               :global .fold
                 cursor: pointer
                 font-size: 18px
+              .company-name
+                color: #337ab7;
+                text-decoration: none;
+                cursor: pointer
             th, td
               border: 1px solid #ddd;
               vertical-align: middle;

@@ -9,6 +9,7 @@ import loadDemo3 from 'bundle-loader?lazy&name=[name]!@/pages/demo3'
 import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
 import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
 import loadDeclearTax from 'bundle-loader?lazy&name=[name]!@/pages/declearTax' // 申报列表
+import loadDeclearResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/result' // 申报列表
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -43,5 +44,10 @@ export const DashBoard = (props) => (
 export const DeclearTax = (props) => (
   <Bundle load={loadDeclearTax}>
     {(DeclearTax) => <DeclearTax {...props}/>}
+  </Bundle>
+)
+export const DeclearResult = (props) => (
+  <Bundle load={loadDeclearResult}>
+    {(DeclearResult) => <DeclearResult {...props}/>}
   </Bundle>
 )

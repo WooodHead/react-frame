@@ -1,3 +1,4 @@
+/// <reference types='react' />
 interface MyState {
   dataSource: any[]
 }

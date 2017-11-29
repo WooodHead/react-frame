@@ -44,7 +44,6 @@ export default handleActions({
     }
   },
   'update accountants list': (state, { payload }) => {
-    console.log(payload)
     return {
       ...state,
       accountantList: payload
