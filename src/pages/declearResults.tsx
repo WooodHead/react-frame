@@ -41,17 +41,9 @@ class DeclearResult extends React.Component <any, MyStates> {
       fixed: 'right',
       width: 180,
       render: (text, record) => (
-          <Row gutter={8}>
-            <Col className='gutter-row' span={10} >
-              <a href='#' className='operation'>重新上传</a>
-            </Col>
-            <Col className='gutter-row' span={6} >
-              <a href='#'>回复</a>
-            </Col>
-            <Col className='gutter-row' span={6}>
-              <a href='#'>删除</a>
-            </Col>
-          </Row>
+          <span>
+            <a href="#">申报作废</a>
+          </span>
       )
     }
   ]
@@ -70,12 +62,12 @@ class DeclearResult extends React.Component <any, MyStates> {
   public render () {
     return (
       <div className={styles.container}> 
-        <div className={styles.head}>
+        {/* <div className={styles.head}>
           查看申报结果
           <Button className={styles.back}>返回</Button>
-        </div>
-        <div>
-
+        </div> */}
+        <div className={styles.comInfo}>
+          <div></div>
         </div>
         <div>
           <Table
