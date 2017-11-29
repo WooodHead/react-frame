@@ -2,6 +2,19 @@ import { Table, Input, Row, Col, Icon, Popover } from 'antd'
 import { TableColumnConfig } from 'antd/lib/table/Table'
 import { fetchAllRejected, fetchRejectedCommunicate } from '../utils/api'
 import React from 'react'
+const styles = {
+  container: {
+    width: '1200px',
+    height: '100%',
+    position: 'absolute',
+    left: '50%',
+    marginLeft: '-600px'
+  },
+  head: {
+    padding: '40px 0',
+    textAlign: 'center'
+  }
+}
 
 interface ColumnsConfig extends TableColumnConfig<any> {}
 interface D {
@@ -17,6 +30,7 @@ interface D {
 interface MyStates {
   data: D[] | any
 }
+
 class ChatsIcon extends React.Component <any, MyStates> {
   constructor () {
     super()
@@ -24,34 +38,39 @@ class ChatsIcon extends React.Component <any, MyStates> {
       data: []
     }
   }
+  public getPopupContainer () {
+    return this.refs.icon
+  }
   public render () {
     return (
       <Popover
         placement='top'
         title={'驳回记录'}
         content={
-          this.state.data.map((item: any)=>
-            <p>{item.RealName}</p>
+          this.state.data.map((item: any, index: number) =>
+            <p key={'reject-msg-content-' + index}>{item.RealName}</p>
           )
         }
         trigger='click'
+        overlayStyle={{width: '400px'}}
+         getPopupContainer={this.getPopupContainer.bind(this)}
       >
-        <Icon type='menu-unfold' style={{cursor: 'pointer'}} onClick={this.iconClick.bind(this, this.props.receiptId)}/>
+        <div ref='icon'></div>
+        <Icon type='menu-unfold' style={{cursor: 'pointer'}} onClick={this.iconClick.bind(this, this.props.receiptId)} />
       </Popover>
     )
   }
-  
   public iconClick (ReceiptId: number) {
-    if (this.state.data.length == 0) {
-      fetchRejectedCommunicate({receiptId: ReceiptId,tars: 12345}).then((res: any)=>{
+    if (this.state.data.length === 0) {
+      fetchRejectedCommunicate({receiptId: ReceiptId, tars: 12345}).then( (res: any) => {
         this.setState({data: res.data})
       })
     }
     console.log(ReceiptId)
   }
 }
-export default class SetRejected extends React.Component <any, MyStates> {
-  constructor () {
+class SetRejected extends React.Component <any, MyStates> {
+  public constructor () {
     super()
     this.state = {
       data: []
@@ -59,7 +78,7 @@ export default class SetRejected extends React.Component <any, MyStates> {
   }
   public columns: ColumnsConfig[] = [
     { title: '公司名称', width: 200, dataIndex: 'CompanyName', key: 'name', fixed: 'left', className: 'companyName' },
-    { title: '票据名称', width: 400,dataIndex: 'ImgName', key: '1' ,
+    { title: '票据名称', width: 400, dataIndex: 'ImgName', key: '1' ,
       render: (text, record) => (
         <Row gutter={8}>
           <Col className='gutter-row' span={22} >
@@ -108,8 +127,12 @@ export default class SetRejected extends React.Component <any, MyStates> {
   }
   public render () {
     return (
-      <div>
-        <h3>驳回票据</h3>
+      <div style={{width: '1200px',
+      height: '100%',
+      position: 'absolute',
+      left: '50%',
+      marginLeft: '-600px'}}>
+        <h3 style={styles.head}>驳回票据</h3>
         <div>
           <Input size='large' placeholder='搜索' onChange={this.onChange.bind(this)} />
           <Table
@@ -124,3 +147,4 @@ export default class SetRejected extends React.Component <any, MyStates> {
     )
   }
 }
+export default SetRejected

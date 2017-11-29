@@ -39,7 +39,8 @@ class SearchCompany extends React.Component<MyProps, MyState> {
     })
   }
   public removeSearch () {
-    $(findDOMNode(this.refs.autocomplete)).find('input').blur()
+    // $(findDOMNode(this.refs.autocomplete)).find('input').val('')
+    $(findDOMNode(this.refs.autocomplete)).find('input').val('').blur()
   }
   public handleSelect (item: any) {
     // console.log(item, 'select')

@@ -47,10 +47,10 @@ export const searchCompanys = (params: {userid: number}) => {
 export const fetchAllCompany = () => {
   return http('/api/v1/shareing/company/all2')
 }
-//查询驳回信息
+// 查询驳回信息
 export const fetchAllRejected = () => {
   return http('/api/v1/ReceiptOperation/rejectimage?order=asc&limit=10&offset=0')
 }
 export const fetchRejectedCommunicate = (params: {receiptId: number, tars: number}) => {
-  return http('/api/v1/ReceiptOperation/RejectedCommunicate',params)
+  return http('/api/v1/ReceiptOperation/RejectedCommunicate', params)
 }
