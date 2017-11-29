@@ -12,7 +12,6 @@ import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
 import loadDeclearTax from 'bundle-loader?lazy&name=[name]!@/pages/declearTax' // 申报列表
 import loadDeclearResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/result' // 申报列表
 import loadSetRejected from 'bundle-loader?lazy&name=[name]!@/pages/setRejected'
-import loadDeclearResults from 'bundle-loader?lazy&name=[name]!@/pages/DeclearResults'
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -62,10 +61,5 @@ export const DeclearResult = (props) => (
 export const SetRejected = (props) => (
   <Bundle load={loadSetRejected}>
     {(SetRejected) => <SetRejected {...props}/>}
-  </Bundle>
-)
-export const DeclearResults = (props) => (
-  <Bundle load={loadDeclearResults}>
-    {(DeclearResults) => <DeclearResults {...props}/>}
   </Bundle>
 )

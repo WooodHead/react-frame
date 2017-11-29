@@ -41,7 +41,6 @@ const router = () => (
             <Route path='/declearTax' component={modules.DeclearTax}/>
             <Route path='/declearResult' component={DeclearResult}/>
             <Route path="/setRejected" component={modules.SetRejected}/>
-            <Route path="/declearResults" component={modules.DeclearResults}/>
           </Main>
         </Switch>
       </App>
