@@ -1,8 +1,13 @@
+import * as H from 'history'
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 const styles = require('../stylus/declear.container')
-class DeclearContainer extends React.Component<any, {}> {
+interface MyProps {
+  history?: H.History
+  currentTitle?: string
+}
+class DeclearContainer extends React.Component<MyProps, {}> {
   public render () {
     return (
       <div className={styles.container}>

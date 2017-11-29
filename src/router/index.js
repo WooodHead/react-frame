@@ -15,7 +15,7 @@ import App from '@/containers/App'
 import Main from '@/containers/Main'
 import * as modules from './modules'
 
-const { Login, DeclearResult } = modules
+const { Login } = modules
 
 const isPro = process.env.NODE_ENV === 'production'
 
@@ -37,7 +37,8 @@ const router = () => (
           <Main>
             <Route path='/dashboard' component={modules.DashBoard}/>
             <Route path='/declearTax' component={modules.DeclearTax}/>
-            <Route path='/declearResult' component={DeclearResult}/>
+            <Route path='/declearResult' component={modules.DeclearResult}/>
+            <Route path='/declearPayment' component={modules.DeclearPayment}/>
           </Main>
         </Switch>
       </App>

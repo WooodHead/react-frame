@@ -136,7 +136,7 @@ class DeclearTax extends React.Component<any, MyStates> {
             <span className='clickable' onClick={() => this.props.history.push('declearResult')}>
               查看申报结果
             </span>
-            <span className='clickable'>
+            <span className='clickable' onClick={() => this.props.history.push('declearPayment')}>
               查看缴款结果
             </span>
             <span className='clickable'>
