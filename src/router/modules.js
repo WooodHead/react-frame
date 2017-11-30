@@ -7,15 +7,22 @@ import loadDemo1 from 'bundle-loader?lazy&name=[name]!@/pages/demo1'
 import loadDemo2 from 'bundle-loader?lazy&name=[name]!@/pages/demo2'
 import loadDemo3 from 'bundle-loader?lazy&name=[name]!@/pages/demo3'
 import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
+import loadNoMatch from 'bundle-loader?lazy&name=[name]!@/pages/noMatch'
 import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
 import loadDeclearTax from 'bundle-loader?lazy&name=[name]!@/pages/declearTax' // 申报列表
 import loadDeclearResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/result' // 查看申报结果
 import loadDeclearPayment from 'bundle-loader?lazy&name=[name]!@/pages/declear/payment' // 申报缴款
 import loadDeclearPaymentResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/paymentResult' // 查看缴款结果
+import loadDeclearVoucher from 'bundle-loader?lazy&name=[name]!@/pages/declear/Voucher' // 查看缴款结果
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
     {(Index) => <Index {...props}/>}
+  </Bundle>
+)
+export const NoMatch = (props) => (
+  <Bundle load={loadNoMatch}>
+    {(NoMatch) => <NoMatch {...props}/>}
   </Bundle>
 )
 export const Demo1 = (props) => (
@@ -61,5 +68,10 @@ export const DeclearPaymentResult = (props) => (
 export const DeclearPayment = (props) => (
   <Bundle load={loadDeclearPayment}>
     {(DeclearPayment) => <DeclearPayment {...props}/>}
+  </Bundle>
+)
+export const DeclearVoucher = (props) => (
+  <Bundle load={loadDeclearVoucher}>
+    {(DeclearVoucher) => <DeclearVoucher {...props}/>}
   </Bundle>
 )

@@ -22,24 +22,29 @@ const isPro = process.env.NODE_ENV === 'production'
 // const Router = isPro ? BrowserRouter : HashRouter
 const Router = HashRouter
 
-const basename = isPro ? '/v2/' : '/'
+const basename = isPro ? '/' : '/'
 
 const router = () => (
   <Provider store={store}>
     <Router basename={basename}>
       <App>
         <Switch>
-          <Route path='/' exact={true} component={modules.Index}/>
+          <Route path='/' exact={true} render={() => {
+            return <Redirect to='/declearTax' />
+          }}/>
           <Route path='/demo1' component={modules.Demo1}/>
           <Route path='/demo2' component={modules.Demo2}/>
           <Route path='/demo3' component={modules.Demo3}/>
           <Route path='/login' render={() => <Login />}/>
           <Main>
-            <Route path='/dashboard' component={modules.DashBoard}/>
+            <Route exact path='/dashboard' render={() => {
+              return <Redirect to='/declearTax'/>
+            }}/>
             <Route path='/declearTax' component={modules.DeclearTax}/>
-            <Route path='/declearResult' component={modules.DeclearResult}/>
+            <Route path='/declear/result' component={modules.DeclearResult}/>
             <Route path='/declear/payment' component={modules.DeclearPayment}/>
             <Route path='/declear/paymentResult' component={modules.DeclearPaymentResult}/>
+            <Route path='/declear/voucher' component={modules.DeclearVoucher}/>
           </Main>
         </Switch>
       </App>

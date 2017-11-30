@@ -5,11 +5,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin'); // 从bundle中�
 
 const extractCommon = new ExtractTextPlugin({
   filename: 'css/common.[contenthash:8].css',
-  // allChunks: true
+  allChunks: true
 })
 const extractApp = new ExtractTextPlugin({
   filename: 'css/app.[contenthash:8].css',
-  // allChunks: true
+  allChunks: true
 })
 var env = 'production';
 
