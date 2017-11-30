@@ -77,14 +77,13 @@
         min-height: 400px
         table
           width: 1600px
+          margin-bottom: 40px
           :global .company
             border-left: 1px solid #ddd
             border-right: 1px solid #ddd
             background-color: rgba(242, 242, 242, 1);
             td
               border: none
-              span
-                padding: 0 10px
           tr
             background-color: #FFF
             th
@@ -93,6 +92,9 @@
             td
               color: #4b5564;
               text-align: center
+              .company
+                span
+                  padding: 0 10px
               &:nth-child(3)
                 margin: auto 5px
                 span:nth-child(1)
@@ -111,3 +113,13 @@
               text-align: center;
               padding: 0 8px;
               height: 30px;
+    .footer
+      padding: 20px
+      overflow: hidden
+      .pagination
+        float: left
+      .information
+        float: left
+        line-height: 32px
+        margin-left: 20px
+        font-size: 12px

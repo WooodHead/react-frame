@@ -1,4 +1,4 @@
-import { Input } from 'antd'
+import { Checkbox, Input, Pagination } from 'antd'
 import React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -18,6 +18,7 @@ interface Conditions {
 }
 interface MyStates {
   conditions: Conditions
+  selectData: any
 }
 
 class DeclearTax extends React.Component<any, MyStates> {
@@ -69,7 +70,8 @@ class DeclearTax extends React.Component<any, MyStates> {
         account: '',
         taxplayercategory: -1,
         companyname: ''
-      }
+      },
+      selectData: {}
     }
   }
   public componentWillMount () {
@@ -77,7 +79,7 @@ class DeclearTax extends React.Component<any, MyStates> {
     this.props.dispatch(actions.fetchAccountantsAction())
     this.props.dispatch(fetchDeclareListAction(conditions))
     stores.subscribe(() => {
-      console.log('change')
+      this.checkIsAllCheck()
     })
   }
   public processAccountant () {
@@ -91,8 +93,103 @@ class DeclearTax extends React.Component<any, MyStates> {
     })
     return data
   }
-  public toCheck (items: any, item: any) {
-    console.log(items, item)
+  public toCheck (items: any, index: number, e: React.SyntheticEvent<any>) {
+    event.preventDefault()
+    items = $.extend(true, {}, items)
+    const { selectData } = this.state
+    const TaxList = items.TaxList
+    if (index === -1) {
+      if (selectData[items.CompanyId]) {
+        delete selectData[items.CompanyId]
+      } else {
+        selectData[items.CompanyId] = items
+        selectData[items.CompanyId].TaxList = {}
+        for (const val of TaxList) {
+          const ItemId = val.ItemId
+          selectData[items.CompanyId].TaxList[ItemId] = val
+        }
+      }
+    } else {
+      const ItemId = items.TaxList[index].ItemId
+      if (selectData[items.CompanyId]) {
+        if (selectData[items.CompanyId].TaxList[ItemId]) {
+          delete selectData[items.CompanyId].TaxList[ItemId]
+        } else {
+          selectData[items.CompanyId].TaxList[ItemId] = TaxList[index]
+        }
+      } else {
+        selectData[items.CompanyId] = items
+        selectData[items.CompanyId].TaxList = {}
+        if (selectData[items.CompanyId].TaxList[ItemId]) {
+          delete selectData[items.CompanyId].TaxList[ItemId]
+        } else {
+          selectData[items.CompanyId].TaxList[ItemId] = TaxList[index]
+        }
+      }
+    }
+    let IsAll = true
+    for (const i in TaxList) {
+      if (!selectData[items.CompanyId]) {
+        IsAll = false
+        break
+      } else {
+        const ItemId = TaxList[i].ItemId
+        if (!selectData[items.CompanyId].TaxList[ItemId]) {
+          IsAll = false
+          break
+        }
+      }
+    }
+    if (selectData[items.CompanyId]) {
+      selectData[items.CompanyId].IsAll = IsAll
+    }
+    this.setState({
+      selectData
+    }, () => {
+      this.checkIsAllCheck()
+    })
+    console.log(selectData)
+  }
+  public checkIsAllCheck () {
+    let allCheck = true
+    $('table tbody input[type=checkbox]').each((elindex, el) => {
+      if (!$(el).is(':checked')) {
+        $('table thead input[type=checkbox]').prop('checked', false)
+        allCheck = false
+        return false
+      }
+    })
+    if (allCheck && $('table tbody input[type=checkbox]').length) {
+      $('table thead input[type=checkbox]').prop('checked', true)
+    }
+  }
+  public toCheckAll (e: React.SyntheticEvent<any>) {
+    const { declearData } = this.props
+    const { CompanyList } = declearData
+    const { selectData } = this.state
+    const checked = $(e.currentTarget).prop('checked')
+    const data = $.extend(true, [], CompanyList)
+    if (checked) {
+      for (const val of data) {
+        const TaxList = val.TaxList
+        selectData[val.CompanyId] = val
+        selectData[val.CompanyId].TaxList = {}
+        selectData[val.CompanyId].IsAll = true
+        for (const sval of TaxList) {
+          selectData[val.CompanyId].TaxList[sval.ItemId] = sval
+        }
+      }
+    } else {
+      for (const val of data) {
+        if (selectData[val.CompanyId]) {
+          delete selectData[val.CompanyId]
+        }
+      }
+    }
+    this.setState({
+      selectData
+    })
+    console.log(data, selectData)
   }
   public toFold (items: any) {
     if ($('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').hasClass('fa-angle-down')) {
@@ -108,46 +205,55 @@ class DeclearTax extends React.Component<any, MyStates> {
   public setTbodyContent () {
     const { declearData } = this.props
     const { CompanyList } = declearData
+    const { selectData } = this.state
     const node: JSX.Element[] = []
     CompanyList.map((items: any, index: number) => {
       node.push(
         <tr
           className={'company-' + items.CompanyId + ' company'}
           key={'declear-tax-item-' + index}
-          >
-          <td><input onClick={this.toCheck.bind(this, items)} type='checkbox' /></td>
+        >
+          <td>
+            <Checkbox
+              onChange={this.toCheck.bind(this, items, -1)}
+              checked={selectData[items.CompanyId] && selectData[items.CompanyId].IsAll || false}
+            >
+            </Checkbox>
+          </td>
           <td>
             <i onClick={this.toFold.bind(this, items)} className='fold fa updown fa-angle-down' aria-hidden='true'></i>
           </td>
           <td colSpan={10}>
-            <span className='clickable'>{items.CompanyName}</span>
-            <span>
-              纳税人类别：小规模纳税人
-            </span>
-            <span>
-              税号：123456789012345678
-            </span>
-            <span>
-              会计：王五
-            </span>
-            <span>
-              确认时间：2017/11/29 12:04:17
-            </span>
-            <span className='clickable' onClick={() => this.props.history.push('declear/result')}>
-              查看申报结果
-            </span>
-            <span className='clickable' onClick={() => this.props.history.push('declear/paymentResult')}>
-              查看缴款结果
-            </span>
-            <span className='clickable' onClick={() => this.props.history.push('declear/payment')}>
-              税款缴纳
-            </span>
-            <span className='clickable' onClick={() => this.props.history.push('declear/voucher')}>
-              查看完税凭证
-            </span>
-            <span className='clickable'>
-              查看往期申报结果
-            </span>
+            <div className={styles.company}>
+              <span className='clickable'>{items.CompanyName}</span>
+              <span>
+                纳税人类别：小规模纳税人
+              </span>
+              <span>
+                税号：123456789012345678
+              </span>
+              <span>
+                会计：王五
+              </span>
+              <span>
+                确认时间：2017/11/29 12:04:17
+              </span>
+              <span className='clickable' onClick={() => this.props.history.push('declear/result')}>
+                查看申报结果
+              </span>
+              <span className='clickable' onClick={() => this.props.history.push('declear/paymentResult')}>
+                查看缴款结果
+              </span>
+              <span className='clickable' onClick={() => this.props.history.push('declear/payment')}>
+                税款缴纳
+              </span>
+              <span className='clickable' onClick={() => this.props.history.push('declear/voucher')}>
+                查看完税凭证
+              </span>
+              <span className='clickable'>
+                查看往期申报结果
+              </span>
+            </div>
           </td>
         </tr>
       )
@@ -158,7 +264,17 @@ class DeclearTax extends React.Component<any, MyStates> {
               className={'company-' + items.CompanyId}
               key={'declear-tax-item-' + index + '-' + sindex}
               >
-              <td><input onClick={this.toCheck.bind(this, items, item)} type='checkbox' /></td>
+              <td>
+                <Checkbox
+                  onChange={this.toCheck.bind(this, items, sindex)}
+                  checked={
+                    selectData[items.CompanyId]
+                    && selectData[items.CompanyId].TaxList[item.ItemId]
+                    ? true : false
+                  }
+                >
+                </Checkbox>
+              </td>
               <td>{item.ItemNo}</td>
               <td>
                 <span
@@ -188,6 +304,16 @@ class DeclearTax extends React.Component<any, MyStates> {
   public handleSelect (field: string, item: CustomOption) {
     let { conditions } = this.state
     conditions = Object.assign({}, conditions, {[field]: item.key})
+    this.setState({
+      conditions
+    })
+    this.props.dispatch(fetchDeclareListAction(conditions))
+  }
+  public onPageChange () {
+
+  }
+  public toRefresh () {
+    const { conditions } = this.state
     this.props.dispatch(fetchDeclareListAction(conditions))
   }
   public render () {
@@ -253,7 +379,7 @@ class DeclearTax extends React.Component<any, MyStates> {
                 >
               </DropDown>
               <div className={styles.refresh}>
-                <i className='fa fa-refresh' aria-hidden='true'></i>
+                <i className='fa fa-refresh' onClick={this.toRefresh.bind(this)} aria-hidden='true'></i>
               </div>
               <div className='pull-right'>
                 <button type='button' className='btn btn-sm btn-warning' style={{marginRight: '5px'}}>批量人工申报</button>
@@ -264,7 +390,7 @@ class DeclearTax extends React.Component<any, MyStates> {
               <table>
                 <thead>
                   <tr>
-                    <th><input type='checkbox' /></th>
+                    <th><input type='checkbox' onClick={this.toCheckAll.bind(this)}/></th>
                     <th>序号</th>
                     <th>申报税种</th>
                     <th>纳税期限</th>
@@ -283,6 +409,18 @@ class DeclearTax extends React.Component<any, MyStates> {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className={styles.footer}>
+            <Pagination
+              className={styles.pagination}
+              showQuickJumper
+              defaultCurrent={1}
+              total={this.props.declearData.CompanyTotal}
+              onChange={this.onPageChange.bind(this)}
+            />
+            <span className={styles.information}>
+              共 {this.props.declearData.CompanyTotal} 条数据已选公司：15 家
+            </span>
           </div>
         </div>
       </div>
