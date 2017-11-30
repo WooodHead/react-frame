@@ -10,7 +10,8 @@ import loadLogin from 'bundle-loader?lazy&name=[name]!@/pages/login'
 import loadDashBoard from 'bundle-loader?lazy&name=[name]!@/pages/dashboard'
 import loadDeclearTax from 'bundle-loader?lazy&name=[name]!@/pages/declearTax' // 申报列表
 import loadDeclearResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/result' // 查看申报结果
-import loadDeclearPayment from 'bundle-loader?lazy&name=[name]!@/pages/declear/payment' // 查看缴款结果
+import loadDeclearPayment from 'bundle-loader?lazy&name=[name]!@/pages/declear/payment' // 申报缴款
+import loadDeclearPaymentResult from 'bundle-loader?lazy&name=[name]!@/pages/declear/paymentResult' // 查看缴款结果
 
 export const Index = (props) => (
   <Bundle load={loadIndex}>
@@ -50,6 +51,11 @@ export const DeclearTax = (props) => (
 export const DeclearResult = (props) => (
   <Bundle load={loadDeclearResult}>
     {(DeclearResult) => <DeclearResult {...props}/>}
+  </Bundle>
+)
+export const DeclearPaymentResult = (props) => (
+  <Bundle load={loadDeclearPaymentResult}>
+    {(DeclearPaymentResult) => <DeclearPaymentResult {...props}/>}
   </Bundle>
 )
 export const DeclearPayment = (props) => (

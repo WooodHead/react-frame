@@ -38,7 +38,8 @@ const router = () => (
             <Route path='/dashboard' component={modules.DashBoard}/>
             <Route path='/declearTax' component={modules.DeclearTax}/>
             <Route path='/declearResult' component={modules.DeclearResult}/>
-            <Route path='/declearPayment' component={modules.DeclearPayment}/>
+            <Route path='/declear/payment' component={modules.DeclearPayment}/>
+            <Route path='/declear/paymentResult' component={modules.DeclearPaymentResult}/>
           </Main>
         </Switch>
       </App>
