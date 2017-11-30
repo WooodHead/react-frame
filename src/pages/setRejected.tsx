@@ -1,4 +1,4 @@
-import { Table, Input, Row, Col, Icon, Popover } from 'antd'
+import { Col, Icon, Input, Popover, Row, Table } from 'antd'
 import { TableColumnConfig } from 'antd/lib/table/Table'
 import { fetchAllRejected, fetchRejectedCommunicate } from '../utils/api'
 import React from 'react'
@@ -56,7 +56,11 @@ class ChatsIcon extends React.Component <any, MyStates> {
          getPopupContainer={this.getPopupContainer.bind(this)}
       >
         <div ref='icon'></div>
-        <Icon type='menu-unfold' style={{cursor: 'pointer'}} onClick={this.iconClick.bind(this, this.props.receiptId)} />
+        <Icon
+          type='menu-unfold'
+          style={{cursor: 'pointer'}}
+          onClick={this.iconClick.bind(this, this.props.receiptId)}
+        />
       </Popover>
     )
   }

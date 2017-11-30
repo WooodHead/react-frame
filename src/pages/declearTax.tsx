@@ -133,16 +133,16 @@ class DeclearTax extends React.Component<any, MyStates> {
             <span>
               确认时间：2017/11/29 12:04:17
             </span>
-            <span className='clickable' onClick={() => this.props.history.push('declearResult')}>
+            <span className='clickable' onClick={() => this.props.history.push('declear/result')}>
               查看申报结果
             </span>
-            <span className='clickable'>
+            <span className='clickable' onClick={() => this.props.history.push('declear/paymentResult')}>
               查看缴款结果
             </span>
-            <span className='clickable'>
+            <span className='clickable' onClick={() => this.props.history.push('declear/payment')}>
               税款缴纳
             </span>
-            <span className='clickable'>
+            <span className='clickable' onClick={() => this.props.history.push('declear/voucher')}>
               查看完税凭证
             </span>
             <span className='clickable'>
