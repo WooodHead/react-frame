@@ -94,7 +94,8 @@ class DeclearTax extends React.Component<any, MyStates> {
     return data
   }
   public toCheck (items: any, index: number, e: React.SyntheticEvent<any>) {
-    event.preventDefault()
+    // event.preventDefault()
+    console.log(items, index)
     items = $.extend(true, {}, items)
     const { selectData } = this.state
     const TaxList = items.TaxList

@@ -100,13 +100,13 @@ class Top extends React.Component<any, MyStates> {
         >
           <EditPasswd ref='editpasswd'/>
         </Modal>
-        <div className={styles.logo}></div>
+        <a href='/'><div className={styles.logo}></div></a>
         <div className={styles.version}>{APP.Version}</div>
         <SearchCompany className='u-search' />
         <ul className='pull-right list-inline u-user'>
             <li>
                 <a
-                  href='#message'
+                  href='/#/message'
                   className={classNames('i-message', { animated: messageNum.Msg }, 'zoomIn')}
                   title='消息'
                   style={{animationIterationCount: 'infinite'}}
@@ -124,7 +124,7 @@ class Top extends React.Component<any, MyStates> {
                 </div>
             </li>
             <li>
-                <a href='#workorder'
+                <a href='/#/workorder'
                   className={classNames('i-workorder', { animated: messageNum.Communicate }, 'zoomIn')}
                   title='账务沟通'
                   style={{animationIterationCount: 'infinite'}}
@@ -145,7 +145,7 @@ class Top extends React.Component<any, MyStates> {
                 <div className='dropdown' id='system-dropdown'>
                     <div className='dropdown-arrow'></div>
                     <div className='dropwdown-item'>
-                        <span><a href='#accountManager' className=''>账号管理</a></span>
+                        <span><a href='/#/accountManager' className=''>账号管理</a></span>
                     </div>
 
                 </div>
@@ -189,13 +189,13 @@ class Top extends React.Component<any, MyStates> {
                         <span id='modifyPassword' onClick={this.editPasswd.bind(this)}>修改密码</span>
                     </div>
                     <div className='dropwdown-item'>
-                        <a href='#download' className='i-download' title='帮助中心'>
+                        <a href='/#/download' className='i-download' title='帮助中心'>
                             帮助中心
                         </a>
                     </div>
                     <div className='dropwdown-item'>
                         <span onClick={this.toLoginOut.bind(this)} className='i-logout' title='退出'>
-                            退出
+                          退出
                         </span>
                     </div>
                 </div>
