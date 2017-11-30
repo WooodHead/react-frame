@@ -43,6 +43,12 @@ class SearchCompany extends React.Component<MyProps, MyState> {
   }
   public handleSelect (item: any) {
     // console.log(item, 'select')
+    const currentCompany = {
+      companyID: item.key,
+      companyName: item.title
+    }
+    localStorage.setItem('currentCompany', JSON.stringify(currentCompany))
+    window.location.href = '/#compilation/index'
   }
   public toSearch () {
     $(findDOMNode(this.refs.autocomplete)).find('input').click()
