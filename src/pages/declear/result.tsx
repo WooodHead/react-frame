@@ -3,26 +3,26 @@ import { connect } from 'react-redux'
 const styles = require('../../stylus/declear.result')
 import { Col, Row, Table  } from 'antd'
 import { TableColumnConfig } from 'antd/lib/table/Table'
-import DeclearContainer from '../../containers/DeclearContainer'
+import { DeclearCompanyPart, DeclearContainer } from '../../containers'
 // import { MyState } from 'src/pages/demo3';
 
 interface MyStates {
   data: any[]
 }
 class Result extends React.Component<any, MyStates> {
-  // public componentWillMount () {
-  // }
-  constructor () {
+  public componentWillMount () {
+  }
+  public constructor () {
     super()
     this.state = {
       data: []
     }
   }
-  public columns: TableColumnConfig<any>[] = [
+  public columns: [TableColumnConfig<any>] = [
     { title: '序号', dataIndex: '', key: '0', className: 'id' },
     { title: '征收项目名称', dataIndex: '', key: '1' ,
-      render: (text, record,index) => (
-        index+1
+      render: (text, record, index) => (
+        index + 1
       )
     },
     { title: '申报状态', dataIndex: '', key: '2' },
@@ -44,6 +44,7 @@ class Result extends React.Component<any, MyStates> {
   public render () {
     return (
       <DeclearContainer currentTitle='查看申报结果'>
+        <DeclearCompanyPart />
         <Table
           className={styles.DRtable}
           columns={this.columns}
