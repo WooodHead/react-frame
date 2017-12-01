@@ -73,7 +73,9 @@ class DeclearTax extends React.Component<any, MyStates> {
         taxplayercategory: -1,
         companyname: ''
       },
-      selectData: {}
+      selectData: {
+        length: 0
+      }
     }
   }
   public componentWillMount () {
@@ -81,21 +83,23 @@ class DeclearTax extends React.Component<any, MyStates> {
     this.props.dispatch(actions.fetchAccountantsAction())
     this.props.dispatch(fetchDeclareListAction(conditions))
     stores.subscribe(() => {
-      const { conditions } = this.state
-      if (conditions.userid !== this.props.selectUserInfo.id) {
-        console.log('userid change')
-        conditions.userid = this.props.selectUserInfo.id
-        this.setState({
-          conditions
-        }, () => {
-          this.props.dispatch(fetchDeclareListAction(conditions))
-        })
-      }
+      this.handleUserIdChange()
       this.checkIsAllCheck()
     })
   }
   public componentWillReceiveProps (props: any, oldProps: any) {
     console.log(props, oldProps, 'props change')
+  }
+  public handleUserIdChange () {
+    const { conditions } = this.state
+    if (conditions.userid !== this.props.selectUserInfo.id) {
+      conditions.userid = this.props.selectUserInfo.id
+      this.setState({
+        conditions
+      }, () => {
+        this.props.dispatch(fetchDeclareListAction(conditions))
+      })
+    }
   }
   public processAccountant () {
     const { accountantList } = this.props
@@ -114,9 +118,12 @@ class DeclearTax extends React.Component<any, MyStates> {
     items = $.extend(true, {}, items)
     const { selectData } = this.state
     const TaxList = items.TaxList
+    selectData.length = selectData.length >= 0 ? selectData.length : 0
+    // 点击父级
     if (index === -1) {
       if (selectData[items.CompanyId]) {
         delete selectData[items.CompanyId]
+        selectData.length --
       } else {
         selectData[items.CompanyId] = items
         selectData[items.CompanyId].TaxList = {}
@@ -124,23 +131,30 @@ class DeclearTax extends React.Component<any, MyStates> {
           const ItemId = val.ItemId
           selectData[items.CompanyId].TaxList[ItemId] = val
         }
+        selectData.length ++
+        selectData[items.CompanyId].TaxList.length = TaxList.length
       }
     } else {
       const ItemId = items.TaxList[index].ItemId
-      if (selectData[items.CompanyId]) {
+      if (selectData[items.CompanyId]) { // 子级已有被选项
         if (selectData[items.CompanyId].TaxList[ItemId]) {
           delete selectData[items.CompanyId].TaxList[ItemId]
+          selectData[items.CompanyId].TaxList.length --
         } else {
           selectData[items.CompanyId].TaxList[ItemId] = TaxList[index]
+          selectData[items.CompanyId].TaxList.length ++
         }
-      } else {
+      } else { // 子级未被选
         selectData[items.CompanyId] = items
-        selectData[items.CompanyId].TaxList = {}
-        if (selectData[items.CompanyId].TaxList[ItemId]) {
-          delete selectData[items.CompanyId].TaxList[ItemId]
-        } else {
-          selectData[items.CompanyId].TaxList[ItemId] = TaxList[index]
+        selectData[items.CompanyId].TaxList = {
+          length: 1,
+          [ItemId]: TaxList[index]
         }
+        selectData.length ++
+      }
+      if (selectData[items.CompanyId].TaxList.length === 0) {
+        selectData.length --
+        delete selectData[items.CompanyId]
       }
     }
     let IsAll = true
@@ -159,6 +173,7 @@ class DeclearTax extends React.Component<any, MyStates> {
     if (selectData[items.CompanyId]) {
       selectData[items.CompanyId].IsAll = IsAll
     }
+
     this.setState({
       selectData
     }, () => {
@@ -185,8 +200,12 @@ class DeclearTax extends React.Component<any, MyStates> {
     const { selectData } = this.state
     const checked = $(e.currentTarget).prop('checked')
     const data = $.extend(true, [], CompanyList)
+    selectData.length = selectData.length || 0
     if (checked) {
       for (const val of data) {
+        if (!selectData[val.CompanyId]) {
+          selectData.length ++
+        }
         const TaxList = val.TaxList
         selectData[val.CompanyId] = val
         selectData[val.CompanyId].TaxList = {}
@@ -194,18 +213,20 @@ class DeclearTax extends React.Component<any, MyStates> {
         for (const sval of TaxList) {
           selectData[val.CompanyId].TaxList[sval.ItemId] = sval
         }
+        selectData[val.CompanyId].TaxList.length = TaxList.length
       }
     } else {
       for (const val of data) {
         if (selectData[val.CompanyId]) {
           delete selectData[val.CompanyId]
+          selectData.length --
         }
       }
     }
     this.setState({
       selectData
     })
-    console.log(data, selectData)
+    console.log(selectData)
   }
   public toFold (items: any) {
     if ($('.company-' + items.CompanyId + ':eq(0)').children().eq(1).children('i').hasClass('fa-angle-down')) {
@@ -437,7 +458,9 @@ class DeclearTax extends React.Component<any, MyStates> {
               />
             }
             <span className={styles.information}>
-              共 {this.props.declearData.CompanyTotal} 条数据已选公司：15 家
+              共 {this.props.declearData.CompanyTotal} 条数据
+              {this.state.selectData.length > 0
+                ? '已选公司：' + this.state.selectData.length + ' 家' : ''}
             </span>
           </div>
         </div>
