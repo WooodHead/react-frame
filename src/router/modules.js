@@ -2,6 +2,8 @@ import React from 'react'
 
 import Bundle from '@/components/common/Bundle'
 
+import loadForgetpwd from 'bundle-loader?lazy&name=[name]!@/pages/forgetpwd'
+import loadSetRejected from 'bundle-loader?lazy&name=[name]!@/pages/setRejected'
 import loadIndex from 'bundle-loader?lazy&name=[name]!@/pages/index'
 import loadDemo1 from 'bundle-loader?lazy&name=[name]!@/pages/demo1'
 import loadDemo2 from 'bundle-loader?lazy&name=[name]!@/pages/demo2'
@@ -45,6 +47,11 @@ export const Login = (props) => (
     {(Login) => <Login {...props}/>}
   </Bundle>
 )
+export const Forgetpwd = (props) => (
+  <Bundle load={loadForgetpwd}>
+    {(Forgetpwd) => <Forgetpwd {...props}/>}
+  </Bundle>
+)
 export const DashBoard = (props) => (
   <Bundle load={loadDashBoard}>
     {(DashBoard) => <DashBoard {...props}/>}
@@ -58,6 +65,11 @@ export const DeclearTax = (props) => (
 export const DeclearResult = (props) => (
   <Bundle load={loadDeclearResult}>
     {(DeclearResult) => <DeclearResult {...props}/>}
+  </Bundle>
+)
+export const SetRejected = (props) => (
+  <Bundle load={loadSetRejected}>
+    {(SetRejected) => <SetRejected {...props}/>}
   </Bundle>
 )
 export const DeclearPaymentResult = (props) => (

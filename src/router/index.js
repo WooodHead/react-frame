@@ -36,10 +36,12 @@ const router = () => (
           <Route path='/demo2' component={modules.Demo2}/>
           <Route path='/demo3' component={modules.Demo3}/>
           <Route path='/login' render={() => <Login />}/>
+          <Route path="/forgetpwd" component={modules.Forgetpwd}/>
           <Main>
             <Route exact path='/dashboard' render={() => {
               return <Redirect to='/declearTax'/>
             }}/>
+            <Route path="/setRejected" component={modules.SetRejected}/>
             <Route path='/declearTax' component={modules.DeclearTax}/>
             <Route path='/declear/result' component={modules.DeclearResult}/>
             <Route path='/declear/payment' component={modules.DeclearPayment}/>
