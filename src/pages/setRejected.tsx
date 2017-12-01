@@ -1,7 +1,8 @@
+import React from 'react'
 import { Col, Icon, Input, Popover, Row, Table } from 'antd'
 import { TableColumnConfig } from 'antd/lib/table/Table'
 import { fetchAllRejected, fetchRejectedCommunicate } from '../utils/api'
-import React from 'react'
+
 const styles = {
   container: {
     width: '1200px',
@@ -16,7 +17,6 @@ const styles = {
   }
 }
 
-interface ColumnsConfig extends TableColumnConfig<any> {}
 interface D {
   CompanyId: number
   CompanyName: string
@@ -74,13 +74,7 @@ class ChatsIcon extends React.Component <any, MyStates> {
   }
 }
 class SetRejected extends React.Component <any, MyStates> {
-  public constructor () {
-    super()
-    this.state = {
-      data: []
-    }
-  }
-  public columns: ColumnsConfig[] = [
+  public columns: Array<TableColumnConfig<any>> = [
     { title: '公司名称', width: 200, dataIndex: 'CompanyName', key: 'name', fixed: 'left', className: 'companyName' },
     { title: '票据名称', width: 400, dataIndex: 'ImgName', key: '1' ,
       render: (text, record) => (
@@ -117,6 +111,12 @@ class SetRejected extends React.Component <any, MyStates> {
       )
     }
   ]
+  public constructor () {
+    super()
+    this.state = {
+      data: []
+    }
+  }
   public onChange () {
     console.log(1)
   }

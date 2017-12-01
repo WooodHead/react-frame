@@ -10,15 +10,7 @@ interface MyStates {
   data: any[]
 }
 class Result extends React.Component<any, MyStates> {
-  public componentWillMount () {
-  }
-  public constructor () {
-    super()
-    this.state = {
-      data: []
-    }
-  }
-  public columns: [TableColumnConfig<any>] = [
+  public columns: Array<TableColumnConfig<any>> = [
     { title: '序号', dataIndex: '', key: '0', className: 'id' },
     { title: '征收项目名称', dataIndex: '', key: '1' ,
       render: (text, record, index) => (
@@ -41,6 +33,14 @@ class Result extends React.Component<any, MyStates> {
       )
     }
   ]
+  public constructor () {
+    super()
+    this.state = {
+      data: []
+    }
+  }
+  public componentWillMount () {
+  }
   public render () {
     return (
       <DeclearContainer currentTitle='查看申报结果'>
