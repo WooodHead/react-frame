@@ -59,11 +59,13 @@ class DeclearTax extends React.Component<any, MyStates> {
       key: 2
     }
   ]
-  constructor () {
-    super()
+  constructor (props: any) {
+    super(props)
+    const { selectUserInfo } = this.props
+    console.log(this.props)
     this.state = {
       conditions: {
-        userid: 0,
+        userid: selectUserInfo.id,
         status: -1,
         limit: 15,
         offset: 0,
@@ -79,8 +81,21 @@ class DeclearTax extends React.Component<any, MyStates> {
     this.props.dispatch(actions.fetchAccountantsAction())
     this.props.dispatch(fetchDeclareListAction(conditions))
     stores.subscribe(() => {
+      const { conditions } = this.state
+      if (conditions.userid !== this.props.selectUserInfo.id) {
+        console.log('userid change')
+        conditions.userid = this.props.selectUserInfo.id
+        this.setState({
+          conditions
+        }, () => {
+          this.props.dispatch(fetchDeclareListAction(conditions))
+        })
+      }
       this.checkIsAllCheck()
     })
+  }
+  public componentWillReceiveProps (props: any, oldProps: any) {
+    console.log(props, oldProps, 'props change')
   }
   public processAccountant () {
     const { accountantList } = this.props
@@ -228,16 +243,16 @@ class DeclearTax extends React.Component<any, MyStates> {
             <div className={styles.company}>
               <span className='clickable'>{items.CompanyName}</span>
               <span>
-                纳税人类别：小规模纳税人
+                纳税人类别：{items.AddedValueName}
               </span>
               <span>
-                税号：123456789012345678
+                税号：{items.NationalTaxNo}
               </span>
               <span>
-                会计：王五
+                会计：{items.AccountantName}
               </span>
               <span>
-                确认时间：2017/11/29 12:04:17
+                确认时间：{items.ConfirmTime}
               </span>
               <span className='clickable' onClick={() => this.props.history.push('declear/result')}>
                 查看申报结果

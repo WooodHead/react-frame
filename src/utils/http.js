@@ -70,7 +70,7 @@ const http = (url, type, config = {}) => {
     } else {
       result = res
     }
-    // console.log(result)
+    console.log(result, url)
     return result
   }, (err) => {
     // if (err.statusText === 'timeout') {
