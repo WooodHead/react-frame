@@ -412,13 +412,15 @@ class DeclearTax extends React.Component<any, MyStates> {
             </div>
           </div>
           <div className={styles.footer}>
-            <Pagination
-              className={styles.pagination}
-              showQuickJumper
-              defaultCurrent={1}
-              total={this.props.declearData.CompanyTotal}
-              onChange={this.onPageChange.bind(this)}
-            />
+            {
+              this.props.declearData.CompanyTotal > 0 && <Pagination
+                className={styles.pagination}
+                showQuickJumper
+                defaultCurrent={1}
+                total={this.props.declearData.CompanyTotal}
+                onChange={this.onPageChange.bind(this)}
+              />
+            }
             <span className={styles.information}>
               共 {this.props.declearData.CompanyTotal} 条数据已选公司：15 家
             </span>

@@ -122,7 +122,7 @@ class Login extends React.Component<MyProps, MyStates> {
               })(
                 <Checkbox>记住我</Checkbox>
               )}
-              <a className='login-form-forgot' href='' style={{float: 'right'}}>忘记密码</a>
+              <a href='/#forgetpwd' className='login-form-forgot' style={{float: 'right'}}>忘记密码</a>
             </FormItem>
           </Form>
         </div>

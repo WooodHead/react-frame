@@ -15,11 +15,14 @@ $(document).ajaxComplete((a, b, c) => {
   store.dispatch({type: 'loading hidden'})
   // console.log('ajaxComplete', a, b, c)
 })
-$(document).ajaxError((event, request, settings) => {
-  notification.error({
-    message: '请求出错',
-    description: '网络请求出错，请检查网络是否正常！'
-  })
+$(document).ajaxError((event, response, settings) => {
+  console.log(response, settings)
+  if (response.statusText === 'timeout') {
+    notification.error({
+      message: '请求出错',
+      description: '网络连接超时，请检查网络是否正常！'
+    })
+  }
 })
 // $.ajaxSettings.statusCode = {
 //   401: () => {
