@@ -30,10 +30,13 @@ export const fetchAccountantsAction = () => (dispatch) => {
   })
 }
 // 获取消息数
-export const fetchMessageNumAction = () => (dispatch) => {
+export const fetchMessageNumAction = (cb) => (dispatch) => {
   fetchMessageNum().then(res => {
     if (res.status) {
       dispatch(createAction('update message num')(res.data))
+      if (cb) {
+        cb(res.data)
+      }
     }
   })
 }

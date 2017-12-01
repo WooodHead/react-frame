@@ -159,6 +159,14 @@ module.exports = {
           limit: 10000,
           name: isPro ? 'fonts/[name].[hash:7].[ext]' : '[name].[hash:7].[ext]'
         }
+      },
+      {
+        test: /\.(mp3|mp4)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'assets/[name].[hash:7].[ext]'
+        }
       }
     ]
   },

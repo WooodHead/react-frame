@@ -21,6 +21,8 @@
     "react"
   ],
   "rules": {
+    "no-new": "off",
+    "new-cap": "off",
     "indent": [
       "error",
       2
