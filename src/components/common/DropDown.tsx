@@ -79,7 +79,7 @@ export default class extends React.Component<MyProps, MyStates> {
       $(results).addClass(styles['custom-slide-up-enter'])
       this.t = setTimeout(() => {
         $(results).removeClass(styles['custom-slide-up-enter'])
-      }, 300)
+      }, 200)
       $(results).one('mouseover', () => {
         clearTimeout(this.t)
       })
@@ -93,8 +93,8 @@ export default class extends React.Component<MyProps, MyStates> {
         if (scrollTop + ch > h - 10) {
           if (this.state.page < Math.ceil(this.state.dataTmp.length / this.pageNum)) {
             this.setState({
-               page: this.state.page + 1,
-               data: this.state.dataTmp.slice(0, this.pageNum * (this.state.page + 1))
+              page: this.state.page + 1,
+              data: this.state.dataTmp.slice(0, this.pageNum * (this.state.page + 1))
             })
           }
         }
@@ -117,7 +117,7 @@ export default class extends React.Component<MyProps, MyStates> {
           data: this.props.data.slice(0, this.pageNum),
           dataTmp: this.props.data
         })
-      }, 300)
+      }, 200)
     }, 100)
   }
   public handleClick (item: {key: number, title: string}) {
